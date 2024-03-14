@@ -44,7 +44,7 @@ const DecodeUnit = () => {
     {
       opcode: "1000",
       operand: "adress",
-      instruction: "Jump on not zero",
+      instruction: "Jump on negative",
     },
     {
       opcode: "1001",
