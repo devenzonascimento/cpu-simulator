@@ -1,0 +1,78 @@
+.register-container {
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    overflow: hidden;
+    border: 2px solid lime;
+    color: lime;
+    background-color: rgb(22, 22, 22);
+
+
+    .register-name {
+        width: 100%;
+        padding: 0.2em;
+        font-size: 1.3em;
+        text-align: center;
+        text-transform: uppercase;
+
+    }
+
+    .register-value {
+        min-height: max-content;
+        width: 100%;
+        padding: 0.3em;
+        border-top: 2px solid lime;
+        letter-spacing: 0.1em;
+        text-align: center;
+
+
+        &:hover {
+            color: lime;
+            background-color: rgb(22, 22, 22);
+        }
+    }
+}
+
+.alu-container {
+    height: 80px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: lime;
+    clip-path: polygon(
+        40% 0%, //meio-top-esquerda
+        50% 35%, //meio
+        60% 0%, //meio-top-direita
+        100% 0, //superior-direita
+        70% 100%, //inferior-direita
+        30% 100%, //inferior-esquerda
+        0 0 //superior-esquerda
+        );
+
+    .alu-polygon {
+        height: 74px;
+        width: 190px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: lime;
+        background-color: rgb(22, 22, 22);
+        clip-path: polygon(
+        39% 0%, //meio-top-esquerda
+        50% 40%, //meio
+        61% 0%, //meio-top-direita
+        100% 0, //superior-direita
+        70.5% 100%, //inferior-direita
+        29.5% 100%, //inferior-esquerda
+        0 0 //superior-esquerda
+        );
+
+        h2 {
+            margin-top: 1em;
+        }
+    }
+}

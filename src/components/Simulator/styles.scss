@@ -1,0 +1,29 @@
+.simulator-container {
+    height: 600px;
+    width: max-content;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    gap: 3em;
+    background-color: rgb(54, 54, 54);
+    border: 2px solid lime;
+    border-radius: 10px;
+    padding: 1em;
+
+    .registers-container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2em;
+    }
+
+    .decode-cir-container {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+}

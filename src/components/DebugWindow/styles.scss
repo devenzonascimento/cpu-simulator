@@ -1,0 +1,26 @@
+.debug-container {
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1em 2em;
+    color: lime;
+    background-color: rgb(22, 22, 22);
+    border: 2px solid lime;
+    border-radius: 10px;
+
+    .step-button {
+        min-height: 50px;
+        min-width: 50px;
+        color: lime;
+        background-color: rgb(22, 22, 22);
+        border: 1px solid lime;
+        border-radius: 50%;
+        transition: transform 0.2s ease-in-out;
+
+        &:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 10px 5px rgba(0, 255, 0, 0.1);
+        }
+    }
+}
