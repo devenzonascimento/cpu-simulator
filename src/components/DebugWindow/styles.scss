@@ -1,26 +1,72 @@
 .debug-container {
-    width: 300px;
+    max-width: 550px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 1em 2em;
+    justify-content: start;
+    gap: 1em;
+    padding: 1em 1em;
     color: lime;
     background-color: rgb(22, 22, 22);
     border: 2px solid lime;
     border-radius: 10px;
 
     .step-button {
-        min-height: 50px;
-        min-width: 50px;
+        padding: 1em;
+        font-size: 1em;
         color: lime;
         background-color: rgb(22, 22, 22);
         border: 1px solid lime;
-        border-radius: 50%;
+        border-radius: 15px;
         transition: transform 0.2s ease-in-out;
 
         &:hover {
-            transform: scale(1.2);
+            transform: scale(1.1);
             box-shadow: 0 0 10px 5px rgba(0, 255, 0, 0.1);
+        }
+    }
+    
+    nav {
+        width: 120px;
+        padding: 1em 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 15px;
+        border: 1px solid lime;
+        overflow: hidden;
+        transition: width 1s ease-in-out;
+        
+        &:hover {
+            width: 250px;
+        }
+
+        &:hover > .program-button {
+            display: none;
+        }
+
+        &:hover > ul {
+            display: flex;
+        }
+
+        .program-button {
+            color: lime;
+            transition: all 0.01s ease-in-out;
+        }
+
+        ul {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1em;
+            list-style-type: none;
+
+            li {
+                transition: all 0.3s ease-in-out;
+                
+                &:hover {
+                    transform: scale(1.2);
+                }
+            }
         }
     }
 }

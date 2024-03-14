@@ -4,11 +4,10 @@ import Settings from "./components/Settings/Settings";
 import DebugWindow from "./components/DebugWindow/DebugWindow";
 import Simulator from "./components/Simulator/Simulator";
 
-
-import * as Cpu from "./script/cpuScript"
+import * as Cpu from "./script/cpuScript";
 
 const App = () => {
-  
+
   const [memoryValue, setMemoryValue] = useState(Cpu.memory);
   const [pcValue, setPcValue] = useState("00000000");
   const [marValue, setMarValue] = useState("00000000");
@@ -16,9 +15,13 @@ const App = () => {
   const [accValue, setAccValue] = useState("00000000");
   const [cirValue, setCirValue] = useState("00000000");
 
+  const handleChooseProgram = (index) => {
+    //setMemoryValue(Cpu.memory = Cpu.programs[index])
+  };
+
   const handleUpdateMemory = (newMemory) => {
     setMemoryValue({ ...newMemory });
-    Cpu.memory = newMemory
+    Cpu.memory = newMemory;
   };
 
   const updateValues = () => {
@@ -28,22 +31,26 @@ const App = () => {
     setAccValue(Cpu.acc);
     setCirValue(Cpu.cir);
     setMemoryValue(Cpu.memory);
-  } 
+  };
 
   return (
-      <div className="container">
-        <Settings />
-        <DebugWindow updateValues={updateValues} executeNextStep={Cpu.executeNextStep} />
-        <Simulator
-        memoryValue = {memoryValue}
-        pcValue = {pcValue}
-        marValue = {marValue}
-        mdrValue = {mdrValue}
-        accValue = {accValue}
-        cirValue = {cirValue}
-        UpdateMemory  = {handleUpdateMemory}
-        />
-      </div>
+    <div className="container">
+      <Settings />
+      <DebugWindow
+        executeNextStep={Cpu.executeNextStep}
+        updateValues={updateValues}
+        chooseProgram={handleChooseProgram}
+      />
+      <Simulator
+        memoryValue={memoryValue}
+        pcValue={pcValue}
+        marValue={marValue}
+        mdrValue={mdrValue}
+        accValue={accValue}
+        cirValue={cirValue}
+        UpdateMemory={handleUpdateMemory}
+      />
+    </div>
   );
 };
 

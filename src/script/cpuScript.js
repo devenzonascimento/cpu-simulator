@@ -1,10 +1,3 @@
-let programs = {
-    blank: blank,
-    addtwonumbers: add,
-    subtwonumbers: sub,
-    biggestnumbers: biggest
-}
-
 export let blank = {
     "00000000": "00000000",
     "00000001": "00000000",
@@ -81,7 +74,9 @@ export let biggest = {
     "00001111": "00000000",
 }
 
-export let memory
+export let programs = [ blank, add, sub, biggest ]
+
+export let memory = programs[1]
 
 export let pc = "00000000"
 export let mar = "00000000"
@@ -187,12 +182,12 @@ export const inputInstruction = [
 ];
 
 export const outputInstruction = [
-    () => alert(toDecimal(acc)),
+    () => alert(`OUTPUT => ${toDecimal(acc)}`),
     () => instructionExecute(search),
 ];
 
 export const endInstruction = [
-    () => alert("Fim do Programa"),
+    () => alert("FIM DO PROGRAMA"),
     () => clearCPU(),
     () => instructionExecute(search),
 ];
