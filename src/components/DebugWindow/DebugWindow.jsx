@@ -3,6 +3,7 @@ import React from "react";
 import "./styles.scss";
 
 const DebugWindow = ({ executeNextStep, updateValues, chooseProgram }) => {
+  
   const handleStepValues = () => {
     executeNextStep();
     updateValues();
