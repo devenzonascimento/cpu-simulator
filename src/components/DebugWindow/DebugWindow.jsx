@@ -11,7 +11,7 @@ const DubugWindow = ({ executeNextStep, updateValues }) => {
   return (
     <div className="debug-container">
       <button className="step-button" onClick={handleStepValues}>
-        STEP
+        STEPS
       </button>
     </div>
   );
