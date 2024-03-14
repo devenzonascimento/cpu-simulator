@@ -16,7 +16,7 @@ const App = () => {
   const [cirValue, setCirValue] = useState("00000000");
 
   const handleChooseProgram = (index) => {
-    //setMemoryValue(Cpu.memory = Cpu.programs[index])
+    // setMemoryValue(Cpu.memory = Cpu.programs[index])
   };
 
   const handleUpdateMemory = (newMemory) => {
