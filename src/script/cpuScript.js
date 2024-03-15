@@ -16,7 +16,6 @@ export let blank = {
     "00001110": "00000000",
     "00001111": "00000000",
 }
-
 export let add = {
     "00000000": "10010001",
     "00000001": "00111111",
@@ -35,7 +34,6 @@ export let add = {
     "00001110": "00000000",
     "00001111": "00000000",
 }
-
 export let sub = {
     "00000000": "10010001",
     "00000001": "00111111",
@@ -54,7 +52,6 @@ export let sub = {
     "00001110": "00000000",
     "00001111": "00000000",
 }
-
 export let biggest = {
     "00000000": "10010001",
     "00000001": "00111110",
@@ -73,7 +70,6 @@ export let biggest = {
     "00001110": "00000000",
     "00001111": "00000000",
 }
-
 export let programs = [blank, add, sub, biggest]
 
 export let memory = blank
@@ -95,6 +91,10 @@ export let count = 0;
 export let currentStep = 0;
 export let opcode = "";
 export let operand = "";
+
+
+
+export let main = [() => instructionExecute(search)];
 
 export const executeNextStep = () => {
     if (currentStep < main.length) {
@@ -119,18 +119,132 @@ export const executeComplete = () => {
     }, 1000)
 }
 
-export const search = [
-    () => (pc = count <= 15 ? toBinary(count) : toBinary(count = 0)),
-    () => (mar = pc),
-    () => (mdr = memory[mar].padStart(8, "0")),
-    () => (cir = mdr),
-    () => (pc = toBinary(count += 1)),
-    () => decode(cir),
-];
 export function instructionExecute(array) {
     main = main.concat(array);
 }
-export let main = [() => instructionExecute(search)];
+
+export const search = [
+    () => {
+        pc = count <= 15 ? toBinary(count) : toBinary(count = 0);
+        const pcElement = document.getElementById("pc");
+        activeComponentStyle(pcElement);
+    },
+    () => {
+        mar = pc;
+        const marElement = document.getElementById("mar");
+        activeComponentStyle(marElement);
+    },
+    () => {
+        mdr = memory[mar].padStart(8, "0");
+        const mdrElement = document.getElementById("mdr");
+        activeComponentStyle(mdrElement);
+    },
+    () => {
+        cir = mdr;
+        const cirElement = document.getElementById("cir");
+        activeComponentStyle(cirElement);
+    },
+    () => {
+        pc = toBinary(count += 1);
+        const pcElement = document.getElementById("pc");
+        activeComponentStyle(pcElement);
+    },
+    () => decode(cir),
+];
+
+export const addInstruction = [
+    () => {
+        mar = operand.padStart(8, "0")
+        const marElement = document.getElementById("mar");
+        activeComponentStyle(marElement);
+    },
+    () => {
+        mdr = memory[mar]
+        const mdrElement = document.getElementById("mdr");
+        activeComponentStyle(mdrElement);
+    },
+    () => {
+        acc = toBinary(toDecimal(acc) + toDecimal(mdr))
+        const accElement = document.getElementById("acc");
+        activeComponentStyle(accElement);
+        const aluElement = document.getElementById("alu");
+        aluElement.classList.add("focus-alu")
+    },
+    () => instructionExecute(search),
+];
+
+export const subInstruction = [
+    () => {
+        mar = operand.padStart(8, "0")
+        const marElement = document.getElementById("mar");
+        activeComponentStyle(marElement);
+    },
+    () => {
+        mdr = memory[mar]
+        const mdrElement = document.getElementById("mdr");
+        activeComponentStyle(mdrElement);
+    },
+    () => {
+        acc = toBinary(toDecimal(acc) - toDecimal(mdr))
+        const accElement = document.getElementById("acc");
+        activeComponentStyle(accElement);
+    },
+    () => instructionExecute(search),
+];
+
+export const storeInstruction = [
+    () => {
+        mar = operand.padStart(8, "0")
+        const marElement = document.getElementById("mar");
+        activeComponentStyle(marElement);
+    },
+    () => (memory[mar] = acc),
+    () => instructionExecute(search),
+];
+
+export const loadInstruction = [
+    () => {
+        mar = operand.padStart(8, "0")
+        const marElement = document.getElementById("mar");
+        activeComponentStyle(marElement);
+    },
+    () => {
+        mdr = memory[mar]
+        const mdrElement = document.getElementById("mdr");
+        activeComponentStyle(mdrElement);
+    },
+    () => {
+        acc = mdr
+        const accElement = document.getElementById("acc");
+        activeComponentStyle(accElement);
+    },
+    () => instructionExecute(search),
+];
+
+export const inputInstruction = [
+    () => {
+        acc = toBinary(prompt("Informe um valor"))
+        const accElement = document.getElementById("acc");
+        activeComponentStyle(accElement);
+    },
+    () => instructionExecute(search),
+];
+
+export const outputInstruction = [
+    () => alert(`OUTPUT => ${toDecimal(acc)}`),
+    () => instructionExecute(search),
+];
+
+export const endInstruction = [
+    () => alert("FIM DO PROGRAMA"),
+    () => clearCPU(),
+    () => instructionExecute(search),
+];
+
+export const jmpInstruction = () => {
+    count = toDecimal(operand.padStart(8, "0"))
+    instructionExecute(search)
+}
 
 function decode(cir) {
     
@@ -173,54 +287,6 @@ function decode(cir) {
     }
 }
 
-export const addInstruction = [
-    () => (mar = operand.padStart(8, "0")),
-    () => (mdr = memory[mar]),
-    () => (acc = toBinary(toDecimal(acc) + toDecimal(mdr))),
-    () => instructionExecute(search),
-];
-
-export const subInstruction = [
-    () => (mar = operand.padStart(8, "0")),
-    () => (mdr = memory[mar]),
-    () => (acc = toBinary(toDecimal(acc) - toDecimal(mdr))),
-    () => instructionExecute(search),
-];
-
-export const storeInstruction = [
-    () => (mar = operand.padStart(8, "0")),
-    () => (memory[mar] = acc),
-    () => instructionExecute(search),
-];
-
-export const loadInstruction = [
-    () => (mar = operand.padStart(8, "0")),
-    () => (mdr = memory[mar]),
-    () => (acc = mdr),
-    () => instructionExecute(search),
-];
-
-export const inputInstruction = [
-    () => (acc = toBinary(prompt("Informe um valor"))),
-    () => instructionExecute(search),
-];
-
-export const outputInstruction = [
-    () => alert(`OUTPUT => ${toDecimal(acc)}`),
-    () => instructionExecute(search),
-];
-
-export const endInstruction = [
-    () => alert("FIM DO PROGRAMA"),
-    () => clearCPU(),
-    () => instructionExecute(search),
-];
-
-export const jmpInstruction = () => {
-    count = toDecimal(operand.padStart(8, "0"))
-    instructionExecute(search)
-}
-
 export function clearCPU() {
     pc = "00000000"
     mar = "00000000"
@@ -257,3 +323,22 @@ export function toDecimal(num) {
 
     return decimal;
 }
+
+function activeComponentStyle(focusElement) {
+    removeActiveComponentStyle()
+    if (focusElement) {
+        focusElement.classList.add("focus");
+    } else {
+        console.error('O elemento não foi encontrado.');
+    }
+}
+
+function removeActiveComponentStyle() {
+    document.querySelector("#alu").classList.remove("focus-alu")
+    document.querySelectorAll(".register-container").forEach(component => {
+        component.classList.remove("focus");
+    });
+}
+
+
+

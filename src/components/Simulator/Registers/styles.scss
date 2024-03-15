@@ -37,11 +37,9 @@
 }
 
 .alu-container {
+    position: relative;
     height: 80px;
     width: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background-color: lime;
     clip-path: polygon(
         40% 0%, //meio-top-esquerda
@@ -51,9 +49,13 @@
         70% 100%, //inferior-direita
         30% 100%, //inferior-esquerda
         0 0 //superior-esquerda
-        );
+    );
 
     .alu-polygon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         height: 74px;
         width: 190px;
         display: flex;
@@ -71,24 +73,10 @@
         0 0 //superior-esquerda
         );
 
+
         h2 {
             margin-top: 1em;
         }
-    }
-}
-
-@keyframes moveRigh {
-    from {transform: translateY(-20px);}
-    to {transform: translateY(20px);}
-}
-
-@keyframes moveRight {
-    from {
-        width: 0;
-    }
-
-    to {
-        width: max-content;
     }
 }
 
@@ -97,80 +85,6 @@
         transform: rotate(0deg);
     }
     20% {
-        transform: rotate(10deg);
-    }
-    40% {
-        transform: rotate(-10deg);
-    }
-    60% {
-        transform: rotate(10deg);
-    }
-    80% {
-        transform: rotate(-10deg);
-    }
-    100% {
-        transform: rotate(0deg);
-    }
-}
-
-@keyframes tremor2 {
-    0% {
-        transform: rotate(0deg);
-    }
-    20% {
-        transform: rotate(5deg);
-    }
-    40% {
-        transform: rotate(-5deg);
-    }
-    60% {
-        transform: rotate(5deg);
-    }
-    80% {
-        transform: rotate(-5deg);
-    }
-    100% {
-        transform: rotate(0deg);
-    }
-}
-@keyframes tremor3 {
-    0% {
-        transform: rotate(0deg);
-    }
-    20% {
-        transform: rotate(5deg);
-    }
-    30% {
-        transform: scale(1.03);
-    }
-    40% {
-        transform: rotate(-5deg);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-    60% {
-        transform: rotate(5deg);
-    }
-    70% {
-        transform: scale(1.08);
-    }
-    80% {
-        transform: rotate(-5deg);
-    }
-    90% {
-        transform: scale(1.03);
-    }
-    100% {
-        transform: rotate(0deg);
-    }
-}
-
-@keyframes tremor4 {
-    0% {
-        transform: rotate(0deg);
-    }
-    20% {
         transform: rotate(3deg);
     }
     30% {
@@ -199,6 +113,23 @@
     }
 }
 
-.animated {
-    animation: tremor4 0.7s linear;
+.focus {
+    animation: tremor 0.5s linear;
+    box-shadow: 0 0 10px 10px rgba(0, 255, 0, 0.2)
+}
+
+@keyframes rotation360 {
+    0% {
+        transform: rotate(0deg) scale(0.2);
+    }
+    50% {
+        transform: rotate(180deg) scale(0.5);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.focus-alu {
+    animation: rotation360 0.6s linear;
 }
