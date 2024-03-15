@@ -1,15 +1,15 @@
 import React from "react";
 
-const Row = ({ memoryEditavel, handleEditar }) => {
+const Row = ({ memory, handleEditar }) => {
   
   return (
   <>
-      {Object.entries(memoryEditavel).map(([endereco, valor]) => (
+      {Object.entries(memory).map(([endereco, valor]) => (
           <tr key={endereco}>
             <td>{endereco}</td>
             <td className="ram-cell-value">
               <input
-                className="ram-input"
+                className="ram-input animated"
                 type="text"
                 maxLength={8}
                 value={valor}

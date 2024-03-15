@@ -5,14 +5,11 @@ import "./styles.scss";
 
 const Ram = ({ memory, UpdateMemory }) => {
 
-  const [memoryEditavel, setMemoryEditavel] = useState(memory);
-
   const handleEditar = (endereco, novoValor) => {
-    const novaMemory = memoryEditavel;
+    const novaMemory = memory;
     novaMemory[endereco] = novoValor;
 
-    setMemoryEditavel(novaMemory);
-    UpdateMemory(memoryEditavel);
+    UpdateMemory(novaMemory);
   };
 
   return (
@@ -26,7 +23,7 @@ const Ram = ({ memory, UpdateMemory }) => {
             </tr>
           </thead>
           <tbody>
-              <Row memoryEditavel={memoryEditavel} handleEditar={handleEditar}/>
+              <Row memory={memory} handleEditar={handleEditar}/>
           </tbody>
         </table>
       </div>

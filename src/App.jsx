@@ -17,8 +17,8 @@ const App = () => {
 
   const handleChooseProgram = (programIndex) => {
     Cpu.chooseProgram(programIndex)
-    console.log(Cpu.memory)
-    setMemoryValue(add);
+    setMemoryValue(Cpu.memory);
+    Cpu.clearCPU()
   };
 
   const handleUpdateMemory = (newMemory) => {

@@ -61,12 +61,12 @@ export let biggest = {
     "00000010": "10010001",
     "00000011": "00111111",
     "00000100": "00101110",
-    "00000101": "10001110",
-    "00000110": "01101111",
-    "00000111": "00000000",
+    "00000101": "10001001",
+    "00000110": "01011111",
+    "00000111": "10010010",
     "00001000": "00000000",
-    "00001001": "00000000",
-    "00001010": "00000000",
+    "00001001": "01011110",
+    "00001010": "10010010",
     "00001011": "00000000",
     "00001100": "00000000",
     "00001101": "00000000",
@@ -98,18 +98,33 @@ export let operand = "";
 
 export const executeNextStep = () => {
     if (currentStep < main.length) {
-        console.log(main[currentStep])
+        //console.log(main[currentStep])
+        //console.log(currentStep, main)
         main[currentStep]();
         currentStep++
     }
 };
+
+// Preciso trabalhar na logica dessa função, esta com muitos problemas!
+// Função para rodar o script inteiro de uma vez ( RUN ) 
+export const executeComplete = () => {
+    endInstruction.pop()
+    endInstruction.push(() => {return false})
+    setTimeout(() => {
+        for (let i = 0; i < main.length; i++) {
+            //console.log(main[i])
+            //console.log(main)
+            main[i]()
+        }
+    }, 1000)
+}
 
 export const search = [
     () => (pc = count <= 15 ? toBinary(count) : toBinary(count = 0)),
     () => (mar = pc),
     () => (mdr = memory[mar].padStart(8, "0")),
     () => (cir = mdr),
-    () => (pc = toBinary((count += 1))),
+    () => (pc = toBinary(count += 1)),
     () => decode(cir),
 ];
 export function instructionExecute(array) {
@@ -117,7 +132,8 @@ export function instructionExecute(array) {
 }
 export let main = [() => instructionExecute(search)];
 
-export function decode(cir) {
+function decode(cir) {
+    
     opcode = cir.substring(0, 4);
     operand = cir.substring(4, 8);
 
@@ -212,7 +228,6 @@ export function clearCPU() {
     acc = "00000000"
     cir = "00000000"
     count = 0;
-    currentStep = 0;
     opcode = "";
     operand = "";
 }

@@ -6,7 +6,7 @@ const Settings = () => {
   return (
     <>
     <div className="settings-container">
-      <h1>Settings</h1>
+      <h1>CPU SIMULATOR</h1>
     </div>
     </>
   );

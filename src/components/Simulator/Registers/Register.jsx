@@ -5,7 +5,7 @@ import "./styles.scss"
 const Register = ({ name, value }) => {
   return (
     <>
-    <div className={`register-container ${name}`}>
+    <div className={`register-container ${name} animated`}>
       <h2 className="register-name">{name}</h2>
       <span className="register-value">{value}</span>
     </div>
