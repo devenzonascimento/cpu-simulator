@@ -3,7 +3,7 @@ import Row from "./Row";
 
 import "./styles.scss";
 
-const Ram = ({ memory, onAtualizarMemory }) => {
+const Ram = ({ memory, UpdateMemory }) => {
 
   const [memoryEditavel, setMemoryEditavel] = useState(memory);
 
@@ -12,7 +12,7 @@ const Ram = ({ memory, onAtualizarMemory }) => {
     novaMemory[endereco] = novoValor;
 
     setMemoryEditavel(novaMemory);
-    onAtualizarMemory(memoryEditavel);
+    UpdateMemory(memoryEditavel);
   };
 
   return (

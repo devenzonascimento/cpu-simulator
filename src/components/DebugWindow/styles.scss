@@ -35,9 +35,9 @@
         border-radius: 15px;
         border: 1px solid lime;
         overflow: hidden;
-        transition: width 1s ease-in-out;
+        transition: width 0.5s ease-in-out;
         cursor: pointer;
-
+        
         .program-button {
             color: lime;
             transition: all 0.01s ease-in-out;

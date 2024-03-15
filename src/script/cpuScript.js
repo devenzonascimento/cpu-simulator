@@ -74,9 +74,17 @@ export let biggest = {
     "00001111": "00000000",
 }
 
-export let programs = [ blank, add, sub, biggest ]
+export let programs = [blank, add, sub, biggest]
 
-export let memory = programs[1]
+export let memory = blank
+
+export const updateMemory = (newMemory) => {
+    memory = newMemory
+}
+
+export const chooseProgram = (index) => {
+    memory = programs[index]
+}
 
 export let pc = "00000000"
 export let mar = "00000000"
@@ -97,7 +105,7 @@ export const executeNextStep = () => {
 };
 
 export const search = [
-    () => (pc = count <= 15 ? toBinary(count): toBinary(count = 0)),
+    () => (pc = count <= 15 ? toBinary(count) : toBinary(count = 0)),
     () => (mar = pc),
     () => (mdr = memory[mar].padStart(8, "0")),
     () => (cir = mdr),
@@ -198,36 +206,36 @@ export const jmpInstruction = () => {
 }
 
 export function clearCPU() {
-pc = "00000000"
-mar = "00000000"
-mdr = "00000000"
-acc = "00000000"
-cir = "00000000"
-count = 0;
-currentStep = 0;
-opcode = "";
-operand = "";
+    pc = "00000000"
+    mar = "00000000"
+    mdr = "00000000"
+    acc = "00000000"
+    cir = "00000000"
+    count = 0;
+    currentStep = 0;
+    opcode = "";
+    operand = "";
 }
 
 export function toBinary(num) {
-    
+
     const isNegative = num < 0;
 
     if (isNegative) {
-        
+
         const binaryUnsigned = Number(Math.abs(num)).toString(2).padStart(8, "0");
-        
+
         const complement = binaryUnsigned.split('').map(bit => bit === '0' ? '1' : '0').join('');
         num = parseInt(complement, 2) + 1;
     }
-    
+
     return Number(num).toString(2).padStart(8, "0");
 }
 
 export function toDecimal(num) {
-   
+
     const decimal = parseInt(num, 2);
-    
+
     if (num.charAt(0) === '1') {
         return decimal - 256;
     }

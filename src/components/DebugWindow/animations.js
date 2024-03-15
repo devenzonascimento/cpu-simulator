@@ -1,5 +1,4 @@
 export const buttonAnimation = () => {
-    console.log("Oi")
     const menuButton = document.querySelector("nav")
     menuButton.classList.toggle("active")
 

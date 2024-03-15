@@ -19,7 +19,7 @@ const Simulator = ({
 
   return (
     <div className="simulator-container">
-      <Ram memory={memoryValue} onAtualizarMemory={UpdateMemory} />
+      <Ram memory={memoryValue} UpdateMemory={UpdateMemory} />
       <div className="registers-container">
         <Register name={"pc"} value={pcValue} />
         <Register name={"mar"} value={marValue} />
