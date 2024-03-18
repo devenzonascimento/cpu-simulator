@@ -4,7 +4,7 @@ const Alu = () => {
     return (
         <div className="alu-container" id='alu'>
             <div className="alu-polygon">
-            <h2>ULA</h2>
+            <span>ULA</span>
             </div>
         </div>
     );

@@ -2,6 +2,9 @@
 @media only screen and (max-width: 767px) {
     .simulator-container {
         position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         height: max-content;
         width: 100%;
         background-color: rgb(54, 54, 54);

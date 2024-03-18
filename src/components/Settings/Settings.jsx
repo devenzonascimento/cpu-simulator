@@ -57,7 +57,7 @@ const Settings = ({
       </div>
 
       <div className="mini-container">
-        <button className="button" onClick={""}>
+        <button className="button">
           Rodar
           <IoPlay />
         </button>

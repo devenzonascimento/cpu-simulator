@@ -1,4 +1,128 @@
-.register-container {
+/* Media query para celulares (até 767 pixels de largura) */
+@media only screen and (max-width: 767px) {
+  .register-container {
+    position: absolute;
+    width: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border: 2px solid lime;
+    color: lime;
+    background-color: rgb(22, 22, 22);
+
+    .register-name {
+      width: 100%;
+      padding: 0.2em;
+      font-size: 0.9em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .register-value {
+      min-height: max-content;
+      width: 100%;
+      padding: 0.3em;
+      border-top: 2px solid lime;
+      font-size: 0.85em;
+      text-align: center;
+      letter-spacing: 0.1em;
+    }
+
+}
+
+#pc {
+    top: 1em;
+    left: 1em;
+}
+
+#mar {
+    top: 1em;
+    right: 1em;
+}
+
+#mdr {
+    top: 18em;
+    left: 1em;
+}
+
+#acc {
+    top: 18em;
+    right: 1em;
+}
+
+#cir {
+    position: inherit;
+    margin: auto;
+    margin-top: 1.5em;
+}
+
+
+  .alu-container {
+    margin-top: 1em;
+    position: relative;
+    height: 40px;
+    width: 100px;
+    background-color: lime;
+    clip-path: polygon(
+      40% 0%,
+      //meio-top-esquerda
+      50% 35%,
+      //meio
+      60% 0%,
+      //meio-top-direita
+      100% 0,
+      //superior-direita
+      70% 100%,
+      //inferior-direita
+      30% 100%,
+      //inferior-esquerda
+      0 0 //superior-esquerda
+    );
+
+    .alu-polygon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      height: 37px;
+      width: 95px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: lime;
+      background-color: rgb(22, 22, 22);
+      clip-path: polygon(
+        39% 0%,
+        //meio-top-esquerda
+        50% 40%,
+        //meio
+        61% 0%,
+        //meio-top-direita
+        100% 0,
+        //superior-direita
+        70.5% 100%,
+        //inferior-direita
+        29.5% 100%,
+        //inferior-esquerda
+        0 0 //superior-esquerda
+      );
+
+      span {
+        margin-top: 1em;
+      }
+    }
+  }
+}
+
+/* Media query para tablets (768 a 1023 pixels de largura) */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+}
+
+/* Media query para computadores (acima de 1024 pixels de largura) */
+@media only screen and (min-width: 1024px) {
+  .register-container {
     width: 120px;
     display: flex;
     flex-direction: column;
@@ -9,133 +133,89 @@
     color: lime;
     background-color: rgb(22, 22, 22);
 
-
     .register-name {
-        width: 100%;
-        padding: 0.2em;
-        font-size: 1.3em;
-        text-align: center;
-        text-transform: uppercase;
-
+      width: 100%;
+      padding: 0.2em;
+      font-size: 1.3em;
+      text-align: center;
+      text-transform: uppercase;
     }
 
     .register-value {
-        min-height: max-content;
-        width: 100%;
-        padding: 0.3em;
-        border-top: 2px solid lime;
-        letter-spacing: 0.1em;
-        text-align: center;
+      min-height: max-content;
+      width: 100%;
+      padding: 0.3em;
+      border-top: 2px solid lime;
+      letter-spacing: 0.1em;
+      text-align: center;
 
-
-        &:hover {
-            color: lime;
-            background-color: rgb(22, 22, 22);
-        }
+      &:hover {
+        color: lime;
+        background-color: rgb(22, 22, 22);
+      }
     }
-
-}
-.cir {
+  }
+  .cir {
     position: absolute;
     left: 375px;
-}
+  }
 
-.alu-container {
+  .alu-container {
     position: relative;
     height: 80px;
     width: 200px;
     background-color: lime;
     clip-path: polygon(
-        40% 0%, //meio-top-esquerda
-        50% 35%, //meio
-        60% 0%, //meio-top-direita
-        100% 0, //superior-direita
-        70% 100%, //inferior-direita
-        30% 100%, //inferior-esquerda
-        0 0 //superior-esquerda
+      40% 0%,
+      //meio-top-esquerda
+      50% 35%,
+      //meio
+      60% 0%,
+      //meio-top-direita
+      100% 0,
+      //superior-direita
+      70% 100%,
+      //inferior-direita
+      30% 100%,
+      //inferior-esquerda
+      0 0 //superior-esquerda
     );
 
     .alu-polygon {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        height: 74px;
-        width: 190px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: lime;
-        background-color: rgb(22, 22, 22);
-        clip-path: polygon(
-        39% 0%, //meio-top-esquerda
-        50% 40%, //meio
-        61% 0%, //meio-top-direita
-        100% 0, //superior-direita
-        70.5% 100%, //inferior-direita
-        29.5% 100%, //inferior-esquerda
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      height: 74px;
+      width: 190px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: lime;
+      background-color: rgb(22, 22, 22);
+      clip-path: polygon(
+        39% 0%,
+        //meio-top-esquerda
+        50% 40%,
+        //meio
+        61% 0%,
+        //meio-top-direita
+        100% 0,
+        //superior-direita
+        70.5% 100%,
+        //inferior-direita
+        29.5% 100%,
+        //inferior-esquerda
         0 0 //superior-esquerda
-        );
+      );
 
-
-        h2 {
-            margin-top: 1em;
-        }
+      span {
+        font-size: 1.5em;
+        font-weight: 700;
+        margin-top: 1em;
+      }
     }
+  }
 }
 
 
-
-@keyframes tremor {
-    0% {
-        transform: rotate(0deg);
-    }
-    20% {
-        transform: rotate(3deg);
-    }
-    30% {
-        transform: rotate(-3deg);
-    }
-    40% {
-        transform: rotate(3deg);
-    }
-    50% {
-        transform: rotate(-3deg);
-    }
-    60% {
-        transform: rotate(3deg);
-    }
-    70% {
-        transform: rotate(-3deg);
-    }
-    80% {
-        transform: rotate(3deg);
-    }
-    90% {
-        transform: rotate(-3deg);
-    }
-    100% {
-        transform: rotate(0deg);
-    }
-}
-
-.focus {
-    animation: tremor 0.5s linear;
-    box-shadow: 0 0 10px 10px rgba(0, 255, 0, 0.2)
-}
-
-@keyframes rotation360 {
-    0% {
-        transform: rotate(0deg) scale(0.2);
-    }
-    50% {
-        transform: rotate(180deg) scale(0.5);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-.focus-alu {
-    animation: rotation360 0.6s linear;
-}

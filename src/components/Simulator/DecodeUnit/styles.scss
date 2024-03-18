@@ -1,4 +1,52 @@
-.decode-container {
+/* Media query para celulares (até 767 pixels de largura) */
+@media only screen and (max-width: 767px) {
+  .decode-container {
+    margin-top: 1em;
+    height: 200px;
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 0.5em;
+    color: lime;
+    background-color: rgb(22, 22, 22);
+    border: 2px solid lime;
+    border-radius: 10px;
+    overflow: auto;
+
+    .decode-caption {
+      margin-bottom: 0.2em;
+      font-size: 1.2em;
+      font-weight: 700;
+    }
+
+    .decode-table {
+      border-collapse: collapse;
+
+      tr:nth-child(even) {
+        background-color: rgb(40, 40, 40);
+      }
+
+      th, td {
+        width: 3em;
+        min-width: 7em;
+        padding: 0.2em;
+        font-size: 0.85em;
+        text-align: start;
+        text-transform: uppercase;
+        border: 2px solid rgb(94, 94, 94);
+      }
+    }
+  }
+}
+
+/* Media query para tablets (768 a 1023 pixels de largura) */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+}
+
+/* Media query para computadores (acima de 1024 pixels de largura) */
+@media only screen and (min-width: 1024px) {
+  .decode-container {
     height: max-content;
     align-self: flex-end;
     display: flex;
@@ -12,24 +60,26 @@
     border-radius: 15px;
 
     .decode-caption {
-        font-size: 2em;
-        font-weight: 700;
+      font-size: 2em;
+      font-weight: 700;
     }
-    
+
     .decode-table {
-        border-collapse: collapse;
-        
-        & tr:nth-child(even) {
-            background-color: rgb(40, 40, 40);
-        }
-    
-        & th, td {
-            width: 3em;
-            min-width: 7em;
-            padding: 0.2em;
-            text-align: start;
-            text-transform: uppercase;
-            border: 2px solid rgb(94, 94, 94);
-        }
+      border-collapse: collapse;
+
+      & tr:nth-child(even) {
+        background-color: rgb(40, 40, 40);
+      }
+
+      & th,
+      td {
+        width: 3em;
+        min-width: 7em;
+        padding: 0.2em;
+        text-align: start;
+        text-transform: uppercase;
+        border: 2px solid rgb(94, 94, 94);
+      }
     }
+  }
 }
