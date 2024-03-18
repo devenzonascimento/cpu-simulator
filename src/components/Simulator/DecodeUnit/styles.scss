@@ -1,5 +1,6 @@
 .decode-container {
-    height: 80%;
+    height: max-content;
+    align-self: flex-end;
     display: flex;
     flex-direction: column;
     align-items: start;

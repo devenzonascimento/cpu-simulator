@@ -1,4 +1,4 @@
-export let blank = {
+export const blank = {
     "00000000": "00000000",
     "00000001": "00000000",
     "00000010": "00000000",
@@ -16,7 +16,7 @@ export let blank = {
     "00001110": "00000000",
     "00001111": "00000000",
 }
-export let add = {
+export const add = {
     "00000000": "10010001",
     "00000001": "00111111",
     "00000010": "10010001",
@@ -34,7 +34,7 @@ export let add = {
     "00001110": "00000000",
     "00001111": "00000000",
 }
-export let sub = {
+export const sub = {
     "00000000": "10010001",
     "00000001": "00111111",
     "00000010": "10010001",
@@ -52,7 +52,7 @@ export let sub = {
     "00001110": "00000000",
     "00001111": "00000000",
 }
-export let biggest = {
+export const biggest = {
     "00000000": "10010001",
     "00000001": "00111110",
     "00000010": "10010001",
@@ -70,7 +70,7 @@ export let biggest = {
     "00001110": "00000000",
     "00001111": "00000000",
 }
-export let programs = [blank, add, sub, biggest]
+export let programs = [add, sub, biggest]
 
 export let memory = blank
 
@@ -79,7 +79,7 @@ export const updateMemory = (newMemory) => {
 }
 
 export const chooseProgram = (index) => {
-    memory = programs[index]
+    memory = {...programs[index]}
     clearCPU()
 }
 
@@ -108,17 +108,21 @@ export const executeNextStep = () => {
 
 // Preciso trabalhar na logica dessa função, esta com muitos problemas!
 // Função para rodar o script inteiro de uma vez ( RUN ) 
+
 export const executeComplete = () => {
-    endInstruction.pop()
-    endInstruction.push(() => {return false})
-    setTimeout(() => {
-        for (let i = 0; i < main.length; i++) {
-            //console.log(main[i])
-            //console.log(main)
-            main[i]()
+    let i = 0;
+    const intervalId = setInterval(() => {
+        console.log(main[i]);
+        main[i]();
+
+        i++;
+
+        if (i >= main.length) {
+            clearInterval(intervalId);
         }
-    }, 1000)
+    }, 1000);
 }
+
 
 export function instructionExecute(array) {
     main = main.concat(array);
@@ -284,10 +288,6 @@ export const endInstruction = [
         clearCPU(),
         instructionExecute(search)
     },
-    //() => {
-        //clearCPU(),
-        //instructionExecute(search)
-    //}
 ];
 
 export const jmpInstruction = () => {
@@ -315,7 +315,6 @@ function decode(cir) {
 
     const instructionElement = document.querySelector(getElementID[opcode])
     activeComponentStyle(instructionElement, "focus")
-    console.log(instructionElement)
 
     switch (opcode) {
         case "0000":
@@ -349,7 +348,7 @@ function decode(cir) {
             operand === "0010" ? instructionExecute(outputInstruction) : false;
 
         default:
-            return true;
+            return false;
     }
 }
 
@@ -365,6 +364,9 @@ export function clearCPU() {
     opcode = "";
     operand = "";
     removeAllActiveComponentStyles()
+}
+export function clearMemory() {
+    memory = blank;
 }
 
 export function toBinary(num) {
@@ -416,7 +418,6 @@ function removeAllActiveComponentStyles() {
 
     for (let i = 0; i < arrayElementClass.length; i++) {
         document.querySelectorAll(arrayElementClass[i]).forEach(element => {
-            //console.log(element)
             element.classList.remove("focus");
         })
     }

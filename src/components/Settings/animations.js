@@ -6,7 +6,7 @@ export const buttonAnimation = () => {
         const button = document.querySelector(".program-button")
         const list = document.querySelector(".program-list")
 
-        menuButton.style.width = "250px"
+        menuButton.style.width = "300px"
         button.style.display = "none"
         list.style.display = "flex"
     }

@@ -7,21 +7,51 @@
   border: 0px solid white;
   box-sizing: border-box;
 }
-body {
+
+/* Estilos padrão para todos os dispositivos */
+
+/* Media query para celulares (até 767 pixels de largura) */
+@media only screen and (max-width: 767px) {
+  body {
+    background: url(assets/bg-mobile.svg);
+    background-size: auto;
+    background-repeat: repeat;
+    background-color: rgb(24, 23, 23);
+
+    .container {
+      height: 100%;
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1em;
+      padding: 1em;
+      background-color: transparent;
+    }
+  }
+}
+
+/* Media query para tablets (768 a 1023 pixels de largura) */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+}
+
+/* Media query para computadores (acima de 1024 pixels de largura) */
+@media only screen and (min-width: 1024px) {
+  body {
     background: url(assets/bg-desktop.svg);
     background-size: cover;
     background-repeat: no-repeat;
     background-color: rgb(24, 23, 23);
-    
+
     .container {
-        height: 100%;
-        min-width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1em;
-        padding: 1em;
-        background-color: transparent;
+      height: 100%;
+      min-width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1em;
+      padding: 1em;
+      background-color: transparent;
     }
+  }
 }
-    

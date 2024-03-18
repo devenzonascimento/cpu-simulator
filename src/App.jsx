@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 
 import Settings from "./components/Settings/Settings";
-import DebugWindow from "./components/DebugWindow/DebugWindow";
 import Simulator from "./components/Simulator/Simulator";
 
 import * as Cpu from "./script/cpuScript";
 
 const App = () => {
-
   const [memoryValue, setMemoryValue] = useState(Cpu.memory);
   const [pcValue, setPcValue] = useState("00000000");
   const [marValue, setMarValue] = useState("00000000");
@@ -16,13 +14,13 @@ const App = () => {
   const [cirValue, setCirValue] = useState("00000000");
 
   const handleChooseProgram = (programIndex) => {
-    Cpu.chooseProgram(programIndex)
-    updateValues()
+    Cpu.chooseProgram(programIndex);
+    updateValues();
   };
 
   const handleUpdateMemory = (newMemory) => {
     setMemoryValue({ ...newMemory });
-    Cpu.updateMemory(newMemory)
+    Cpu.updateMemory(newMemory);
   };
 
   const updateValues = () => {
@@ -36,10 +34,12 @@ const App = () => {
 
   return (
     <div className="container">
-      <Settings />
-      <DebugWindow
-        executeNextStep={Cpu.executeNextStep}
+      <Settings
         updateValues={updateValues}
+        clearCPU={Cpu.clearCPU}
+        clearMemory={Cpu.clearMemory}
+        executeNextStep={Cpu.executeNextStep}
+        executeComplete={Cpu.executeComplete}
         chooseProgram={handleChooseProgram}
       />
       <Simulator
@@ -56,7 +56,6 @@ const App = () => {
 };
 
 export default App;
-
 
 let blank = {
   "00000000": "00000000",
@@ -75,7 +74,7 @@ let blank = {
   "00001101": "00000000",
   "00001110": "00000000",
   "00001111": "00000000",
-}
+};
 
 let add = {
   "00000000": "10010001",
@@ -94,4 +93,4 @@ let add = {
   "00001101": "00000000",
   "00001110": "00000000",
   "00001111": "00000000",
-}
+};

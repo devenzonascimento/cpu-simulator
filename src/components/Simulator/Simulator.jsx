@@ -5,7 +5,7 @@ import Ram from "./Ram/Ram";
 import Alu from "./Registers/Alu";
 import Register from "./Registers/Register";
 
-import "./styles.scss"
+import "./styles.scss";
 
 const Simulator = ({
   memoryValue,
@@ -16,21 +16,18 @@ const Simulator = ({
   cirValue,
   UpdateMemory,
 }) => {
-
   return (
     <div className="simulator-container">
       <Ram memory={memoryValue} UpdateMemory={UpdateMemory} />
       <div className="registers-container">
-        <Register name={"pc"} value={pcValue} />
-        <Register name={"mar"} value={marValue} />
-        <Register name={"mdr"} value={mdrValue} />
+        <Register id={"pc"} name={"ci"}  value={pcValue} />
+        <Register id={"mar"} name={"rem"} value={marValue} />
+        <Register id={"mdr"} name={"mbr"} value={mdrValue} />
         <Alu />
-        <Register name={"acc"} value={accValue} />
+        <Register id={"acc"} name={"acm"} value={accValue} />
+        <Register id={"cir"} name={"ri"}  value={cirValue} />
       </div>
-      <div className="decode-cir-container">
-        <Register name={"cir"} value={cirValue} />
-        <DecodeUnit />
-      </div>
+      <DecodeUnit />
     </div>
   );
 };

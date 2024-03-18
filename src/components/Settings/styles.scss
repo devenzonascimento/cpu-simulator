@@ -1,12 +1,178 @@
-.settings-container {
-    max-height: 200px;
+/* Media query para celulares (até 767 pixels de largura) */
+@media only screen and (max-width: 767px) {
+  .settings-container {
     width: 100%;
-    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    .mini-container {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-around;
+      gap: 0.5em;
+      padding: 0.5em;
+      color: lime;
+      background-color: rgb(22, 22, 22);
+      border: 1px solid lime;
+      border-radius: 10px;
+
+      .button {
+        min-width: max-content;
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+        padding: 0.5em;
+        font-size: 0.7em;
+        color: lime;
+        background-color: rgb(22, 22, 22);
+        border: 1px solid lime;
+        border-radius: 5px;
+        transition: transform 0.2s ease-in-out;
+
+        &:active {
+          background: linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.2),
+            rgba(255, 255, 255, 0.2)
+          );
+        }
+      }
+
+      nav {
+        max-width: max-content;
+        width: 120px;
+        padding: 0.35em 0.3em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        border: 1px solid lime;
+        overflow: hidden;
+        transition: width 0.5s ease-in-out;
+
+        .program-button {
+          display: flex;
+          font-size: 0.7em;
+          color: lime;
+          transition: all 0.01s ease-in-out;
+        }
+
+        .program-list {
+          display: none;
+          max-width: max-content;
+          align-items: center;
+          justify-content: space-between;
+          gap: 1.5em;
+          padding: 0 0.5em;
+          font-size: 0.75em;
+          list-style-type: none;
+
+          li {
+            text-transform: uppercase;
+            text-decoration: underline;
+            min-width: max-content;
+            transition: all 0.3s ease-in-out;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Media query para tablets (768 a 1023 pixels de largura) */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+}
+
+/* Media query para computadores (acima de 1024 pixels de largura) */
+@media only screen and (min-width: 1024px) {
+  .settings-container {
+    width: 980px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    color: lime;
-    background-color: rgb(22, 22, 22);
-    border: 2px solid lime;
-    border-radius: 10px;
+    justify-content: space-between;
+
+    .mini-container {
+      max-width: max-content;
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      gap: 1em;
+      padding: 1em 1.2em;
+      color: lime;
+      background-color: rgb(22, 22, 22);
+      border: 2px solid lime;
+      border-radius: 10px;
+
+      .button {
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+        padding: 1em;
+        font-size: 0.85em;
+        color: lime;
+        background-color: rgb(22, 22, 22);
+        border: 1px solid lime;
+        border-radius: 15px;
+        transition: transform 0.2s ease-in-out;
+
+        &:hover {
+          transform: scale(1.05);
+          box-shadow: 0 0 10px 5px rgba(0, 255, 0, 0.1);
+        }
+        &:active {
+          background: linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.2),
+            rgba(255, 255, 255, 0.2)
+          );
+        }
+      }
+
+      nav {
+        width: 120px;
+        padding: 0.85em 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 15px;
+        border: 1px solid lime;
+        overflow: hidden;
+        transition: width 0.5s ease-in-out;
+        cursor: pointer;
+
+        .program-button {
+          font-size: 0.85em;
+          color: lime;
+          transition: all 0.01s ease-in-out;
+          cursor: pointer;
+        }
+
+        .program-list {
+          display: none;
+          align-items: center;
+          justify-content: space-between;
+          gap: 1.5em;
+          padding: 0 1em;
+          font-size: 0.85em;
+          list-style-type: none;
+
+          li {
+            text-transform: uppercase;
+            text-decoration: underline;
+            min-width: max-content;
+            transition: all 0.3s ease-in-out;
+
+            &:hover {
+              transform: scale(1.2);
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
 }

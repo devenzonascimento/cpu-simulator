@@ -16,7 +16,7 @@ const Ram = ({ memory, UpdateMemory }) => {
   return (
       <div className="ram-container">
         <table className="ram-table">
-        <caption className="ram-caption">MEMÓRIA RAM</caption>
+        <caption className="ram-caption">MEMÓRIA</caption>
           <thead>
             <tr>
               <th>Endereço</th>

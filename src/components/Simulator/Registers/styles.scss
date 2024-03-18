@@ -5,7 +5,6 @@
     align-items: center;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    overflow: hidden;
     border: 2px solid lime;
     color: lime;
     background-color: rgb(22, 22, 22);
@@ -34,6 +33,11 @@
             background-color: rgb(22, 22, 22);
         }
     }
+
+}
+.cir {
+    position: absolute;
+    left: 375px;
 }
 
 .alu-container {
@@ -79,6 +83,8 @@
         }
     }
 }
+
+
 
 @keyframes tremor {
     0% {
