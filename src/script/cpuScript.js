@@ -80,6 +80,7 @@ export const updateMemory = (newMemory) => {
 
 export const chooseProgram = (index) => {
     memory = programs[index]
+    clearCPU()
 }
 
 export let pc = "00000000"
@@ -98,8 +99,8 @@ export let main = [() => instructionExecute(search)];
 
 export const executeNextStep = () => {
     if (currentStep < main.length) {
-        //console.log(main[currentStep])
-        //console.log(currentStep, main)
+        console.log(main[currentStep])
+        console.log(currentStep, main)
         main[currentStep]();
         currentStep++
     }
@@ -133,6 +134,10 @@ export const search = [
         mar = pc;
         const marElement = document.getElementById("mar");
         activeComponentStyle(marElement);
+    },
+    () => {
+        const memoryCellElement = document.getElementById(mar)
+        activeComponentStyle(memoryCellElement)
     },
     () => {
         mdr = memory[mar].padStart(8, "0");
@@ -251,6 +256,22 @@ function decode(cir) {
     opcode = cir.substring(0, 4);
     operand = cir.substring(4, 8);
 
+
+    let getElementID = {
+        "0000": ".end",
+        "0001": ".add",
+        "0010": ".sub",
+        "0011": ".str",
+        "0101": ".lod",
+        "0110": ".jmp",
+        "0111": ".jpz",
+        "1000": ".jpn",
+        "1001": operand == "0001" ? ".ipt" : ".opt"
+    }
+    console.log(getElementID[opcode])
+    const instructionElement = document.querySelector(getElementID[opcode])
+    activeComponentStyle(instructionElement)
+
     switch (opcode) {
         case "0000":
             instructionExecute(endInstruction);
@@ -288,6 +309,8 @@ function decode(cir) {
 }
 
 export function clearCPU() {
+    currentStep = 0
+    main = [() => instructionExecute(search)]
     pc = "00000000"
     mar = "00000000"
     mdr = "00000000"
@@ -296,6 +319,7 @@ export function clearCPU() {
     count = 0;
     opcode = "";
     operand = "";
+    removeAllActiveComponentStyles()
 }
 
 export function toBinary(num) {
@@ -324,20 +348,29 @@ export function toDecimal(num) {
     return decimal;
 }
 
+let previousElement
+
 function activeComponentStyle(focusElement) {
-    removeActiveComponentStyle()
+    previousElement && previousElement.classList.remove("focus")
+
     if (focusElement) {
         focusElement.classList.add("focus");
+        previousElement = focusElement
     } else {
         console.error('O elemento não foi encontrado.');
     }
 }
 
-function removeActiveComponentStyle() {
-    document.querySelector("#alu").classList.remove("focus-alu")
-    document.querySelectorAll(".register-container").forEach(component => {
-        component.classList.remove("focus");
-    });
+function removeAllActiveComponentStyles() {
+
+    const arrayElementClass = [".register-container", ".ram-input"]
+
+    for (let i = 0; i < arrayElementClass.length; i++) {
+        document.querySelectorAll(arrayElementClass[i]).forEach(element => {
+            console.log(element)
+            element.classList.remove("focus");
+        })
+    }
 }
 
 
