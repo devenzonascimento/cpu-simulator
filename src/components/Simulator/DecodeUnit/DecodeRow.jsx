@@ -4,7 +4,8 @@ const DecodeRow = ({ decodeTableRow }) => {
   return (
     <>
       <tr
-        className={decodeTableRow.id}
+        id={decodeTableRow.id}
+        className="instruction-row"
         key={decodeTableRow.instruction}
       >
         <td>{decodeTableRow.opcode}</td>

@@ -99,8 +99,8 @@ export let main = [() => instructionExecute(search)];
 
 export const executeNextStep = () => {
     if (currentStep < main.length) {
-        console.log(main[currentStep])
-        console.log(currentStep, main)
+        //console.log(main[currentStep])
+        //console.log(currentStep, main)
         main[currentStep]();
         currentStep++
     }
@@ -128,31 +128,31 @@ export const search = [
     () => {
         pc = count <= 15 ? toBinary(count) : toBinary(count = 0);
         const pcElement = document.getElementById("pc");
-        activeComponentStyle(pcElement);
+        activeComponentStyle(pcElement, "focus");
     },
     () => {
         mar = pc;
         const marElement = document.getElementById("mar");
-        activeComponentStyle(marElement);
+        activeComponentStyle(marElement, "focus");
     },
     () => {
         const memoryCellElement = document.getElementById(mar)
-        activeComponentStyle(memoryCellElement)
+        activeComponentStyle(memoryCellElement, "focus");
     },
     () => {
         mdr = memory[mar].padStart(8, "0");
         const mdrElement = document.getElementById("mdr");
-        activeComponentStyle(mdrElement);
+        activeComponentStyle(mdrElement, "focus");
     },
     () => {
         cir = mdr;
         const cirElement = document.getElementById("cir");
-        activeComponentStyle(cirElement);
+        activeComponentStyle(cirElement, "focus");
     },
     () => {
         pc = toBinary(count += 1);
         const pcElement = document.getElementById("pc");
-        activeComponentStyle(pcElement);
+        activeComponentStyle(pcElement, "focus");
     },
     () => decode(cir),
 ];
@@ -161,89 +161,133 @@ export const addInstruction = [
     () => {
         mar = operand.padStart(8, "0")
         const marElement = document.getElementById("mar");
-        activeComponentStyle(marElement);
+        activeComponentStyle(marElement, "focus");
     },
     () => {
-        mdr = memory[mar]
+        const memoryCellElement = document.getElementById(mar);
+        activeComponentStyle(memoryCellElement, "focus");
+    },
+    () => {
+        mdr = memory[mar];
         const mdrElement = document.getElementById("mdr");
-        activeComponentStyle(mdrElement);
+        activeComponentStyle(mdrElement, "focus");
     },
     () => {
-        acc = toBinary(toDecimal(acc) + toDecimal(mdr))
-        const accElement = document.getElementById("acc");
-        activeComponentStyle(accElement);
+        acc = toBinary(toDecimal(acc) + toDecimal(mdr));
+
         const aluElement = document.getElementById("alu");
-        aluElement.classList.add("focus-alu")
+        aluElement.classList.add("focus-alu");
+
+        const accElement = document.getElementById("acc");
+        activeComponentStyle(accElement, "focus");
+
+        instructionExecute(search)
+        setTimeout(() => aluElement.classList.remove("focus-alu"), 600)
     },
-    () => instructionExecute(search),
 ];
 
 export const subInstruction = [
     () => {
         mar = operand.padStart(8, "0")
         const marElement = document.getElementById("mar");
-        activeComponentStyle(marElement);
+        activeComponentStyle(marElement, "focus");
+    },
+    () => {
+        const memoryCellElement = document.getElementById(mar)
+        activeComponentStyle(memoryCellElement, "focus");
     },
     () => {
         mdr = memory[mar]
         const mdrElement = document.getElementById("mdr");
-        activeComponentStyle(mdrElement);
+        activeComponentStyle(mdrElement, "focus");
     },
     () => {
         acc = toBinary(toDecimal(acc) - toDecimal(mdr))
+
+        const aluElement = document.getElementById("alu");
+        aluElement.classList.add("focus-alu");
+        
         const accElement = document.getElementById("acc");
-        activeComponentStyle(accElement);
+        activeComponentStyle(accElement, "focus");
+
+        instructionExecute(search)
+        setTimeout(() => aluElement.classList.remove("focus-alu"), 600)
     },
-    () => instructionExecute(search),
 ];
 
 export const storeInstruction = [
     () => {
         mar = operand.padStart(8, "0")
         const marElement = document.getElementById("mar");
-        activeComponentStyle(marElement);
+        activeComponentStyle(marElement, "focus");
     },
-    () => (memory[mar] = acc),
-    () => instructionExecute(search),
+    () => {
+        mdr = acc
+        const marElement = document.getElementById("mdr");
+        activeComponentStyle(marElement, "focus");
+    },
+    () => {
+        memory[mar] = mdr
+        const memoryCellElement = document.getElementById(mar)
+        activeComponentStyle(memoryCellElement, "focus");
+
+        instructionExecute(search)
+    },
 ];
 
 export const loadInstruction = [
     () => {
         mar = operand.padStart(8, "0")
         const marElement = document.getElementById("mar");
-        activeComponentStyle(marElement);
+        activeComponentStyle(marElement, "focus");
+    },
+    () => {
+        const memoryCellElement = document.getElementById(mar)
+        activeComponentStyle(memoryCellElement, "focus");
     },
     () => {
         mdr = memory[mar]
         const mdrElement = document.getElementById("mdr");
-        activeComponentStyle(mdrElement);
+        activeComponentStyle(mdrElement, "focus");
     },
     () => {
         acc = mdr
         const accElement = document.getElementById("acc");
-        activeComponentStyle(accElement);
-    },
-    () => instructionExecute(search),
+        activeComponentStyle(accElement, "focus");
+
+        instructionExecute(search)
+    }
 ];
 
 export const inputInstruction = [
     () => {
         acc = toBinary(prompt("Informe um valor"))
         const accElement = document.getElementById("acc");
-        activeComponentStyle(accElement);
+        activeComponentStyle(accElement, "focus");
+        instructionExecute(search)
     },
-    () => instructionExecute(search),
+    //() => instructionExecute(search),
 ];
 
 export const outputInstruction = [
-    () => alert(`OUTPUT => ${toDecimal(acc)}`),
-    () => instructionExecute(search),
+    () => {
+        const accElement = document.getElementById("acc");
+        activeComponentStyle(accElement, "focus");
+        alert(`OUTPUT => ${toDecimal(acc)}`)
+        instructionExecute(search)
+    },
 ];
 
 export const endInstruction = [
-    () => alert("FIM DO PROGRAMA"),
-    () => clearCPU(),
-    () => instructionExecute(search),
+    () => {
+        alert("FIM DO PROGRAMA")
+        clearCPU(),
+        instructionExecute(search)
+    },
+    //() => {
+        //clearCPU(),
+        //instructionExecute(search)
+    //}
 ];
 
 export const jmpInstruction = () => {
@@ -258,19 +302,20 @@ function decode(cir) {
 
 
     let getElementID = {
-        "0000": ".end",
-        "0001": ".add",
-        "0010": ".sub",
-        "0011": ".str",
-        "0101": ".lod",
-        "0110": ".jmp",
-        "0111": ".jpz",
-        "1000": ".jpn",
-        "1001": operand == "0001" ? ".ipt" : ".opt"
+        "0000": "#end",
+        "0001": "#add",
+        "0010": "#sub",
+        "0011": "#str",
+        "0101": "#lod",
+        "0110": "#jmp",
+        "0111": "#jpz",
+        "1000": "#jpn",
+        "1001": operand == "0001" ? "#ipt" : "#opt"
     }
-    console.log(getElementID[opcode])
+
     const instructionElement = document.querySelector(getElementID[opcode])
-    activeComponentStyle(instructionElement)
+    activeComponentStyle(instructionElement, "focus")
+    console.log(instructionElement)
 
     switch (opcode) {
         case "0000":
@@ -348,14 +393,18 @@ export function toDecimal(num) {
     return decimal;
 }
 
-let previousElement
+let previous = {
+    element: "",
+    style: ""
+}
 
-function activeComponentStyle(focusElement) {
-    previousElement && previousElement.classList.remove("focus")
+function activeComponentStyle(focusElement, styleName) {
+    previous.element && previous.element.classList.remove(previous.style)
 
     if (focusElement) {
-        focusElement.classList.add("focus");
-        previousElement = focusElement
+        focusElement.classList.add(styleName);
+        previous.element = focusElement
+        previous.style = styleName
     } else {
         console.error('O elemento não foi encontrado.');
     }
@@ -363,14 +412,16 @@ function activeComponentStyle(focusElement) {
 
 function removeAllActiveComponentStyles() {
 
-    const arrayElementClass = [".register-container", ".ram-input"]
+    const arrayElementClass = [".register-container", ".ram-input", ".instruction-row"];
 
     for (let i = 0; i < arrayElementClass.length; i++) {
         document.querySelectorAll(arrayElementClass[i]).forEach(element => {
-            console.log(element)
+            //console.log(element)
             element.classList.remove("focus");
         })
     }
+
+    document.querySelector("#alu").classList.remove("focus-alu");
 }
 
 

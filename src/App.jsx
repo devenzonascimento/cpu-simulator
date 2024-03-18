@@ -26,12 +26,12 @@ const App = () => {
   };
 
   const updateValues = () => {
+    handleUpdateMemory(Cpu.memory);
     setPcValue(Cpu.pc);
     setMarValue(Cpu.mar);
     setMdrValue(Cpu.mdr);
     setAccValue(Cpu.acc);
     setCirValue(Cpu.cir);
-    setMemoryValue(Cpu.memory);
   };
 
   return (

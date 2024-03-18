@@ -6,6 +6,7 @@ import "./styles.scss";
 const Ram = ({ memory, UpdateMemory }) => {
 
   const handleEditar = (endereco, novoValor) => {
+    novoValor = novoValor.replace(/[^0-1]/g, '')
     const novaMemory = memory;
     novaMemory[endereco] = novoValor;
 
