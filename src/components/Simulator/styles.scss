@@ -1,5 +1,3 @@
-
-
 /* Media query para celulares (até 767 pixels de largura) */
 @media only screen and (max-width: 767px) {
     .simulator-container {
@@ -10,23 +8,6 @@
         border: 2px solid lime;
         border-radius: 10px;
         padding: 1em;
-    
-        .registers-container {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            gap: 2em;
-        }
-    
-        .decode-cir-container {
-            min-height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-        }
     }
 }
   
@@ -50,20 +31,13 @@
         padding: 1em;
     
         .registers-container {
+            position: relative;
             height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
             gap: 2em;
-        }
-    
-        .decode-cir-container {
-            min-height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
         }
     }
 }
