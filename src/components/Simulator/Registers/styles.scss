@@ -16,6 +16,7 @@
       width: 100%;
       padding: 0.2em;
       font-size: 0.9em;
+      font-weight: 700;
       text-align: center;
       text-transform: uppercase;
     }
@@ -30,6 +31,9 @@
       letter-spacing: 0.1em;
     }
 
+    .info-icon {
+      display: none;
+    }
 }
 
 #pc {
@@ -123,6 +127,7 @@
 /* Media query para computadores (acima de 1024 pixels de largura) */
 @media only screen and (min-width: 1024px) {
   .register-container {
+    position: relative;
     width: 120px;
     display: flex;
     flex-direction: column;
@@ -137,6 +142,7 @@
       width: 100%;
       padding: 0.2em;
       font-size: 1.3em;
+      font-weight: 700;
       text-align: center;
       text-transform: uppercase;
     }
@@ -152,6 +158,18 @@
       &:hover {
         color: lime;
         background-color: rgb(22, 22, 22);
+      }
+    }
+
+    .info-icon {
+      position: absolute;
+      top: 0.4em;
+      right: 0.4em;
+      font-size: 0.7em;
+      transition: all 0.5s ease-in-out;
+
+      &:hover {
+        transform: rotate(360deg) scale(1.2);
       }
     }
   }

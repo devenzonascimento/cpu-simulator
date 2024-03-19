@@ -33,25 +33,31 @@ const App = () => {
   };
 
   return (
-    <div className="container">
-      <Settings
-        updateValues={updateValues}
-        clearCPU={Cpu.clearCPU}
-        clearMemory={Cpu.clearMemory}
-        executeNextStep={Cpu.executeNextStep}
-        executeComplete={Cpu.executeComplete}
-        chooseProgram={handleChooseProgram}
-      />
-      <Simulator
-        memoryValue={memoryValue}
-        pcValue={pcValue}
-        marValue={marValue}
-        mdrValue={mdrValue}
-        accValue={accValue}
-        cirValue={cirValue}
-        UpdateMemory={handleUpdateMemory}
-      />
-    </div>
+    <>
+    <header>
+      <h1>CPU Simulator</h1>
+    </header>
+      <div className="container">
+        <Settings
+          updateValues={updateValues}
+          clearCPU={Cpu.clearCPU}
+          clearMemory={Cpu.clearMemory}
+          executeNextStep={Cpu.executeNextStep}
+          executeComplete={Cpu.executeComplete}
+          chooseProgram={handleChooseProgram}
+        />
+        <Simulator
+          memoryValue={memoryValue}
+          pcValue={pcValue}
+          marValue={marValue}
+          mdrValue={mdrValue}
+          accValue={accValue}
+          cirValue={cirValue}
+          UpdateMemory={handleUpdateMemory}
+        />
+      </div>
+      <footer></footer>
+    </>
   );
 };
 

@@ -38,10 +38,10 @@ const Settings = ({
   return (
     <div className="settings-container">
       <div className="mini-container">
-        <button className="button" onClick={handleClearMemory}>
+        <button className="button clear-cpu" onClick={handleClearMemory}>
           Limpar Memória
         </button>
-        <button className="button" onClick={handleClearCPU}>
+        <button className="button clear-ram" onClick={handleClearCPU}>
           Limpar CPU
         </button>
         <nav onClick={buttonAnimation}>
@@ -58,11 +58,11 @@ const Settings = ({
 
       <div className="mini-container">
         <button className="button">
-          Rodar
+          <span>Rodar</span>
           <IoPlay />
         </button>
         <button className="button" onClick={handleNextStep}>
-          Proximo Passo
+          <span>Proximo Passo</span>
           <IoPlaySkipForward />
         </button>
       </div>

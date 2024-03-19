@@ -18,67 +18,25 @@
     background-repeat: repeat;
     background-color: rgb(24, 23, 23);
 
+    header {
+      h1 {
+        font-size: 1.6em;
+        text-transform: uppercase;
+        color: lime;
+        padding: 0.5em;
+      }
+    }
+
     .container {
       height: 100%;
       max-width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1em;
+      gap: 0.5em;
       padding: 1em;
       background-color: transparent;
     }
-  }
-
-  @keyframes tremor {
-    0% {
-      transform: rotate(0deg);
-    }
-    20% {
-      transform: rotate(3deg);
-    }
-    30% {
-      transform: rotate(-3deg);
-    }
-    40% {
-      transform: rotate(3deg);
-    }
-    50% {
-      transform: rotate(-3deg);
-    }
-    60% {
-      transform: rotate(3deg);
-    }
-    70% {
-      transform: rotate(-3deg);
-    }
-    80% {
-      transform: rotate(3deg);
-    }
-    90% {
-      transform: rotate(-3deg);
-    }
-    100% {
-      transform: rotate(0deg);
-    }
-  }
-  .focus {
-    animation: tremor 0.5s linear;
-    box-shadow: 0 0 10px 10px rgba(0, 255, 0, 0.2);
-  }
-  @keyframes rotation360 {
-    0% {
-      transform: rotate(0deg) scale(0.2);
-    }
-    50% {
-      transform: rotate(180deg) scale(0.5);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  .focus-alu {
-    animation: rotation360 0.6s linear;
   }
 }
 
@@ -98,69 +56,77 @@
       height: 100vh;
     }
 
+    header {
+
+      h1 {
+        font-size: 2.5em;
+        text-transform: uppercase;
+        color: lime;
+        padding: 0.5em;
+      }
+    }
+
     .container {
       height: 100%;
       min-width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: start;
       gap: 1em;
       padding: 1em;
       background-color: transparent;
     }
   }
-
-  @keyframes tremor {
-    0% {
-      transform: rotate(0deg);
-    }
-    20% {
-      transform: rotate(3deg);
-    }
-    30% {
-      transform: rotate(-3deg);
-    }
-    40% {
-      transform: rotate(3deg);
-    }
-    50% {
-      transform: rotate(-3deg);
-    }
-    60% {
-      transform: rotate(3deg);
-    }
-    70% {
-      transform: rotate(-3deg);
-    }
-    80% {
-      transform: rotate(3deg);
-    }
-    90% {
-      transform: rotate(-3deg);
-    }
-    100% {
-      transform: rotate(0deg);
-    }
-  }
-  .focus {
-    animation: tremor 0.5s linear;
-    box-shadow: 0 0 10px 10px rgba(0, 255, 0, 0.2);
-  }
-  @keyframes rotation360 {
-    0% {
-      transform: rotate(0deg) scale(0.2);
-    }
-    50% {
-      transform: rotate(180deg) scale(0.5);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  .focus-alu {
-    animation: rotation360 0.6s linear;
-  }
 }
 
-
+@keyframes tremor {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(3deg);
+  }
+  30% {
+    transform: rotate(-3deg);
+  }
+  40% {
+    transform: rotate(3deg);
+  }
+  50% {
+    transform: rotate(-3deg);
+  }
+  60% {
+    transform: rotate(3deg);
+  }
+  70% {
+    transform: rotate(-3deg);
+  }
+  80% {
+    transform: rotate(3deg);
+  }
+  90% {
+    transform: rotate(-3deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+.focus {
+  animation: tremor 0.5s linear;
+  box-shadow: 0 0 10px 10px rgba(0, 255, 0, 0.2);
+}
+@keyframes rotation360 {
+  0% {
+    transform: rotate(0deg) scale(0.2);
+  }
+  50% {
+    transform: rotate(180deg) scale(0.5);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.focus-alu {
+  animation: rotation360 0.6s linear;
+}
