@@ -37,35 +37,39 @@ const Settings = ({
 
   return (
     <div className="settings-container">
-      <div className="mini-container">
-        <button className="button clear-cpu" onClick={handleClearMemory}>
-          Limpar Memória
-        </button>
-        <button className="button clear-ram" onClick={handleClearCPU}>
-          Limpar CPU
-        </button>
+
         <nav onClick={buttonAnimation}>
-          <span className="program-button" onClick={buttonAnimation}>
+
+          <span onClick={buttonAnimation}>
             Programas
           </span>
-          <ul className="program-list">
+
+          <ul className="programs-list">
             <li onClick={() => chooseProgram(0)}>Soma</li>
             <li onClick={() => chooseProgram(1)}>Subtração</li>
             <li onClick={() => chooseProgram(2)}>Maior Numero</li>
           </ul>
-        </nav>
-      </div>
 
-      <div className="mini-container">
-        <button className="button">
+        </nav>
+
+        <button className="clear-cpu-button" onClick={handleClearMemory}>
+          Limpar Memória
+        </button>
+
+        <button className="clear-ram-button" onClick={handleClearCPU}>
+          Limpar CPU
+        </button>
+
+        <button className="run-button">
           <span>Rodar</span>
           <IoPlay />
         </button>
-        <button className="button" onClick={handleNextStep}>
+
+        <button className="step-button" onClick={handleNextStep}>
           <span>Proximo Passo</span>
           <IoPlaySkipForward />
         </button>
-      </div>
+
     </div>
   );
 };

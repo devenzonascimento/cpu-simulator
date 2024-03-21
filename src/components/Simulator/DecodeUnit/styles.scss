@@ -1,5 +1,5 @@
 /* Media query para celulares (até 767 pixels de largura) */
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 450px) {
   .decode-container {
     margin-top: 1em;
     height: 200px;
@@ -41,7 +41,7 @@
 }
 
 /* Media query para tablets (768 a 1023 pixels de largura) */
-@media only screen and (min-width: 768px) and (max-width: 1023px) {
+@media only screen and (min-width: 450px) and (max-width: 1023px) {
 }
 
 /* Media query para computadores (acima de 1024 pixels de largura) */
@@ -53,16 +53,17 @@
     flex-direction: column;
     align-items: start;
     gap: 1em;
-    padding: 1em;
+    padding: 0.7em 1em;
     color: lime;
     background-color: rgb(22, 22, 22);
     border: 2px solid lime;
     border-radius: 15px;
 
     .decode-caption {
-      font-size: 2em;
+      font-size: 1.3em;
+      letter-spacing: 0.2em;
       font-weight: 700;
-    }
+  }
 
     .decode-table {
       border-collapse: collapse;

@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import Settings from "./components/Settings/Settings";
-import Simulator from "./components/Simulator/Simulator";
+import Settings from './components/Settings/Settings';
+import Simulator from './components/Simulator/Simulator';
 
-import * as Cpu from "./script/cpuScript";
+import * as Cpu from './script/cpuScript';
 
 const App = () => {
   const [memoryValue, setMemoryValue] = useState(Cpu.memory);
-  const [pcValue, setPcValue] = useState("00000000");
-  const [marValue, setMarValue] = useState("00000000");
-  const [mdrValue, setMdrValue] = useState("00000000");
-  const [accValue, setAccValue] = useState("00000000");
-  const [cirValue, setCirValue] = useState("00000000");
+  const [pcValue, setPcValue] = useState('00000000');
+  const [marValue, setMarValue] = useState('00000000');
+  const [mdrValue, setMdrValue] = useState('00000000');
+  const [accValue, setAccValue] = useState('00000000');
+  const [cirValue, setCirValue] = useState('00000000');
 
   const handleChooseProgram = (programIndex) => {
     Cpu.chooseProgram(programIndex);
@@ -34,9 +34,9 @@ const App = () => {
 
   return (
     <>
-    <header>
-      <h1>CPU Simulator</h1>
-    </header>
+      <header>
+        <h1>CPU Simulator</h1>
+      </header>
       <div className="container">
         <Settings
           updateValues={updateValues}
