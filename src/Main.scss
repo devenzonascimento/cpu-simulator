@@ -122,7 +122,8 @@
 
 .focus {
   animation: tremor 0.5s linear;
-  box-shadow: 0 0 10px 10px rgba(0, 255, 0, 0.2);
+  box-shadow: 0 0 10px 10px rgba(0, 255, 0, 0.3);
+  border: 2px solid lime;
 }
 
 @keyframes rotation360 {
