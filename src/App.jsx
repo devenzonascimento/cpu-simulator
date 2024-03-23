@@ -55,6 +55,7 @@ const App = () => {
           cirValue={cirValue}
           UpdateMemory={handleUpdateMemory}
         />
+        
       </div>
       <footer></footer>
     </>

@@ -1,9 +1,12 @@
 import React from "react";
 
-import DecodeUnit from "./DecodeUnit/DecodeUnit";
 import Ram from "./Ram/Ram";
-import Alu from "./Registers/Alu";
 import Register from "./Registers/Register";
+import Alu from "./Registers/Alu";
+import DecodeUnit from "./DecodeUnit/DecodeUnit";
+import Description from "./Description/Description";
+
+import { description } from "../../script/cpuScript"
 
 import "./styles.scss";
 
@@ -17,6 +20,7 @@ const Simulator = ({
   UpdateMemory,
 }) => {
   return (
+    <>
     <div className="simulator-container">
       <Ram memory={memoryValue} UpdateMemory={UpdateMemory} />
       <div className="registers-container">
@@ -29,6 +33,8 @@ const Simulator = ({
       </div>
       <DecodeUnit />
     </div>
+    <Description description={description}/>
+    </>
   );
 };
 
