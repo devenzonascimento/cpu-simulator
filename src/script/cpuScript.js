@@ -101,7 +101,7 @@ export let main = [
     activeComponentStyle(marElement, "focus");
     description = {
       phase: "Busca",
-      text: "O endereço obtido pelo PC é transferido para o registrador MAR, que funciona como uma interface entre a CPU e a Memória. Ele contém o endereço para onde será realizada a leitura na memória.",
+      text: "A Unidade de Controle copia o valor do registrador PC para o registrador MAR que envia o valor para o Barramento de Endereço, que funciona como uma interface entre a CPU e a Memória.",
     };
   },
   () => {
@@ -109,7 +109,7 @@ export let main = [
     activeComponentStyle(memoryCellElement, "focus");
     description = {
       phase: "Busca",
-      text: "Efetua uma leitura na Memória para obter os dados que estão gravados no endereço de Memória especificado pelo registrador MAR.",
+      text: "A Unidade de Controle sinaliza a Memória para fazer a leitura no endereço que está no Barramento de Endereço, carregar e armazenar esse valor no Barramento de Dados.",
     };
   },
   () => {
@@ -118,7 +118,7 @@ export let main = [
     activeComponentStyle(mdrElement, "focus");
     description = {
       phase: "Busca",
-      text: "Os dados que foram lidos na Memória são transferidos para o registrador MDR. Ele atua como um Intermediário em qualquer operação que envolva a Memória.",
+      text: "A Unidade de Controle copia o valor do Barramento de Dados para o registrador MDR. Ele atua como um intermediário em qualquer transferência de dados que envolva a Memória.",
     };
   },
   () => {
@@ -127,16 +127,24 @@ export let main = [
     activeComponentStyle(cirElement, "focus");
     description = {
       phase: "Busca",
-      text: "Os dados do registrador MDR, que agora contém a instrução buscada, é transferido para o registrador de instrução CIR. O CIR armazena temporariamente a instrução que será decodificada e executada posteriormente.",
+      text: "A Unidade de Controle copia o valor do registrador MDR para o registrador de instrução CIR. O CIR armazena temporariamente a instrução que será decodificada e executada posteriormente.",
     };
   },
   () => {
-    pc = count <= 15 ? toBinary(count = count + 1) : toBinary((count = 0));
+    pc = count <= 15 ? toBinary((count = count + 1)) : toBinary((count = 0));
     const pcElement = document.getElementById("pc");
     activeComponentStyle(pcElement, "focus");
     description = {
       phase: "Busca",
-      text: "o PC é incrementado para apontar para o próximo endereço de instrução na sequência, preparando-se para o ciclo de busca da próxima instrução",
+      text: "A Unidade de Controle incrementa o registrador PC para apontar para o próximo endereço de instrução na sequência, preparando-se para o ciclo de busca da próxima instrução",
+    };
+  },
+  () => {
+    const decodeElement = document.querySelector(".decode-container");
+    activeComponentStyle(decodeElement, "focus");
+    description = {
+      phase: "Decodificação",
+      text: `O Decodificador recebe o valor do registrador de instrução CIR, esse valor é quebrado ao meio e transformado em OPCODE e OPERANDO.`
     };
   },
   () => decode(cir),
@@ -208,7 +216,7 @@ export const search = [
     };
   },
   () => {
-    pc = count <= 15 ? toBinary(count = count + 1) : toBinary((count = 0));
+    pc = count <= 15 ? toBinary((count = count + 1)) : toBinary((count = 0));
     const pcElement = document.getElementById("pc");
     activeComponentStyle(pcElement, "focus");
     description = {
@@ -287,7 +295,7 @@ export const storeInstruction = [
     description = {
       phase: "Decodificação",
       text: `O DECODIFICADOR envia o valor do OPERANDO (${operand}) para o registrador MAR que vai copiar o valor para o barramento de endereço.`,
-    }
+    };
   },
   () => {
     mdr = acc;
@@ -298,7 +306,7 @@ export const storeInstruction = [
     description = {
       phase: "Execução",
       text: `A unidade de controle envia o valor do registrador ACC para o registrador MDR que vai copiar o valor para o barramento de dados.`,
-    }
+    };
   },
   () => {
     memory[mar] = mdr;
@@ -309,7 +317,7 @@ export const storeInstruction = [
     description = {
       phase: "Execução",
       text: `A unidade de controle manda um sinal para que o valor que está no barramento de dados seja armazenado na Memória no endereço especificado pelo barramento de endereço.`,
-    }
+    };
 
     instructionExecute(search);
   },
@@ -349,7 +357,7 @@ export const inputInstruction = [
     description = {
       phase: "Execução",
       text: `O OPERANDO ${operand} define que se trata de uma ENTRADA. O barramento de controle lê o dispositivo de entrada e coloca o valor lido no registrador ACC.`,
-    }
+    };
 
     instructionExecute(search);
   },
@@ -468,7 +476,7 @@ function decode(cir) {
 
 export function clearCPU() {
   currentStep = 0;
-  main = search
+  main = search;
   pc = "00000000";
   mar = "00000000";
   mdr = "00000000";
@@ -532,6 +540,7 @@ function removeAllActiveComponentStyles() {
     ".register-container",
     ".ram-input",
     ".instruction-row",
+    ".decode-container",
   ];
 
   for (let i = 0; i < arrayElementClass.length; i++) {
