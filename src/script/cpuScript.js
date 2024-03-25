@@ -186,7 +186,7 @@ export const search = [
     activeComponentStyle(marElement, "focus");
     description = {
       phase: "Busca",
-      text: "O endereço obtido pelo PC é transferido para o registrador MAR, que funciona como uma interface entre a CPU e a Memória. Ele contém o endereço para onde será realizada a leitura na memória.",
+      text: "A Unidade de Controle copia o valor do registrador PC para o registrador MAR que envia o valor para o Barramento de Endereço, que funciona como uma interface entre a CPU e a Memória.",
     };
   },
   () => {
@@ -194,7 +194,7 @@ export const search = [
     activeComponentStyle(memoryCellElement, "focus");
     description = {
       phase: "Busca",
-      text: "Efetua uma leitura na Memória para obter os dados que estão gravados no endereço de Memória especificado pelo registrador MAR.",
+      text: "A Unidade de Controle sinaliza a Memória para fazer a leitura no endereço que está no Barramento de Endereço, carregar e armazenar esse valor no Barramento de Dados.",
     };
   },
   () => {
@@ -203,7 +203,7 @@ export const search = [
     activeComponentStyle(mdrElement, "focus");
     description = {
       phase: "Busca",
-      text: "Os dados que foram lidos na Memória são transferidos para o registrador MDR. Ele atua como um Intermediário em qualquer operação que envolva a Memória.",
+      text: "A Unidade de Controle copia o valor do Barramento de Dados para o registrador MDR. Ele atua como um intermediário em qualquer transferência de dados que envolva a Memória.",
     };
   },
   () => {
@@ -212,7 +212,7 @@ export const search = [
     activeComponentStyle(cirElement, "focus");
     description = {
       phase: "Busca",
-      text: "Os dados do registrador MDR, que agora contém a instrução buscada, é transferido para o registrador de instrução CIR. O CIR armazena temporariamente a instrução que será decodificada e executada posteriormente.",
+      text: "A Unidade de Controle copia o valor do registrador MDR para o registrador de instrução CIR. O CIR armazena temporariamente a instrução que será decodificada e executada posteriormente.",
     };
   },
   () => {
@@ -221,7 +221,15 @@ export const search = [
     activeComponentStyle(pcElement, "focus");
     description = {
       phase: "Busca",
-      text: "o PC é incrementado para apontar para o próximo endereço de instrução na sequência, preparando-se para o ciclo de busca da próxima instrução",
+      text: "A Unidade de Controle incrementa o registrador PC para apontar para o próximo endereço de instrução na sequência, preparando-se para o ciclo de busca da próxima instrução",
+    };
+  },
+  () => {
+    const decodeElement = document.querySelector(".decode-container");
+    activeComponentStyle(decodeElement, "focus");
+    description = {
+      phase: "Decodificação",
+      text: `O Decodificador recebe o valor do registrador de instrução CIR, esse valor é quebrado ao meio e transformado em OPCODE e OPERANDO.`
     };
   },
   () => decode(cir),
