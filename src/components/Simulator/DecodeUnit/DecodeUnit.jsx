@@ -10,19 +10,19 @@ const DecodeUnit = () => {
       id: "end",
       opcode: "0000",
       operand: "0000",
-      instruction: "Fim",
+      instruction: "Encerrar",
     },
     {
       id: "add",
       opcode: "0001",
       operand: "endereço",
-      instruction: "Soma",
+      instruction: "Somar",
     },
     {
       id: "sub",
       opcode: "0010",
       operand: "endereço",
-      instruction: "Subtração",
+      instruction: "Subtrair",
     },
     {
       id: "str",
@@ -72,10 +72,10 @@ const DecodeUnit = () => {
     <>
       <div className="decode-container">
         <table className="decode-table">
-        <caption className="decode-caption">DECODIFICADOR</caption>
+          <caption className="decode-caption">DECODIFICADOR</caption>
           <thead>
             <tr className="decode-table-header">
-              <th>Codigo OP.</th>
+              <th>Opcode</th>
               <th>Operando</th>
               <th>Instrução</th>
             </tr>

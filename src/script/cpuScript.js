@@ -96,21 +96,12 @@ export let description = {};
 
 export let main = [
   () => {
-    pc = count <= 15 ? toBinary(count) : toBinary((count = 0));
-    const pcElement = document.getElementById("pc");
-    activeComponentStyle(pcElement, "focus");
-    description = {
-      phase: "Busca",
-      text: "A unidade de controle copia o valor do (CI) Contador de Instrução para o (REM) Registrador de Endereço de Memória",
-    };
-  },
-  () => {
     mar = pc;
     const marElement = document.getElementById("mar");
     activeComponentStyle(marElement, "focus");
     description = {
       phase: "Busca",
-      text: "O endereço obtido pelo CI é transferido para o registrador REM, que funciona como uma interface entre a CPU e a Memória. Ele contém o endereço para onde será realizada a leitura na memória.",
+      text: "O endereço obtido pelo PC é transferido para o registrador MAR, que funciona como uma interface entre a CPU e a Memória. Ele contém o endereço para onde será realizada a leitura na memória.",
     };
   },
   () => {
@@ -118,7 +109,7 @@ export let main = [
     activeComponentStyle(memoryCellElement, "focus");
     description = {
       phase: "Busca",
-      text: "Efetua uma leitura na Memória para obter os dados que estão gravados no endereço de Memória especificado pelo registrador REM.",
+      text: "Efetua uma leitura na Memória para obter os dados que estão gravados no endereço de Memória especificado pelo registrador MAR.",
     };
   },
   () => {
@@ -127,7 +118,7 @@ export let main = [
     activeComponentStyle(mdrElement, "focus");
     description = {
       phase: "Busca",
-      text: "Os dados que foram lidos na Memória são transferidos para o registrador MBR. Ele atua como um Intermediário em qualquer operação que envolva a Memória.",
+      text: "Os dados que foram lidos na Memória são transferidos para o registrador MDR. Ele atua como um Intermediário em qualquer operação que envolva a Memória.",
     };
   },
   () => {
@@ -136,16 +127,16 @@ export let main = [
     activeComponentStyle(cirElement, "focus");
     description = {
       phase: "Busca",
-      text: "Os dados do registrador MBR, que agora contém a instrução buscada, é transferido para o registrador de instrução RI. O RI armazena temporariamente a instrução que será decodificada e executada posteriormente.",
+      text: "Os dados do registrador MDR, que agora contém a instrução buscada, é transferido para o registrador de instrução CIR. O CIR armazena temporariamente a instrução que será decodificada e executada posteriormente.",
     };
   },
   () => {
-    pc = toBinary((count += 1));
+    pc = count <= 15 ? toBinary(count = count + 1) : toBinary((count = 0));
     const pcElement = document.getElementById("pc");
     activeComponentStyle(pcElement, "focus");
     description = {
       phase: "Busca",
-      text: "o CI é incrementado para apontar para o próximo endereço de instrução na sequência, preparando-se para o ciclo de busca da próxima instrução",
+      text: "o PC é incrementado para apontar para o próximo endereço de instrução na sequência, preparando-se para o ciclo de busca da próxima instrução",
     };
   },
   () => decode(cir),
@@ -182,21 +173,12 @@ export function instructionExecute(array) {
 
 export const search = [
   () => {
-    pc = count <= 15 ? toBinary(count) : toBinary((count = 0));
-    const pcElement = document.getElementById("pc");
-    activeComponentStyle(pcElement, "focus");
-    description = {
-      phase: "Busca",
-      text: "A unidade de controle copia o valor do (CI) Contador de Instrução para o (REM) Registrador de Endereço de Memória",
-    };
-  },
-  () => {
     mar = pc;
     const marElement = document.getElementById("mar");
     activeComponentStyle(marElement, "focus");
     description = {
       phase: "Busca",
-      text: "O endereço obtido pelo CI é transferido para o registrador REM, que funciona como uma interface entre a CPU e a Memória. Ele contém o endereço para onde será realizada a leitura na memória.",
+      text: "O endereço obtido pelo PC é transferido para o registrador MAR, que funciona como uma interface entre a CPU e a Memória. Ele contém o endereço para onde será realizada a leitura na memória.",
     };
   },
   () => {
@@ -204,7 +186,7 @@ export const search = [
     activeComponentStyle(memoryCellElement, "focus");
     description = {
       phase: "Busca",
-      text: "Obtém os dados que estão gravados no endereço de Memória especificado pelo registrador REM.",
+      text: "Efetua uma leitura na Memória para obter os dados que estão gravados no endereço de Memória especificado pelo registrador MAR.",
     };
   },
   () => {
@@ -213,7 +195,7 @@ export const search = [
     activeComponentStyle(mdrElement, "focus");
     description = {
       phase: "Busca",
-      text: "Os dados que foram lidos na Memória são transferidos para o registrador MBR.",
+      text: "Os dados que foram lidos na Memória são transferidos para o registrador MDR. Ele atua como um Intermediário em qualquer operação que envolva a Memória.",
     };
   },
   () => {
@@ -222,16 +204,16 @@ export const search = [
     activeComponentStyle(cirElement, "focus");
     description = {
       phase: "Busca",
-      text: "Os dados do registrador MBR, que agora contém a instrução buscada, é transferido para o registrador de instrução RI. O RI armazena temporariamente a instrução que será decodificada e executada posteriormente.",
+      text: "Os dados do registrador MDR, que agora contém a instrução buscada, é transferido para o registrador de instrução CIR. O CIR armazena temporariamente a instrução que será decodificada e executada posteriormente.",
     };
   },
   () => {
-    pc = toBinary((count += 1));
+    pc = count <= 15 ? toBinary(count = count + 1) : toBinary((count = 0));
     const pcElement = document.getElementById("pc");
     activeComponentStyle(pcElement, "focus");
     description = {
       phase: "Busca",
-      text: "o CI é incrementado para apontar para o próximo endereço de instrução na sequência, preparando-se para o ciclo de busca da próxima instrução",
+      text: "o PC é incrementado para apontar para o próximo endereço de instrução na sequência, preparando-se para o ciclo de busca da próxima instrução",
     };
   },
   () => decode(cir),
@@ -341,12 +323,18 @@ export const loadInstruction = [
 
 export const inputInstruction = [
   () => {
-    acc = toBinary(prompt("Informe um valor"));
+    acc = toBinary(prompt("Informe um numero: (-127 a 127)"));
+
     const accElement = document.getElementById("acc");
     activeComponentStyle(accElement, "focus");
+
+    description = {
+      phase: "Execução",
+      text: `O OPERANDO ${operand} define que se trata de uma ENTRADA. O barramento de controle lê o dispositivo de entrada e coloca o valor lido no registrador ACC`,
+    }
+
     instructionExecute(search);
   },
-  //() => instructionExecute(search),
 ];
 
 export const outputInstruction = [
@@ -391,67 +379,67 @@ function decode(cir) {
 
   switch (opcode) {
     case "0000":
+      instructionExecute(endInstruction);
       description = {
         phase: "Decodificação",
-        text: "oi",
+        text: `O OPCODE ${opcode} encerra o programa.`,
       };
-      instructionExecute(endInstruction);
       break;
     case "0001":
+      instructionExecute(addInstruction);
       description = {
         phase: "Decodificação",
         text: "",
       };
-      instructionExecute(addInstruction);
       break;
     case "0010":
+      instructionExecute(subInstruction);
       description = {
         phase: "Decodificação",
         text: "",
       };
-      instructionExecute(subInstruction);
       break;
     case "0011":
+      instructionExecute(storeInstruction);
       description = {
         phase: "Decodificação",
         text: "",
       };
-      instructionExecute(storeInstruction);
       break;
     case "0101":
+      instructionExecute(loadInstruction);
       description = {
         phase: "Decodificação",
         text: "",
       };
-      instructionExecute(loadInstruction);
       break;
     case "0110":
+      jmpInstruction();
       description = {
         phase: "Decodificação",
         text: "",
       };
-      jmpInstruction();
       break;
     case "0111":
-      description = {
-        phase: "Decodificação",
-        text: "",
-      };
       if (acc == "00000000") jmpInstruction();
       else instructionExecute(search);
-      break;
-    case "1000":
       description = {
         phase: "Decodificação",
         text: "",
       };
+      break;
+    case "1000":
       if (toDecimal(acc) < "00000000") jmpInstruction();
       else instructionExecute(search);
+      description = {
+        phase: "Decodificação",
+        text: "",
+      };
       break;
     case "1001":
       description = {
         phase: "Decodificação",
-        text: "",
+        text: `O OPCODE ${opcode} pode significar ENTRADA ou SAIDA, tudo vai depender do OPERANDO.`,
       };
       operand === "0001" ? instructionExecute(inputInstruction) : false;
       operand === "0010" ? instructionExecute(outputInstruction) : false;
@@ -462,62 +450,7 @@ function decode(cir) {
 
 export function clearCPU() {
   currentStep = 0;
-  main = [
-    () => {
-      pc = count <= 15 ? toBinary(count) : toBinary((count = 0));
-      const pcElement = document.getElementById("pc");
-      activeComponentStyle(pcElement, "focus");
-      description = {
-        phase: "Busca",
-        text: "A unidade de controle copia o valor do (CI) Contador de Instrução para o (REM) Registrador de Endereço de Memória",
-      };
-    },
-    () => {
-      mar = pc;
-      const marElement = document.getElementById("mar");
-      activeComponentStyle(marElement, "focus");
-      description = {
-        phase: "Busca",
-        text: "O endereço obtido pelo CI é transferido para o registrador REM, que funciona como uma interface entre a CPU e a Memória. Ele contém o endereço para onde será realizada a leitura na memória.",
-      };
-    },
-    () => {
-      const memoryCellElement = document.getElementById(mar);
-      activeComponentStyle(memoryCellElement, "focus");
-      description = {
-        phase: "Busca",
-        text: "Obtém os dados que estão gravados no endereço de Memória especificado pelo registrador REM.",
-      };
-    },
-    () => {
-      mdr = memory[mar].padStart(8, "0");
-      const mdrElement = document.getElementById("mdr");
-      activeComponentStyle(mdrElement, "focus");
-      description = {
-        phase: "Busca",
-        text: "Os dados que foram lidos na Memória são transferidos para o registrador MBR.",
-      };
-    },
-    () => {
-      cir = mdr;
-      const cirElement = document.getElementById("cir");
-      activeComponentStyle(cirElement, "focus");
-      description = {
-        phase: "Busca",
-        text: "Os dados do registrador MBR, que agora contém a instrução buscada, é transferido para o registrador de instrução RI. O RI armazena temporariamente a instrução que será decodificada e executada posteriormente.",
-      };
-    },
-    () => {
-      pc = toBinary((count += 1));
-      const pcElement = document.getElementById("pc");
-      activeComponentStyle(pcElement, "focus");
-      description = {
-        phase: "Busca",
-        text: "o CI é incrementado para apontar para o próximo endereço de instrução na sequência, preparando-se para o ciclo de busca da próxima instrução",
-      };
-    },
-    () => decode(cir),
-  ];
+  main = search
   pc = "00000000";
   mar = "00000000";
   mdr = "00000000";
