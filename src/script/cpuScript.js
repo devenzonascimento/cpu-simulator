@@ -280,18 +280,36 @@ export const subInstruction = [
 export const storeInstruction = [
   () => {
     mar = operand.padStart(8, "0");
+
     const marElement = document.getElementById("mar");
     activeComponentStyle(marElement, "focus");
+
+    description = {
+      phase: "Decodificação",
+      text: `O DECODIFICADOR envia o valor do OPERANDO (${operand}) para o registrador MAR que vai copiar o valor para o barramento de endereço.`,
+    }
   },
   () => {
     mdr = acc;
+
     const marElement = document.getElementById("mdr");
     activeComponentStyle(marElement, "focus");
+
+    description = {
+      phase: "Execução",
+      text: `A unidade de controle envia o valor do registrador ACC para o registrador MDR que vai copiar o valor para o barramento de dados.`,
+    }
   },
   () => {
     memory[mar] = mdr;
+
     const memoryCellElement = document.getElementById(mar);
     activeComponentStyle(memoryCellElement, "focus");
+
+    description = {
+      phase: "Execução",
+      text: `A unidade de controle manda um sinal para que o valor que está no barramento de dados seja armazenado na Memória no endereço especificado pelo barramento de endereço.`,
+    }
 
     instructionExecute(search);
   },
@@ -330,7 +348,7 @@ export const inputInstruction = [
 
     description = {
       phase: "Execução",
-      text: `O OPERANDO ${operand} define que se trata de uma ENTRADA. O barramento de controle lê o dispositivo de entrada e coloca o valor lido no registrador ACC`,
+      text: `O OPERANDO ${operand} define que se trata de uma ENTRADA. O barramento de controle lê o dispositivo de entrada e coloca o valor lido no registrador ACC.`,
     }
 
     instructionExecute(search);
@@ -403,7 +421,7 @@ function decode(cir) {
       instructionExecute(storeInstruction);
       description = {
         phase: "Decodificação",
-        text: "",
+        text: `O OPCODE ${opcode} significa ARMAZENAR, ele vai armazenar o valor do registrador ACC no endereço de Memória especificado pelo OPERANDO.`,
       };
       break;
     case "0101":
