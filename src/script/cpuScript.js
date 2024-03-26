@@ -152,7 +152,8 @@ export let main = [
 
 export const executeNextStep = () => {
   if (currentStep < main.length) {
-    //console.log(main[currentStep]);
+    console.log(main[currentStep]);
+    console.log(main);
     main[currentStep]();
     currentStep++;
   }
@@ -451,7 +452,7 @@ export const outputInstruction = [
 export const endInstruction = [
   () => {
     alert("FIM DO PROGRAMA");
-    clearCPU(), instructionExecute(search);
+    clearCPU();
   },
 ];
 
@@ -484,7 +485,7 @@ export const jmpZeroInstruction = [
     aluElement.classList.add("focus-alu");
     setTimeout(() => aluElement.classList.remove("focus-alu"), 600);
 
-    if (toDecimal(acc) == 0) {
+    if (acc == "00000000") {
       count = toDecimal(operand.padStart(8, "0"));
       pc = operand.padStart(8, "0");
       const pcElement = document.getElementById("pc");
@@ -546,8 +547,8 @@ function decode(cir) {
     "0101": "#lod",
     "0110": "#jmp",
     "0111": "#jpz",
-    "1000": "#jpn",
-    "1001": operand == "0001" ? "#ipt" : "#opt",
+    1000: "#jpn",
+    1001: operand == "0001" ? "#ipt" : "#opt",
   };
 
   const instructionElement = document.querySelector(getElementID[opcode]);
