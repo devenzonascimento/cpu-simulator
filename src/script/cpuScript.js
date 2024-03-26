@@ -238,17 +238,34 @@ export const search = [
 export const addInstruction = [
   () => {
     mar = operand.padStart(8, "0");
+
     const marElement = document.getElementById("mar");
     activeComponentStyle(marElement, "focus");
+
+    description = {
+      phase: "Decodificação",
+      text: `O DECODIFICADOR envia o valor do OPERANDO para o registrador MAR que vai copiar o valor para o barramento de endereço.`,
+    };
   },
   () => {
     const memoryCellElement = document.getElementById(mar);
     activeComponentStyle(memoryCellElement, "focus");
+
+    description = {
+      phase: "Execução",
+      text: `A Unidade de Controle manda um sinal para que a Memória pegue o valor que está no endereço específico pelo Barramento de Endereço e copie para o Barramento de Dados.`,
+    };
   },
   () => {
     mdr = memory[mar];
+
     const mdrElement = document.getElementById("mdr");
     activeComponentStyle(mdrElement, "focus");
+
+    description = {
+      phase: "Execução",
+      text: "A Unidade de Controle copia o valor do Barramento de Dados para o registrador MDR.",
+    };
   },
   () => {
     acc = toBinary(toDecimal(acc) + toDecimal(mdr));
@@ -259,6 +276,11 @@ export const addInstruction = [
     const accElement = document.getElementById("acc");
     activeComponentStyle(accElement, "focus");
 
+    description = {
+      phase: "Execução",
+      text: "A Unidade de Controle manda um sinal a (ULA) Unidade Lógica Aritmética para somar o valor do registrador ACC com o valor do registrador MDR. O resultado é armazenado de volta no registrador ACC.",
+    }; 
+
     instructionExecute(search);
     setTimeout(() => aluElement.classList.remove("focus-alu"), 600);
   },
@@ -267,17 +289,34 @@ export const addInstruction = [
 export const subInstruction = [
   () => {
     mar = operand.padStart(8, "0");
+
     const marElement = document.getElementById("mar");
     activeComponentStyle(marElement, "focus");
+
+    description = {
+      phase: "Decodificação",
+      text: `O DECODIFICADOR envia o valor do OPERANDO para o registrador MAR que vai copiar o valor para o barramento de endereço.`,
+    };
   },
   () => {
     const memoryCellElement = document.getElementById(mar);
     activeComponentStyle(memoryCellElement, "focus");
+
+    description = {
+      phase: "Execução",
+      text: `A Unidade de Controle manda um sinal para que a Memória pegue o valor que está no endereço específico pelo Barramento de Endereço e copie para o Barramento de Dados.`,
+    };
   },
   () => {
     mdr = memory[mar];
+
     const mdrElement = document.getElementById("mdr");
     activeComponentStyle(mdrElement, "focus");
+
+    description = {
+      phase: "Execução",
+      text: "A Unidade de Controle copia o valor do Barramento de Dados para o registrador MDR.",
+    };
   },
   () => {
     acc = toBinary(toDecimal(acc) - toDecimal(mdr));
@@ -287,6 +326,11 @@ export const subInstruction = [
 
     const accElement = document.getElementById("acc");
     activeComponentStyle(accElement, "focus");
+
+    description = {
+      phase: "Execução",
+      text: "A Unidade de Controle manda um sinal a (ULA) Unidade Lógica Aritmética para subtrair o valor do registrador ACC pelo valor do registrador MDR. O resultado é armazenado de volta no registrador ACC.",
+    }; 
 
     instructionExecute(search);
     setTimeout(() => aluElement.classList.remove("focus-alu"), 600);
@@ -302,7 +346,7 @@ export const storeInstruction = [
 
     description = {
       phase: "Decodificação",
-      text: `O DECODIFICADOR envia o valor do OPERANDO (${operand}) para o registrador MAR que vai copiar o valor para o barramento de endereço.`,
+      text: `O DECODIFICADOR envia o valor do OPERANDO para o registrador MAR que vai copiar o valor para o barramento de endereço.`,
     };
   },
   () => {
@@ -324,10 +368,16 @@ export const storeInstruction = [
 
     description = {
       phase: "Execução",
-      text: `A unidade de controle manda um sinal para que o valor que está no barramento de dados seja armazenado na Memória no endereço especificado pelo barramento de endereço.`,
+      text: `A unidade de controle manda um sinal para que o valor que está no barramento de dados seja armazenado no endereço de Memória especificado pelo barramento de endereço.`,
     };
-
+  },
+  () => {
     instructionExecute(search);
+
+    description = {
+      phase: "Execução",
+      text: `a Unidade de Controle verifica se há interrupções para desviar a rotina de instruções, caso contrário, inicia o ciclo de busca novamente`,
+    };
   },
 ];
 
@@ -364,10 +414,17 @@ export const inputInstruction = [
 
     description = {
       phase: "Execução",
-      text: `O OPERANDO ${operand} define que se trata de uma ENTRADA. O barramento de controle lê o dispositivo de entrada e coloca o valor lido no registrador ACC.`,
+      text: `O OPERANDO ${operand} define que se trata de uma ENTRADA. O Barramento de Controle lê o dispositivo de entrada e coloca o valor lido no registrador ACC.`,
     };
-
+    
+  },
+  () => {
     instructionExecute(search);
+
+    description = {
+      phase: "Execução",
+      text: `a Unidade de Controle verifica se há interrupções para desviar a rotina de instruções, caso contrário, inicia o ciclo de busca novamente.`,
+    };
   },
 ];
 
@@ -376,7 +433,20 @@ export const outputInstruction = [
     const accElement = document.getElementById("acc");
     activeComponentStyle(accElement, "focus");
     alert(`OUTPUT => ${toDecimal(acc)}`);
+    
+    description = {
+      phase: "Execução",
+      text: `O OPERANDO ${operand} define que se trata de uma SAÍDA. O Barramento de Controle envia o valor do registrador ACC para o dispositivo de saída onde ele será exibido.`,
+    };
+    
+  },
+  () => {
     instructionExecute(search);
+
+    description = {
+      phase: "Execução",
+      text: `a Unidade de Controle verifica se há interrupções para desviar a rotina de instruções, caso contrário, inicia o ciclo de busca novamente.`,
+    };
   },
 ];
 
@@ -423,14 +493,14 @@ function decode(cir) {
       instructionExecute(addInstruction);
       description = {
         phase: "Decodificação",
-        text: "",
+        text: `O OPCODE ${opcode} significa SOMAR, ele vai somar o valor do registrador ACC com o valor que está armazenado no endereço de Memória especificado pelo OPERANDO.`,
       };
       break;
     case "0010":
       instructionExecute(subInstruction);
       description = {
         phase: "Decodificação",
-        text: "",
+        text: `O OPCODE ${opcode} significa SUBTRAIR, ele vai subtrair o valor do registrador ACC pelo valor que está armazenado no endereço de Memória especificado pelo OPERANDO.`,
       };
       break;
     case "0011":
@@ -473,7 +543,7 @@ function decode(cir) {
     case "1001":
       description = {
         phase: "Decodificação",
-        text: `O OPCODE ${opcode} pode significar ENTRADA ou SAIDA, tudo vai depender do OPERANDO.`,
+        text: `O OPCODE ${opcode} pode significar ENTRADA ou SAÍDA, tudo vai depender do OPERANDO.`,
       };
       operand === "0001" ? instructionExecute(inputInstruction) : false;
       operand === "0010" ? instructionExecute(outputInstruction) : false;
