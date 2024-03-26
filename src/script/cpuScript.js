@@ -144,7 +144,7 @@ export let main = [
     activeComponentStyle(decodeElement, "focus");
     description = {
       phase: "Decodificação",
-      text: `O Decodificador recebe o valor do registrador de instrução CIR, esse valor é quebrado ao meio e transformado em OPCODE e OPERANDO.`
+      text: `O Decodificador recebe o valor do registrador de instrução CIR, esse valor é quebrado ao meio e transformado em OPCODE e OPERANDO.`,
     };
   },
   () => decode(cir),
@@ -229,7 +229,7 @@ export const search = [
     activeComponentStyle(decodeElement, "focus");
     description = {
       phase: "Decodificação",
-      text: `O Decodificador recebe o valor do registrador de instrução CIR, esse valor é quebrado ao meio e transformado em OPCODE e OPERANDO.`
+      text: `O Decodificador recebe o valor do registrador de instrução CIR, esse valor é quebrado ao meio e transformado em OPCODE e OPERANDO.`,
     };
   },
   () => decode(cir),
@@ -279,7 +279,7 @@ export const addInstruction = [
     description = {
       phase: "Execução",
       text: "A Unidade de Controle manda um sinal a (ULA) Unidade Lógica Aritmética para somar o valor do registrador ACC com o valor do registrador MDR. O resultado é armazenado de volta no registrador ACC.",
-    }; 
+    };
 
     instructionExecute(search);
     setTimeout(() => aluElement.classList.remove("focus-alu"), 600);
@@ -330,7 +330,7 @@ export const subInstruction = [
     description = {
       phase: "Execução",
       text: "A Unidade de Controle manda um sinal a (ULA) Unidade Lógica Aritmética para subtrair o valor do registrador ACC pelo valor do registrador MDR. O resultado é armazenado de volta no registrador ACC.",
-    }; 
+    };
 
     instructionExecute(search);
     setTimeout(() => aluElement.classList.remove("focus-alu"), 600);
@@ -416,7 +416,6 @@ export const inputInstruction = [
       phase: "Execução",
       text: `O OPERANDO ${operand} define que se trata de uma ENTRADA. O Barramento de Controle lê o dispositivo de entrada e coloca o valor lido no registrador ACC.`,
     };
-    
   },
   () => {
     instructionExecute(search);
@@ -433,12 +432,11 @@ export const outputInstruction = [
     const accElement = document.getElementById("acc");
     activeComponentStyle(accElement, "focus");
     alert(`OUTPUT => ${toDecimal(acc)}`);
-    
+
     description = {
       phase: "Execução",
       text: `O OPERANDO ${operand} define que se trata de uma SAÍDA. O Barramento de Controle envia o valor do registrador ACC para o dispositivo de saída onde ele será exibido.`,
     };
-    
   },
   () => {
     instructionExecute(search);
@@ -457,10 +455,84 @@ export const endInstruction = [
   },
 ];
 
-export const jmpInstruction = () => {
-  count = toDecimal(operand.padStart(8, "0"));
-  instructionExecute(search);
-};
+export const jmpInstruction = [
+  () => {
+    count = toDecimal(operand.padStart(8, "0"));
+    pc = operand.padStart(8, "0");
+
+    const pcElement = document.getElementById("pc");
+    activeComponentStyle(pcElement, "focus");
+
+    description = {
+      phase: "Execução",
+      text: `O valor do OPERANDO é armazenado no registrador PC.`,
+    };
+  },
+  () => {
+    instructionExecute(search);
+
+    description = {
+      phase: "Execução",
+      text: `a Unidade de Controle verifica se há interrupções para desviar a rotina de instruções, caso contrário, inicia o ciclo de busca novamente.`,
+    };
+  },
+];
+
+export const jmpZeroInstruction = [
+  () => {
+    const aluElement = document.getElementById("alu");
+    aluElement.classList.add("focus-alu");
+    setTimeout(() => aluElement.classList.remove("focus-alu"), 600);
+
+    if (toDecimal(acc) == 0) {
+      count = toDecimal(operand.padStart(8, "0"));
+      pc = operand.padStart(8, "0");
+      const pcElement = document.getElementById("pc");
+      activeComponentStyle(pcElement, "focus");
+    }
+
+    description = {
+      phase: "Execução",
+      text: `A Unidade de Controle faz a (ULA) Unidade Logica Aritmética verificar se o valor do registrador ACC é igual a zero, se ele for, o valor do OPERANDO é armazenado no registrador PC.`,
+    };
+  },
+  () => {
+    instructionExecute(search);
+
+    description = {
+      phase: "Execução",
+      text: `a Unidade de Controle verifica se há interrupções para desviar a rotina de instruções, caso contrário, inicia o ciclo de busca novamente.`,
+    };
+  },
+];
+
+export const jmpNegativeInstruction = [
+  () => {
+    const aluElement = document.getElementById("alu");
+    aluElement.classList.add("focus-alu");
+    setTimeout(() => aluElement.classList.remove("focus-alu"), 600);
+
+    if (toDecimal(acc) < 0) {
+      count = toDecimal(operand.padStart(8, "0"));
+      pc = operand.padStart(8, "0");
+      const pcElement = document.getElementById("pc");
+      activeComponentStyle(pcElement, "focus");
+    }
+
+    description = {
+      phase: "Execução",
+      text: `A Unidade de Controle faz a (ULA) Unidade Logica Aritmética verificar se o valor do registrador ACC é menor que zero, se ele for, o valor do OPERANDO é armazenado no registrador PC.`,
+    };
+  },
+  () => {
+    instructionExecute(search);
+
+    description = {
+      phase: "Execução",
+      text: `a Unidade de Controle verifica se há interrupções para desviar a rotina de instruções, caso contrário, inicia o ciclo de busca novamente.`,
+    };
+  },
+];
 
 function decode(cir) {
   opcode = cir.substring(0, 4);
@@ -474,8 +546,8 @@ function decode(cir) {
     "0101": "#lod",
     "0110": "#jmp",
     "0111": "#jpz",
-    1000: "#jpn",
-    1001: operand == "0001" ? "#ipt" : "#opt",
+    "1000": "#jpn",
+    "1001": operand == "0001" ? "#ipt" : "#opt",
   };
 
   const instructionElement = document.querySelector(getElementID[opcode]);
@@ -518,26 +590,24 @@ function decode(cir) {
       };
       break;
     case "0110":
-      jmpInstruction();
+      instructionExecute(jmpInstruction);
       description = {
         phase: "Decodificação",
-        text: "",
+        text: `O OPCODE ${opcode} significa PULAR, ele vai definir um novo endereço para o registrador PC. Desta forma, mudando a ordem das instruções.`,
       };
       break;
     case "0111":
-      if (acc == "00000000") jmpInstruction();
-      else instructionExecute(search);
+      instructionExecute(jmpZeroInstruction);
       description = {
         phase: "Decodificação",
-        text: "",
+        text: `O OPCODE ${opcode} significa PULAR SE (zero). Se o valor do registrador ACC for igual a zero, então será definido um novo endereço para o registrador PC.`,
       };
       break;
     case "1000":
-      if (toDecimal(acc) < "00000000") jmpInstruction();
-      else instructionExecute(search);
+      instructionExecute(jmpNegativeInstruction);
       description = {
         phase: "Decodificação",
-        text: "",
+        text: `O OPCODE ${opcode} significa PULAR SE (negativo). Se o valor do registrador ACC for menor que zero, então será definido um novo endereço para o registrador PC.`,
       };
       break;
     case "1001":

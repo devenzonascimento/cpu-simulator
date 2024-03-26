@@ -46,13 +46,13 @@ const DecodeUnit = () => {
       id: "jpz",
       opcode: "0111",
       operand: "endereço",
-      instruction: "Pular (zero)",
+      instruction: "Pular Se (zero)",
     },
     {
       id: "jpn",
       opcode: "1000",
       operand: "endereço",
-      instruction: "Pular (negativo)",
+      instruction: "Pular Se (negativo)",
     },
     {
       id: "ipt",
