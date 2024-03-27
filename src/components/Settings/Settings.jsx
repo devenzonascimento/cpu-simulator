@@ -28,48 +28,46 @@ const Settings = ({
     executeNextStep();
     updateValues();
   };
-  
+
   const handleRun = () => {
-    // Não está pronta pra ser implementado
-    executeComplete();
-    updateValues();
+    let intervalId = setInterval(() => {
+      if (executeNextStep()) {
+        updateValues();
+      } else {
+        clearInterval(intervalId);
+      }
+    }, 1000);
   };
 
   return (
     <div className="settings-container">
+      <nav onClick={buttonAnimation}>
+        <span onClick={buttonAnimation}>Programas</span>
 
-        <nav onClick={buttonAnimation}>
+        <ul className="programs-list">
+          <li onClick={() => chooseProgram(0)}>Soma</li>
+          <li onClick={() => chooseProgram(1)}>Subtração</li>
+          <li onClick={() => chooseProgram(2)}>Maior Numero</li>
+        </ul>
+      </nav>
 
-          <span onClick={buttonAnimation}>
-            Programas
-          </span>
+      <button className="clear-cpu-button" onClick={handleClearMemory}>
+        Limpar Memória
+      </button>
 
-          <ul className="programs-list">
-            <li onClick={() => chooseProgram(0)}>Soma</li>
-            <li onClick={() => chooseProgram(1)}>Subtração</li>
-            <li onClick={() => chooseProgram(2)}>Maior Numero</li>
-          </ul>
+      <button className="clear-ram-button" onClick={handleClearCPU}>
+        Limpar CPU
+      </button>
 
-        </nav>
+      <button className="run-button" onClick={handleRun}>
+        <span>Rodar</span>
+        <IoPlay />
+      </button>
 
-        <button className="clear-cpu-button" onClick={handleClearMemory}>
-          Limpar Memória
-        </button>
-
-        <button className="clear-ram-button" onClick={handleClearCPU}>
-          Limpar CPU
-        </button>
-
-        <button className="run-button">
-          <span>Rodar</span>
-          <IoPlay />
-        </button>
-
-        <button className="step-button" onClick={handleNextStep}>
-          <span>Proximo Passo</span>
-          <IoPlaySkipForward />
-        </button>
-
+      <button className="step-button" onClick={handleNextStep}>
+        <span>Proximo Passo</span>
+        <IoPlaySkipForward />
+      </button>
     </div>
   );
 };

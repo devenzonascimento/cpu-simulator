@@ -148,30 +148,22 @@ export let main = [
   () => decode(cir),
 ];
 
+let executeIsValid = true;
 export const executeNextStep = () => {
   if (currentStep < main.length) {
-    console.log(main[currentStep]);
-    console.log(main);
+    //console.log(main[currentStep]);
+    //console.log(main);
     main[currentStep]();
     currentStep++;
   }
-};
+  
+  if(!executeIsValid) {
+    executeIsValid = true;
+    clearCPU();
+    return false
+  }
 
-// Preciso trabalhar na logica dessa função, esta com muitos problemas!
-// Função para rodar o script inteiro de uma vez ( RUN )
-
-export const executeComplete = () => {
-  let i = 0;
-  const intervalId = setInterval(() => {
-    console.log(main[i]);
-    main[i]();
-
-    i++;
-
-    if (i >= main.length) {
-      clearInterval(intervalId);
-    }
-  }, 1000);
+  return true
 };
 
 export function instructionExecute(array) {
@@ -461,6 +453,7 @@ export const endInstruction = [
   () => {
     alert("FIM DO PROGRAMA");
     clearCPU();
+    executeIsValid = false;
   },
 ];
 
