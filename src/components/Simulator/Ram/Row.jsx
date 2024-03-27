@@ -9,7 +9,7 @@ const Row = ({ memory, handleEditar }) => {
             <td>{endereco}</td>
             <td className="ram-cell-value">
               <input
-                id={endereco}
+                id={`adress-${endereco}`}
                 className="ram-input"
                 type="text"
                 maxLength={8}
