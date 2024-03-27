@@ -150,20 +150,19 @@ export let main = [
 
 let executeIsValid = true;
 export const executeNextStep = () => {
+  if (!executeIsValid) {
+    executeIsValid = true;
+    clearCPU();
+    alert("O PROGRAMA FOI ENCERRADO");
+    return false;
+  }
+
   if (currentStep < main.length) {
-    //console.log(main[currentStep]);
-    //console.log(main);
     main[currentStep]();
     currentStep++;
   }
-  
-  if(!executeIsValid) {
-    executeIsValid = true;
-    clearCPU();
-    return false
-  }
 
-  return true
+  return true;
 };
 
 export function instructionExecute(array) {
@@ -451,8 +450,10 @@ export const outputInstruction = [
 
 export const endInstruction = [
   () => {
-    alert("FIM DO PROGRAMA");
-    clearCPU();
+    description = {
+      phase: "Execução",
+      text: `a CPU foi interrompida. A Unidade de Controle não busca mais instruções.`,
+    };
     executeIsValid = false;
   },
 ];

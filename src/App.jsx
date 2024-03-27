@@ -43,7 +43,6 @@ const App = () => {
           clearCPU={Cpu.clearCPU}
           clearMemory={Cpu.clearMemory}
           executeNextStep={Cpu.executeNextStep}
-          executeComplete={Cpu.executeComplete}
           chooseProgram={handleChooseProgram}
         />
         <Simulator

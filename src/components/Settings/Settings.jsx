@@ -11,7 +11,6 @@ const Settings = ({
   clearCPU,
   clearMemory,
   executeNextStep,
-  executeComplete,
   chooseProgram,
 }) => {
   const handleClearMemory = () => {
