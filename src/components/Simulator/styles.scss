@@ -1,4 +1,4 @@
-/* Media query para celulares (até 767 pixels de largura) */
+// Mobile
 @media only screen and (max-width: 450px) {
     .simulator-container {
         position: relative;
@@ -14,12 +14,33 @@
     }
 }
   
-/* Media query para tablets (768 a 1023 pixels de largura) */
+// Tablet
 @media only screen and (min-width: 450px) and (max-width: 1023px) {
-
+    .simulator-container {
+        height: 480px;
+        width: 750px;
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 0; // por enquanto
+        background-color: rgb(54, 54, 54);
+        border: 2px solid lime;
+        border-radius: 10px;
+        padding: 0.5em;
+    
+        .registers-container {
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2em;
+        }
+    }
 }
 
-/* Media query para computadores (acima de 1024 pixels de largura) */
+//Desktop
 @media only screen and (min-width: 1024px) {
     .simulator-container {
         height: 530px;

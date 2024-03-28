@@ -7,8 +7,7 @@
   border: 0px solid white;
   box-sizing: border-box;
 }
-
-/* Media query para celulares (até 767 pixels de largura) */
+// Mobile
 @media only screen and (max-width: 450px) {
   body {
     background: url(assets/bg-mobile.svg);
@@ -39,10 +38,43 @@
   }
 }
 
-/* Media query para tablets (768 a 1023 pixels de largura) */
-@media only screen and (min-width: 450px) and (max-width: 1023px) {}
+// Tablet
+@media only screen and (min-width: 450px) and (max-width: 1023px) {
+  body {
+    background: url(assets/bg-desktop.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgb(24, 23, 23);
 
-/* Media query para computadores (acima de 1024 pixels de largura) */
+    #root {
+      height: 100vh;
+    }
+
+    header {
+
+      h1 {
+        font-size: 2em;
+        text-transform: uppercase;
+        color: lime;
+        padding: 0.1em 0.6em;
+      }
+    }
+
+    .container {
+      height: max-content;
+      min-width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      gap: 0.5em;
+      padding: 1em;
+      background-color: transparent;
+    }
+  }
+}
+
+//Desktop
 @media only screen and (min-width: 1024px) {
   body {
     background: url(assets/bg-desktop.svg);
