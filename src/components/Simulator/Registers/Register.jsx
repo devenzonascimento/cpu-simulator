@@ -34,7 +34,7 @@ const Register = ({ id, name, value, handleOpenModal }) => {
     <div className={`register-container ${id}`} id={id}>
       <span className="register-name">{name}</span>
       <span className="register-value">{value}</span>
-      <MdInfoOutline className="info-icon" onClick={handleOpenModal(registerInformation[id])}/>
+      <MdInfoOutline className="info-icon" onClick={() => handleOpenModal(registerInformation[id])}/>
     </div>
   );
 };

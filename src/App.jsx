@@ -40,9 +40,9 @@ const App = () => {
     body: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit distinctio nesciunt, maxime consequatur facere quis similique vero. Aspernatur hic, velit labore sint, iusto accusantium ab corporis sit sapiente, omnis excepturi?",
   });
 
-
   const handleOpenModal = (newInformation) => {
-    setInformations(newInformation)
+    console.log(newInformation);
+    setInformations(newInformation);
     setIsOpenInfoModal(true);
   };
 
@@ -78,11 +78,14 @@ const App = () => {
           cirValue={cirValue}
           UpdateMemory={handleUpdateMemory}
         />
+      </div>
+      {
         <InfoModal
           isOpenInfoModal={isOpenInfoModal}
           handleCloseModal={handleCloseModal}
+          informations={information}
         />
-      </div>
+      }
       <footer></footer>
     </>
   );
