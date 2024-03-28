@@ -35,10 +35,7 @@ const App = () => {
 
   const [isOpenInfoModal, setIsOpenInfoModal] = useState(false);
 
-  const [information, setInformations] = useState({
-    title: "(MAR) - Memory Address Register",
-    body: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit distinctio nesciunt, maxime consequatur facere quis similique vero. Aspernatur hic, velit labore sint, iusto accusantium ab corporis sit sapiente, omnis excepturi?",
-  });
+  const [information, setInformations] = useState();
 
   const handleOpenModal = (newInformation) => {
     console.log(newInformation);
