@@ -11,6 +11,7 @@ import { description } from "../../script/cpuScript"
 import "./styles.scss";
 
 const Simulator = ({
+  handleOpenModal,
   memoryValue,
   pcValue,
   marValue,
@@ -24,12 +25,12 @@ const Simulator = ({
     <div className="simulator-container">
       <Ram memory={memoryValue} UpdateMemory={UpdateMemory} />
       <div className="registers-container">
-        <Register id={"pc"} name={"pc"} value={pcValue} />
-        <Register id={"mar"} name={"mar"} value={marValue} />
-        <Register id={"mdr"} name={"mdr"} value={mdrValue} />
+        <Register id={"pc"} name={"pc"} value={pcValue} handleOpenModal={handleOpenModal}/>
+        <Register id={"mar"} name={"mar"} value={marValue} handleOpenModal={handleOpenModal}/>
+        <Register id={"mdr"} name={"mdr"} value={mdrValue} handleOpenModal={handleOpenModal}/>
         <Alu />
-        <Register id={"acc"} name={"acc"} value={accValue} />
-        <Register id={"cir"} name={"cir"} value={cirValue} />
+        <Register id={"acc"} name={"acc"} value={accValue} handleOpenModal={handleOpenModal}/>
+        <Register id={"cir"} name={"cir"} value={cirValue} handleOpenModal={handleOpenModal}/>
       </div>
       <DecodeUnit />
     </div>
