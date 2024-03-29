@@ -56,7 +56,6 @@ const App = () => {
           UpdateMemory={handleUpdateMemory}
         />
       </div>
-      <footer></footer>
     </>
   );
 };
