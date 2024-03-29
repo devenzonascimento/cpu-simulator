@@ -4,14 +4,13 @@ import "./styles.scss";
 
 const Description = ({ description }) => {
 
-  if (description.text) {
-    return (
+  {description.text && (
       <div className="description-container">
         <span className="description-phase">{description?.phase}</span>
         <p className="description-text">{description?.text}</p>
       </div>
     );
-  } else return <></>;
+  }
 };
 
 export default Description;
