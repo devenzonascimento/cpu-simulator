@@ -58,6 +58,7 @@
 // Tablet
 @media only screen and (min-width: 450px) and (max-width: 1023px) {
     .memory-container {
+        position: relative;
         height: 100%;
         min-width: max-content;
         display: flex;
@@ -106,6 +107,14 @@
                 color: lime;
                 background-color: transparent;
             }
+        }
+
+        .info-icon {
+            position: absolute;
+            top: 0.4em;
+            right: 0.4em;
+            font-size: 0.8em;
+            transition: all 0.5s ease-in-out;
         }
     }
 }
@@ -167,8 +176,12 @@
             position: absolute;
             top: 0.4em;
             right: 0.4em;
-            font-size: 0.7em;
+            font-size: 0.8em;
             transition: all 0.5s ease-in-out;
+
+            &:hover {
+                transform: rotate(360deg) scale(1.2);
+            }
         }
     }
 }

@@ -162,12 +162,8 @@
       position: absolute;
       top: 0.4em;
       right: 0.4em;
-      font-size: 0.7em;
+      font-size: 0.8em;
       transition: all 0.5s ease-in-out;
-
-      &:hover {
-        transform: rotate(360deg) scale(1.2);
-      }
     }
   }
   .cir {
@@ -224,6 +220,14 @@
         0 0 //superior-esquerda
       );
 
+      .info-icon {
+        position: absolute;
+        top: 0.2em;
+        right: 1.2em;
+        font-size: 0.8em;
+        transition: all 0.5s ease-in-out;
+      }
+
       span {
         font-size: 1.1em;
         font-weight: 700;
@@ -274,7 +278,7 @@
       position: absolute;
       top: 0.4em;
       right: 0.4em;
-      font-size: 0.7em;
+      font-size: 0.8em;
       transition: all 0.5s ease-in-out;
 
       &:hover {
@@ -340,8 +344,12 @@
         position: absolute;
         top: 0.4em;
         right: 1.5em;
-        font-size: 0.7em;
+        font-size: 0.8em;
         transition: all 0.5s ease-in-out;
+
+        &:hover {
+          transform: rotate(360deg) scale(1.2);
+        }
       }
 
       span {

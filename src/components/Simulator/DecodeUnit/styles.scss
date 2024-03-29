@@ -44,6 +44,7 @@
 // Tablet
 @media only screen and (min-width: 450px) and (max-width: 1023px) {
   .decode-container {
+    position: relative;
     height: max-content;
     align-self: flex-end;
     display: flex;
@@ -68,8 +69,7 @@
         background-color: rgb(40, 40, 40);
       }
 
-      & th,
-      td {
+      & th, td {
         width: 3em;
         min-width: 7em;
         padding: 0.2em;
@@ -78,6 +78,14 @@
         text-transform: uppercase;
         border: 2px solid rgb(94, 94, 94);
       }
+    }
+
+    .info-icon {
+      position: absolute;
+      top: 0.4em;
+      right: 0.4em;
+      font-size: 0.8em;
+      transition: all 0.5s ease-in-out;
     }
   }
 }
@@ -125,8 +133,12 @@
       position: absolute;
       top: 0.4em;
       right: 0.4em;
-      font-size: 0.7em;
+      font-size: 0.8em;
       transition: all 0.5s ease-in-out;
+
+      &:hover {
+        transform: rotate(360deg) scale(1.2);
+      }
     }
   }
 }
