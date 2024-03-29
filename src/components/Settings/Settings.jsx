@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { IoPlaySkipForward, IoPlay } from "react-icons/io5";
 
@@ -28,12 +28,17 @@ const Settings = ({
     updateValues();
   };
 
+  const [isRunning, setIsRunning] = useState(false);
+
   const handleRun = () => {
-    let intervalId = setInterval(() => {
+    setIsRunning(true);
+
+    let executionInterval = setInterval(() => {
       if (executeNextStep()) {
         updateValues();
       } else {
-        clearInterval(intervalId);
+        clearInterval(executionInterval);
+        setIsRunning(false);
       }
     }, 1000);
   };
@@ -58,7 +63,7 @@ const Settings = ({
         Limpar CPU
       </button>
 
-      <button className="run-button" onClick={handleRun}>
+      <button className="run-button" onClick={handleRun} disabled={isRunning}>
         <span>Rodar</span>
         <IoPlay />
       </button>
