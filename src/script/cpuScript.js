@@ -98,14 +98,14 @@ export let main = [
   () => {
     mar = pc;
 
-    activeComponentStyle("#mar", "focus");
+    activeComponentStyle(".mar", "focus");
     description = {
       phase: "Busca",
       text: "A Unidade de Controle copia o valor do registrador PC para o registrador MAR que envia o valor para o Barramento de Endereço, que funciona como uma interface entre a CPU e a Memória.",
     };
   },
   () => {
-    activeComponentStyle(`#adress-${mar}`, "focus");
+    activeComponentStyle(`#address-${mar}`, "focus");
     description = {
       phase: "Busca",
       text: "A Unidade de Controle sinaliza a Memória para fazer a leitura no endereço que está no Barramento de Endereço, carregar e armazenar esse valor no Barramento de Dados.",
@@ -114,7 +114,7 @@ export let main = [
   () => {
     mdr = memory[mar].padStart(8, "0");
 
-    activeComponentStyle("#mdr", "focus");
+    activeComponentStyle(".mdr", "focus");
     description = {
       phase: "Busca",
       text: "A Unidade de Controle copia o valor do Barramento de Dados para o registrador MDR. Ele atua como um intermediário em qualquer transferência de dados que envolva a Memória.",
@@ -123,7 +123,7 @@ export let main = [
   () => {
     cir = mdr;
 
-    activeComponentStyle("#cir", "focus");
+    activeComponentStyle(".cir", "focus");
     description = {
       phase: "Busca",
       text: "A Unidade de Controle copia o valor do registrador MDR para o registrador de instrução CIR. O CIR armazena temporariamente a instrução que será decodificada e executada posteriormente.",
@@ -132,7 +132,7 @@ export let main = [
   () => {
     pc = count <= 15 ? toBinary((count = count + 1)) : toBinary((count = 0));
 
-    activeComponentStyle("#pc", "focus");
+    activeComponentStyle(".pc", "focus");
     description = {
       phase: "Busca",
       text: "A Unidade de Controle incrementa o registrador PC para apontar para o próximo endereço de instrução na sequência, preparando-se para o ciclo de busca da próxima instrução",
@@ -173,14 +173,14 @@ export const search = [
   () => {
     mar = pc;
 
-    activeComponentStyle("#mar", "focus");
+    activeComponentStyle(".mar", "focus");
     description = {
       phase: "Busca",
       text: "A Unidade de Controle copia o valor do registrador PC para o registrador MAR que envia o valor para o Barramento de Endereço, que funciona como uma interface entre a CPU e a Memória.",
     };
   },
   () => {
-    activeComponentStyle(`#adress-${mar}`, "focus");
+    activeComponentStyle(`#address-${mar}`, "focus");
     description = {
       phase: "Busca",
       text: "A Unidade de Controle sinaliza a Memória para fazer a leitura no endereço que está no Barramento de Endereço, carregar e armazenar esse valor no Barramento de Dados.",
@@ -189,7 +189,7 @@ export const search = [
   () => {
     mdr = memory[mar].padStart(8, "0");
 
-    activeComponentStyle("#mdr", "focus");
+    activeComponentStyle(".mdr", "focus");
     description = {
       phase: "Busca",
       text: "A Unidade de Controle copia o valor do Barramento de Dados para o registrador MDR. Ele atua como um intermediário em qualquer transferência de dados que envolva a Memória.",
@@ -198,7 +198,7 @@ export const search = [
   () => {
     cir = mdr;
 
-    activeComponentStyle("#cir", "focus");
+    activeComponentStyle(".cir", "focus");
     description = {
       phase: "Busca",
       text: "A Unidade de Controle copia o valor do registrador MDR para o registrador de instrução CIR. O CIR armazena temporariamente a instrução que será decodificada e executada posteriormente.",
@@ -207,7 +207,7 @@ export const search = [
   () => {
     pc = count <= 15 ? toBinary((count = count + 1)) : toBinary((count = 0));
 
-    activeComponentStyle("#pc", "focus");
+    activeComponentStyle(".pc", "focus");
     description = {
       phase: "Busca",
       text: "A Unidade de Controle incrementa o registrador PC para apontar para o próximo endereço de instrução na sequência, preparando-se para o ciclo de busca da próxima instrução",
@@ -227,7 +227,7 @@ export const addInstruction = [
   () => {
     mar = operand.padStart(8, "0");
 
-    activeComponentStyle("#mar", "focus");
+    activeComponentStyle(".mar", "focus");
 
     description = {
       phase: "Decodificação",
@@ -235,7 +235,7 @@ export const addInstruction = [
     };
   },
   () => {
-    activeComponentStyle(`#adress-${mar}`, "focus");
+    activeComponentStyle(`#address-${mar}`, "focus");
 
     description = {
       phase: "Execução",
@@ -245,7 +245,7 @@ export const addInstruction = [
   () => {
     mdr = memory[mar];
 
-    activeComponentStyle("#mdr", "focus");
+    activeComponentStyle(".mdr", "focus");
 
     description = {
       phase: "Execução",
@@ -258,7 +258,7 @@ export const addInstruction = [
     const aluElement = document.getElementById("alu");
     aluElement.classList.add("focus-alu");
 
-    activeComponentStyle("#acc", "focus");
+    activeComponentStyle(".acc", "focus");
 
     description = {
       phase: "Execução",
@@ -274,7 +274,7 @@ export const subInstruction = [
   () => {
     mar = operand.padStart(8, "0");
 
-    activeComponentStyle("#mar", "focus");
+    activeComponentStyle(".mar", "focus");
 
     description = {
       phase: "Decodificação",
@@ -282,7 +282,7 @@ export const subInstruction = [
     };
   },
   () => {
-    activeComponentStyle(`#adress-${mar}`, "focus");
+    activeComponentStyle(`#address-${mar}`, "focus");
 
     description = {
       phase: "Execução",
@@ -292,7 +292,7 @@ export const subInstruction = [
   () => {
     mdr = memory[mar];
 
-    activeComponentStyle("#mdr", "focus");
+    activeComponentStyle(".mdr", "focus");
 
     description = {
       phase: "Execução",
@@ -305,7 +305,7 @@ export const subInstruction = [
     const aluElement = document.getElementById("alu");
     aluElement.classList.add("focus-alu");
 
-    activeComponentStyle("#acc", "focus");
+    activeComponentStyle(".acc", "focus");
 
     description = {
       phase: "Execução",
@@ -321,7 +321,7 @@ export const storeInstruction = [
   () => {
     mar = operand.padStart(8, "0");
 
-    activeComponentStyle("#mar", "focus");
+    activeComponentStyle(".mar", "focus");
 
     description = {
       phase: "Decodificação",
@@ -331,7 +331,7 @@ export const storeInstruction = [
   () => {
     mdr = acc;
 
-    activeComponentStyle("#mdr", "focus");
+    activeComponentStyle(".mdr", "focus");
 
     description = {
       phase: "Execução",
@@ -341,7 +341,7 @@ export const storeInstruction = [
   () => {
     memory[mar] = mdr;
 
-    activeComponentStyle(`#adress-${mar}`, "focus");
+    activeComponentStyle(`#address-${mar}`, "focus");
 
     description = {
       phase: "Execução",
@@ -362,7 +362,7 @@ export const loadInstruction = [
   () => {
     mar = operand.padStart(8, "0");
 
-    activeComponentStyle("#mar", "focus");
+    activeComponentStyle(".mar", "focus");
 
     description = {
       phase: "Decodificação",
@@ -370,7 +370,7 @@ export const loadInstruction = [
     };
   },
   () => {
-    activeComponentStyle(`#adress-${mar}`, "focus");
+    activeComponentStyle(`#address-${mar}`, "focus");
 
     description = {
       phase: "Execução",
@@ -380,7 +380,7 @@ export const loadInstruction = [
   () => {
     mdr = memory[mar];
 
-    activeComponentStyle("#mdr", "focus");
+    activeComponentStyle(".mdr", "focus");
 
     description = {
       phase: "Execução",
@@ -390,7 +390,7 @@ export const loadInstruction = [
   () => {
     acc = mdr;
 
-    activeComponentStyle("#acc", "focus");
+    activeComponentStyle(".acc", "focus");
 
     description = {
       phase: "Execução",
@@ -411,7 +411,7 @@ export const inputInstruction = [
   () => {
     acc = toBinary(prompt("Informe um numero: (-127 a 127)"));
 
-    activeComponentStyle("#acc", "focus");
+    activeComponentStyle(".acc", "focus");
 
     description = {
       phase: "Execução",
@@ -430,7 +430,7 @@ export const inputInstruction = [
 
 export const outputInstruction = [
   () => {
-    activeComponentStyle("#acc", "focus");
+    activeComponentStyle(".acc", "focus");
     alert(`OUTPUT => ${toDecimal(acc)}`);
 
     description = {
@@ -463,7 +463,7 @@ export const jmpInstruction = [
     count = toDecimal(operand.padStart(8, "0"));
     pc = operand.padStart(8, "0");
 
-    activeComponentStyle("#pc", "focus");
+    activeComponentStyle(".pc", "focus");
 
     description = {
       phase: "Execução",
@@ -490,7 +490,7 @@ export const jmpZeroInstruction = [
       count = toDecimal(operand.padStart(8, "0"));
       pc = operand.padStart(8, "0");
 
-      activeComponentStyle("#pc", "focus");
+      activeComponentStyle(".pc", "focus");
     }
 
     description = {
@@ -518,7 +518,7 @@ export const jmpNegativeInstruction = [
       count = toDecimal(operand.padStart(8, "0"));
       pc = operand.padStart(8, "0");
 
-      activeComponentStyle("#pc", "focus");
+      activeComponentStyle(".pc", "focus");
     }
 
     description = {

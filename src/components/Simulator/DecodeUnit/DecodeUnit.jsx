@@ -2,9 +2,11 @@ import React from "react";
 
 import DecodeRow from "./DecodeRow";
 
+import { MdInfoOutline } from "react-icons/md";
+
 import "./styles.scss";
 
-const DecodeUnit = () => {
+const DecodeUnit = ({ handleOpenModal }) => {
   const decodeTableRow = [
     {
       id: "end",
@@ -72,7 +74,7 @@ const DecodeUnit = () => {
     <>
       <div className="decode-container">
         <table className="decode-table">
-          <caption className="decode-caption">DECODIFICADOR</caption>
+          <caption className="decode-caption">DECODE</caption>
           <thead>
             <tr className="decode-table-header">
               <th>Opcode</th>
@@ -86,6 +88,7 @@ const DecodeUnit = () => {
             ))}
           </tbody>
         </table>
+        <MdInfoOutline className="info-icon" onClick={() => handleOpenModal("decode")}/>
       </div>
     </>
   );

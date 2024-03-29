@@ -30,33 +30,33 @@
       text-align: center;
       letter-spacing: 0.1em;
     }
-
-    .info-icon {
-      display: none;
-    }
 }
 
-#pc {
+.info-icon {
+  display: none;
+}
+
+.pc {
     top: 1em;
     left: 1em;
 }
 
-#mar {
+.mar {
     top: 1em;
     right: 1em;
 }
 
-#mdr {
+.mdr {
     top: 18em;
     left: 1em;
 }
 
-#acc {
+.acc {
     top: 18em;
     right: 1em;
 }
 
-#cir {
+.cir {
     position: inherit;
     margin: auto;
     margin-top: 1.5em;
@@ -335,6 +335,14 @@
         //inferior-esquerda
         0 0 //superior-esquerda
       );
+
+      .info-icon {
+        position: absolute;
+        top: 0.4em;
+        right: 1.5em;
+        font-size: 0.7em;
+        transition: all 0.5s ease-in-out;
+      }
 
       span {
         font-size: 1.5em;

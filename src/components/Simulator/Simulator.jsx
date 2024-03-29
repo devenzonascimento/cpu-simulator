@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
-import Ram from "./Ram/Ram";
+import Memory from "./Ram/Memory";
 import Register from "./Registers/Register";
 import Alu from "./Registers/Alu";
 import DecodeUnit from "./DecodeUnit/DecodeUnit";
 import Description from "./Description/Description";
+import InfoModal from "./InfoModal/InfoModal";
 
-import { description } from "../../script/cpuScript"
+import { description } from "../../script/cpuScript";
 
 import "./styles.scss";
 
 const Simulator = ({
-  handleOpenModal,
   memoryValue,
   pcValue,
   marValue,
@@ -20,21 +20,104 @@ const Simulator = ({
   cirValue,
   UpdateMemory,
 }) => {
+
+  const [isOpenInfoModal, setIsOpenInfoModal] = useState(false);
+
+  const [information, setInformations] = useState();
+
+  const modalInformation = {
+    "pc": {
+      "title": "Program Counter - PC",
+      "body": "O Program Counter (PC) é um registrador que contém o endereço da próxima instrução a ser executada na memória principal. Durante o ciclo de busca, a CPU utiliza o valor armazenado no PC para obter o endereço da próxima instrução."
+    },
+    "mar": {
+      "title": "Memory Address Register - MAR",
+      "body": "O Memory Address Register (MAR) é um registrador utilizado para armazenar o endereço de memória para leitura ou escrita. Durante a fase de busca, o PC transfere o endereço da próxima instrução para o MAR, que então é utilizado para acessar a memória principal."
+    },
+    "mdr": {
+      "title": "Memory Data Register - MDR",
+      "body": "O Memory Data Register (MDR) é um registrador utilizado para armazenar temporariamente dados que são lidos ou escritos na memória principal. Durante a fase de busca, o conteúdo da memória no endereço especificado pelo MAR é transferido para o MDR, onde a instrução é temporariamente armazenada antes de ser transferida para o registrador de instrução (CIR)."
+    },
+    "acc": {
+      "title": "Accumulator - ACC",
+      "body": "O Accumulator (ACC) é um registrador especial utilizado para armazenar temporariamente dados durante operações aritméticas e lógicas realizadas pela CPU. Ele é frequentemente usado como um registro para armazenar resultados intermediários ou finais de operações."
+    },
+    "cir": {
+      "title": "Current Instruction Register - CIR",
+      "body": "O Current Instruction Register (CIR) é um registrador utilizado para armazenar temporariamente a instrução atual que está sendo executada pela CPU. Durante a fase de busca, a instrução lida da memória é transferida para o CIR, onde será decodificada e posteriormente executada."
+    },
+    "alu": {
+      "title": "Arithmetic Logic Unit - ALU",
+      "body": "A Unidade Lógica Aritmética (ULA) é um componente crucial em uma CPU responsável por realizar operações aritméticas (como adição, subtração, multiplicação e divisão) e operações lógicas (como AND, OR, NOT) em dados. Ela executa as instruções aritméticas e lógicas determinadas pelo controle da CPU."
+    },
+    "decode": {
+      "title": "Decode",
+      "body": "O Decodificador é um componente da CPU responsável por interpretar as instruções recebidas da memória ou cache. Ele decodifica o código da instrução para determinar a operação a ser realizada, os operandos envolvidos e os registradores que serão utilizados. O decodificador prepara os sinais de controle necessários para executar a instrução."
+    },
+    "memory": {
+      "title": "Memory",
+      "body": "A Memória é um componente essencial de um sistema de computador que armazena dados e instruções temporariamente durante a execução de um programa. Ela é dividida em diferentes tipos, como memória principal (RAM) e memória cache, e fornece acesso rápido aos dados para a CPU. A memória é acessada pela CPU durante a fase de busca e execução de instruções."
+    },
+  }
+
+  const handleOpenModal = (componentID) => {
+    setInformations(modalInformation[componentID]);
+    setIsOpenInfoModal(true);
+  };
+
+  const handleCloseModal = (event) => {
+    const background = document.querySelector(".backdrop");
+    const closeIcon = document.querySelector(".close-icon");
+
+    if (event.target === background || event.target === closeIcon) {
+      setIsOpenInfoModal(false);
+    }
+  };
+
   return (
     <>
-    <div className="simulator-container">
-      <Ram memory={memoryValue} UpdateMemory={UpdateMemory} />
-      <div className="registers-container">
-        <Register id={"pc"} name={"pc"} value={pcValue} handleOpenModal={handleOpenModal}/>
-        <Register id={"mar"} name={"mar"} value={marValue} handleOpenModal={handleOpenModal}/>
-        <Register id={"mdr"} name={"mdr"} value={mdrValue} handleOpenModal={handleOpenModal}/>
-        <Alu />
-        <Register id={"acc"} name={"acc"} value={accValue} handleOpenModal={handleOpenModal}/>
-        <Register id={"cir"} name={"cir"} value={cirValue} handleOpenModal={handleOpenModal}/>
+      <div className="simulator-container">
+        <Memory
+          memory={memoryValue}
+          UpdateMemory={UpdateMemory}
+          handleOpenModal={handleOpenModal}
+        />
+        <div className="registers-container">
+          <Register
+            id={"pc"}
+            value={pcValue}
+            handleOpenModal={handleOpenModal}
+          />
+          <Register
+            id={"mar"}
+            value={marValue}
+            handleOpenModal={handleOpenModal}
+          />
+          <Register
+            id={"mdr"}
+            value={mdrValue}
+            handleOpenModal={handleOpenModal}
+          />
+          <Alu handleOpenModal={handleOpenModal} />
+          <Register
+            id={"acc"}
+            value={accValue}
+            handleOpenModal={handleOpenModal}
+          />
+          <Register
+            id={"cir"}
+            value={cirValue}
+            handleOpenModal={handleOpenModal}
+          />
+        </div>
+        <DecodeUnit handleOpenModal={handleOpenModal} />
       </div>
-      <DecodeUnit />
-    </div>
-    <Description description={description}/>
+      <InfoModal
+        isOpenInfoModal={isOpenInfoModal}
+        handleCloseModal={handleCloseModal}
+        information={information}
+      />
+      <Description description={description} />
     </>
   );
 };

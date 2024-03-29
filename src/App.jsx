@@ -33,25 +33,6 @@ const App = () => {
     setCirValue(Cpu.cir);
   };
 
-  const [isOpenInfoModal, setIsOpenInfoModal] = useState(false);
-
-  const [information, setInformations] = useState();
-
-  const handleOpenModal = (newInformation) => {
-    console.log(newInformation);
-    setInformations(newInformation);
-    setIsOpenInfoModal(true);
-  };
-
-  const handleCloseModal = (event) => {
-    const background = document.querySelector(".backdrop");
-    const closeIcon = document.querySelector(".close-icon");
-
-    if (event.target === background || event.target === closeIcon) {
-      setIsOpenInfoModal(false);
-    }
-  };
-
   return (
     <>
       <header>
@@ -66,7 +47,6 @@ const App = () => {
           chooseProgram={handleChooseProgram}
         />
         <Simulator
-          handleOpenModal={handleOpenModal}
           memoryValue={memoryValue}
           pcValue={pcValue}
           marValue={marValue}
@@ -76,13 +56,6 @@ const App = () => {
           UpdateMemory={handleUpdateMemory}
         />
       </div>
-      {
-        <InfoModal
-          isOpenInfoModal={isOpenInfoModal}
-          handleCloseModal={handleCloseModal}
-          informations={information}
-        />
-      }
       <footer></footer>
     </>
   );
