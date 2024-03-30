@@ -2,7 +2,7 @@
 
 O CPU Simulator é um projeto educativo que visa mostrar o passo a passo do ciclo de instruções em uma Unidade Central de Processamento (CPU). Ele demonstra as fases de busca, decodificação e execução de instruções, fornecendo uma compreensão mais profunda de como uma CPU funciona.
 
-## Funcionalidades do projeto
+## 🔨Funcionalidades do projeto
 
 O Simulador de CPU oferece uma representação visual do funcionamento de uma CPU, incluindo:
 
