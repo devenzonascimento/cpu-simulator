@@ -4,6 +4,7 @@ O CPU Simulator é um projeto educativo que visa mostrar o passo a passo do cicl
 
 Este projeto tem como objetivo fornecer uma experiência educativa interativa para estudantes e entusiastas de computação, permitindo que eles entendam melhor os conceitos fundamentais por trás do funcionamento de uma CPU.
 
+
 ## 🔨 Funcionalidades do projeto
 
 O Simulador de CPU oferece uma representação visual do funcionamento de uma CPU, incluindo:
@@ -14,9 +15,10 @@ O Simulador de CPU oferece uma representação visual do funcionamento de uma CP
   
 - **Decodificador:** Explica o funcionamento do decodificador, que interpreta as instruções e prepara os sinais de controle necessários para executar cada operação.
 
+
 ## 🛠️ Abrir e rodar o projeto
 
-[🔗 Clique aqui e veja o projeto](https://devenzonascimento.github.io/cpu-simulator/)
+# [🔗 Clique aqui e veja o projeto](https://devenzonascimento.github.io/cpu-simulator/)
 
 # Responsividade no Projeto
 
@@ -40,4 +42,4 @@ Mesmo que o projeto seja otimizado para desktops, reconhecemos a importância da
 
 ![image](https://github.com/devenzonascimento/cpu-simulator/assets/143226080/49f72658-715b-40ae-a016-b04bce39353a)
 
-Apesar do foco principal ser na versão para desktop, estamos comprometidos em oferecer uma experiência satisfatória em todas as plataformas, adaptando o projeto para atender às necessidades dos usuários em diferentes dispositivos.
+Espero que vocês aproveitem o projeto e sintam-se à vontade para explorar o repositório e ver como ele foi construído. Boa jornada!
