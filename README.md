@@ -18,11 +18,26 @@ O Simulador de CPU oferece uma representação visual do funcionamento de uma CP
 
 [🔗 Clique aqui e veja o projeto](https://devenzonascimento.github.io/cpu-simulator/)
 
-## Mobile
-![image](https://github.com/devenzonascimento/cpu-simulator/assets/143226080/49f72658-715b-40ae-a016-b04bce39353a)
+# Responsividade no Projeto
 
-## Tablet
+No projeto, damos ênfase à responsividade para garantir uma boa experiência do usuário em diferentes dispositivos, como computadores, tablets e smartphones.
+
+## Para Computadores
+
+A versão para computadores foi projetada para tirar proveito do espaço de tela disponível, proporcionando uma visualização ampla e detalhada do conteúdo. Elementos como barras de navegação, menus e áreas de conteúdo são distribuídos de forma a maximizar a eficiência e a usabilidade.
+
+![image](https://github.com/devenzonascimento/cpu-simulator/assets/143226080/be6c2909-c318-454b-8c9f-e121fbde20ff)
+
+## Para Tablets
+
+Embora o foco principal do projeto seja a experiência em computadores desktop, também oferecemos uma versão simplificada para tablets. Os layouts são ajustados para se adaptarem ao tamanho da tela menor, garantindo que os usuários de tablets tenham acesso às funcionalidades principais do projeto.
+
 ![image](https://github.com/devenzonascimento/cpu-simulator/assets/143226080/7a465ca5-691b-4ea0-b7d2-ab9401c52de6)
 
-## Desktop
-![image](https://github.com/devenzonascimento/cpu-simulator/assets/143226080/be6c2909-c318-454b-8c9f-e121fbde20ff)
+## Para Dispositivos Móveis
+
+Mesmo que o projeto seja otimizado para desktops, reconhecemos a importância da acessibilidade em dispositivos móveis. Assim, disponibilizamos uma versão simplificada para smartphones, com recursos essenciais e uma interface mais simplificada, facilitando a navegação e interação em telas menores.
+
+![image](https://github.com/devenzonascimento/cpu-simulator/assets/143226080/49f72658-715b-40ae-a016-b04bce39353a)
+
+Apesar do foco principal ser na versão para desktop, estamos comprometidos em oferecer uma experiência satisfatória em todas as plataformas, adaptando o projeto para atender às necessidades dos usuários em diferentes dispositivos.
