@@ -18,7 +18,7 @@ O Simulador de CPU oferece uma representação visual do funcionamento de uma CP
 
 ## 🛠️ Abrir e rodar o projeto
 
-# [🔗 Clique aqui e veja o projeto](https://devenzonascimento.github.io/cpu-simulator/)
+### [🔗 Clique aqui e veja o projeto](https://devenzonascimento.github.io/cpu-simulator/)
 
 # Responsividade no Projeto
 
