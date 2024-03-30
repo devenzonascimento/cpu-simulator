@@ -4,7 +4,7 @@
 // Tablet
 @media only screen and (min-width: 450px) and (max-width: 1023px) {
     .backdrop {
-        position: absolute;
+        position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
