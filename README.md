@@ -14,8 +14,15 @@ O Simulador de CPU oferece uma representação visual do funcionamento de uma CP
 
 Este projeto tem como objetivo fornecer uma experiência educativa interativa para estudantes e entusiastas de computação, permitindo que eles entendam melhor os conceitos fundamentais por trás do funcionamento de uma CPU.
 
+📁 Acesso ao projeto
 
-link do projeto: https://devenzonascimento.github.io/cpu-simulator/
+Veja o projeto final do curso em funcionamento.
+
+Neste repositório você tem acesso a todo o material produzido no curso.
+
+🛠️ Abrir e rodar o projeto
+
+[LINK DO PROJETO](https://devenzonascimento.github.io/cpu-simulator/)
 
 ## Mobile
 ![image](https://github.com/devenzonascimento/cpu-simulator/assets/143226080/49f72658-715b-40ae-a016-b04bce39353a)
