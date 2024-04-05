@@ -67,9 +67,9 @@ const Simulator = ({
 
   const handleCloseModal = (event) => {
     const background = document.querySelector(".backdrop");
-    const closeIcon = document.querySelector(".close-icon");
+    const closeIcon = document.querySelector(".close-button");
 
-    if (event.target === background || event.target === closeIcon) {
+    if (event.target === background || event.currentTarget === closeIcon) {
       setIsOpenInfoModal(false);
     }
   };

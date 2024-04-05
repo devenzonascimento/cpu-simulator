@@ -11,7 +11,9 @@ const InfoModal = ({ isOpenInfoModal, handleCloseModal, information }) => {
         <div className="info-modal-container">
           <h1 className="info-modal-title">{information?.title}</h1>
           <p className="info-modal-body">{information?.body}</p>
-          <MdOutlineClose className="close-icon" onClick={handleCloseModal} />
+          <button className="close-button" onClick={handleCloseModal}>
+            <MdOutlineClose className="close-icon" />
+          </button>
         </div>
       </div>
     );
