@@ -407,9 +407,15 @@ export const loadInstruction = [
   },
 ];
 
+import { solicitarValor } from "./input"
+
 export const inputInstruction = [
-  () => {
-    acc = toBinary(prompt("Informe um numero: (-127 a 127)"));
+  async () => {
+    
+    //acc = toBinary(exemplo());
+    const valor = await solicitarValor();
+    acc = toBinary(Number(valor))
+    console.log(acc)
 
     activeComponentStyle(".acc", "focus");
 
@@ -702,3 +708,22 @@ function removeAllActiveComponentStyles() {
 
   document.querySelector("#alu").classList.remove("focus-alu");
 }
+
+
+  //for (let i = -128; i < 128; i++) console.log(`${i} => ${toBinary(i)}`)
+  let arr = [];
+  for (let value of Object.values(biggest)) {
+    arr.push(toDecimal(value))
+  }
+
+  console.log(arr)
+
+
+
+  // ADD 16 to 31
+  // SUB 32 to 47
+  // STORE 48 to 63
+  // LOAD 64 to 79
+  
+  // INPUT -111
+  // OUTPUT -110

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import Settings from "./components/Settings/Settings";
 import Simulator from "./components/Simulator/Simulator";
-import InfoModal from "./components/Simulator/InfoModal/InfoModal";
 
 import * as Cpu from "./script/cpuScript";
 
