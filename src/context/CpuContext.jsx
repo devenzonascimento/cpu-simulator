@@ -1,20 +1,20 @@
 import { createContext, useContext } from "react";
-import useMemory from "./useMemory";
-import useRegister from "./useRegister";
+//import useMemory from "./useMemory";
+//import useRegister from "./useRegister";
 
 export const CpuContext = createContext();
 
 export const CpuProvider = ({ children }) => {
-  const { pc } = useRegister();
-  const { mar } = useRegister();
-  const { mdr } = useRegister();
-  const { acc } = useRegister();
-  const { cir } = useRegister();
-  const { memory } = useMemory();
+  const [memoryValue, setMemoryValue] = useState(Cpu.memory);
+  const [pcValue, setPcValue] = useState("00000000");
+  const [marValue, setMarValue] = useState("00000000");
+  const [mdrValue, setMdrValue] = useState("00000000");
+  const [accValue, setAccValue] = useState("00000000");
+  const [cirValue, setCirValue] = useState("00000000");
 
   return (
     <CpuContext.Provider
-      value={{ pcValue, marValue, mdrValue, accValue, cirValue }}
+      value={{ memoryValue, pcValue, marValue, mdrValue, accValue, cirValue }}
     >
       {children}
     </CpuContext.Provider>
