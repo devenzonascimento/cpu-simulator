@@ -407,15 +407,9 @@ export const loadInstruction = [
   },
 ];
 
-import { solicitarValor } from "./input"
-
 export const inputInstruction = [
-  async () => {
-    
-    //acc = toBinary(exemplo());
-    const valor = await solicitarValor();
-    acc = toBinary(Number(valor))
-    console.log(acc)
+  () => {
+    acc = toBinary(prompt("Informe um numero: (-127 a 127)"));
 
     activeComponentStyle(".acc", "focus");
 
@@ -710,7 +704,7 @@ function removeAllActiveComponentStyles() {
 }
 
 
-  //for (let i = -128; i < 128; i++) console.log(`${i} => ${toBinary(i)}`)
+  /*for (let i = -128; i < 128; i++) console.log(`${i} => ${toBinary(i)}`)
   let arr = [];
   for (let value of Object.values(biggest)) {
     arr.push(toDecimal(value))
@@ -726,4 +720,4 @@ function removeAllActiveComponentStyles() {
   // LOAD 64 to 79
   
   // INPUT -111
-  // OUTPUT -110
+  // OUTPUT -110 */

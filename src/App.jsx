@@ -4,6 +4,7 @@ import Settings from "./components/Settings/Settings";
 import Simulator from "./components/Simulator/Simulator";
 
 import * as Cpu from "./script/cpuScript";
+import { executeNextStep } from "./script/cpuScript copy";
 
 const App = () => {
   const [memoryValue, setMemoryValue] = useState(Cpu.memory);
@@ -35,7 +36,7 @@ const App = () => {
   return (
     <>
       <header>
-        <h1>CPU Simulator</h1>
+        <h1 onClick={executeNextStep}>CPU Simulator</h1>
       </header>
       <div className="container">
         <Settings
