@@ -1,9 +1,6 @@
 import { activeComponentStyle } from "./cpuScript copy";
 import { instructionExecute } from "./cpuInstructions";
 
-let opcode = "";
-let operand = "";
-
 export const decode = (cir) => {
     opcode = cir.substring(0, 4);
     operand = cir.substring(4, 8);
