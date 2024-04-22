@@ -23,29 +23,18 @@ const useRegister = () => {
     setCirValue(newValue);
   };
 
-  
-
-  const pc = {
-    value: pcValue,
-    update: updatePc,
+  return {
+    pcValue,
+    marValue,
+    mdrValue,
+    accValue,
+    cirValue,
+    updatePc,
+    updateMar,
+    updateMdr,
+    updateAcc,
+    updateCir,
   };
-  const mar = {
-    value: marValue,
-    update: updateMar,
-  };
-  const mdr = {
-    value: mdrValue,
-    update: updateMdr,
-  };
-  const acc = {
-    value: accValue,
-    update: updateAcc,
-  };
-  const cir = {
-    value: cirValue,
-    update: updateCir,
-  };
-  return { pc, mar, mdr, acc, cir };
 };
 
 export default useRegister;

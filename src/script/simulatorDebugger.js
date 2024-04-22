@@ -3,7 +3,7 @@ import { main, clearCPU } from "./cpuInstructions";
 let currentStep = 0;
 let executeIsValid;
 
-export const executeNextStep = () => {
+export const executeStepByStep = () => {
   if (executeIsValid !== undefined) {
     executeIsValid = undefined;
     resetCPU();
@@ -19,14 +19,12 @@ export const executeNextStep = () => {
   return true;
 };
 
-
-
-export function resetCPU() {
+export const resetCPU = () => {
   currentStep = 0;
-  clearCPU()
-}
+  clearCPU();
+};
 
-export function toBinary(num) {
+export const toBinary = (num) => {
   const isNegative = num < 0;
 
   if (isNegative) {
@@ -40,9 +38,9 @@ export function toBinary(num) {
   }
 
   return Number(num).toString(2).padStart(8, "0");
-}
+};
 
-export function toDecimal(num) {
+export const toDecimal = (num) => {
   const decimal = parseInt(num, 2);
 
   if (num.charAt(0) === "1") {
@@ -50,4 +48,4 @@ export function toDecimal(num) {
   }
 
   return decimal;
-}
+};

@@ -3,6 +3,30 @@ import { makeAnimation, removeAllActiveComponentStyles } from "./animationCpuCom
 
 export let main = [];
 
+let currentStep = 0;
+let executeIsValid;
+
+export const executeStepByStep = () => {
+  if (executeIsValid !== undefined) {
+    executeIsValid = undefined;
+    resetCPU();
+    alert("O PROGRAMA FOI ENCERRADO");
+    return false;
+  }
+
+  if (currentStep < main.length) {
+    executeIsValid = main[currentStep]();
+    currentStep++;
+  }
+
+  return true;
+};
+
+export const resetCPU = () => {
+  currentStep = 0;
+  clearCPU();
+};
+
 const blank = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 ];
@@ -15,13 +39,15 @@ const sub = [
 const biggest = [
   -111, 62, -111, 63, 46, -119, 95, -110, 0, 94, -110, 0, 0, 0, 0, 0,
 ];
-let memory = blank;
-let pc = 0;
-let mar = 0;
-let mdr = 0;
-let acc = 0;
-let cir = 0;
-let description = {};
+
+export let memory = blank;
+export let pc = 0;
+export let mar = 0;
+export let mdr = 0;
+export let acc = 0;
+export let cir = 0;
+export let description = {};
+
 let operand = 0;
 
 const decode = (instruction) => {

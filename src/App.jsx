@@ -4,7 +4,8 @@ import Settings from "./components/Settings/Settings";
 import Simulator from "./components/Simulator/Simulator";
 
 import * as Cpu from "./script/cpuScript";
-import { executeNextStep } from "./script/cpuScript copy";
+import { executeStepByStep } from "./script/cpuInstructions";
+import { CpuProvider } from "./context/CpuContext";
 
 const App = () => {
   const [memoryValue, setMemoryValue] = useState(Cpu.memory);
@@ -36,25 +37,27 @@ const App = () => {
   return (
     <>
       <header>
-        <h1 onClick={executeNextStep}>CPU Simulator</h1>
+        <h1 onClick={executeStepByStep}>CPU Simulator</h1>
       </header>
       <div className="container">
-        <Settings
-          updateValues={updateValues}
-          clearCPU={Cpu.clearCPU}
-          clearMemory={Cpu.clearMemory}
-          executeNextStep={Cpu.executeNextStep}
-          chooseProgram={handleChooseProgram}
-        />
-        <Simulator
-          memoryValue={memoryValue}
-          pcValue={pcValue}
-          marValue={marValue}
-          mdrValue={mdrValue}
-          accValue={accValue}
-          cirValue={cirValue}
-          UpdateMemory={handleUpdateMemory}
-        />
+        <CpuProvider>
+          <Settings
+            updateValues={updateValues}
+            clearCPU={Cpu.clearCPU}
+            clearMemory={Cpu.clearMemory}
+            executeNextStep={Cpu.executeNextStep}
+            chooseProgram={handleChooseProgram}
+          />
+          <Simulator
+            memoryValue={memoryValue}
+            pcValue={pcValue}
+            marValue={marValue}
+            mdrValue={mdrValue}
+            accValue={accValue}
+            cirValue={cirValue}
+            UpdateMemory={handleUpdateMemory}
+          />
+        </CpuProvider>
       </div>
     </>
   );
