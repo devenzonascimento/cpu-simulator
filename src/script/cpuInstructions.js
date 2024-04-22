@@ -46,6 +46,7 @@ export const clearMemory = () => {
 };
 
 export const switchProgram = (index) => {
+  console.log("chamou")
   memory = [...programs[index]];
   clearCPU();
 };
@@ -57,7 +58,7 @@ const programs = [
   [-111, 62, -111, 63, 46, -119, 95, -110, 0, 94, -110, 0, 0, 0, 0, 0],
 ];
 
-export let memory = programs.add;
+export let memory = programs[0];
 export let pc = 0;
 export let mar = 0;
 export let mdr = 0;
@@ -70,47 +71,59 @@ let operand = 0;
 const decode = (instruction) => {
   if (instruction === 0) {
     instructionExecute(endInstruction);
+    makeAnimation("decode-end")
     description = descriptions.decodeEnd;
   } else if (instruction >= 16 && instruction <= 31) {
     instructionExecute(addInstruction);
+    makeAnimation("decode-add")
     description = descriptions.decodeAdd;
     const add = 16;
     return instruction - add;
   } else if (instruction >= 32 && instruction <= 47) {
     instructionExecute(subInstruction);
+    makeAnimation("decode-sub")
     description = descriptions.decodeSub;
     const sub = 32;
     return instruction - sub;
   } else if (instruction >= 48 && instruction <= 63) {
     instructionExecute(storeInstruction);
+    makeAnimation("decode-str")
     description = descriptions.decodeStore;
     const store = 48;
     return instruction - store;
   } else if (instruction >= 80 && instruction <= 95) {
     instructionExecute(loadInstruction);
+    makeAnimation("decode-lod")
     description = descriptions.decodeLoad;
     const load = 80;
     return instruction - load;
   } else if (instruction >= 96 && instruction <= 111) {
     instructionExecute(jmpInstruction);
+    makeAnimation("decode-jmp")
     description = descriptions.decodeJmp;
     const jmp = 96;
     return instruction - jmp;
   } else if (instruction >= 112 && instruction <= 127) {
     instructionExecute(jmpZeroInstruction);
+    makeAnimation("decode-jpz")
     description = descriptions.decodeJmpZ;
     const jmpZ = 112;
     return instruction - jmpZ;
   } else if (instruction >= -128 && instruction <= -113) {
     instructionExecute(jmpNegativeInstruction);
+    makeAnimation("decode-jpn")
     description = descriptions.decodeJmpN;
     const jmpN = 128;
     return instruction - jmpN;
   } else if (instruction === -111 || instruction === -110) {
     description = descriptions.decodeInOut;
-    instruction + 110
-      ? instructionExecute(inputInstruction)
-      : instructionExecute(outputInstruction);
+    if (instruction + 111 === 0) {
+      instructionExecute(inputInstruction)
+      makeAnimation("decode-ipt")
+    } else {
+      instructionExecute(outputInstruction);
+      makeAnimation("decode-opt")
+    }
   } else {
     return false;
   }
@@ -124,10 +137,11 @@ const searchInstruction = [
     description = descriptions.fetchPcToMar;
   },
   () => {
-    //makeAnimation(`address-${mar}`);
+    makeAnimation(`address-${mar}`);
     description = descriptions.fetchReadMemoryCell;
   },
   () => {
+    console.log(memory, mar)
     mdr = memory[mar];
 
     makeAnimation("mdr");
@@ -163,7 +177,7 @@ const addInstruction = [
     description = descriptions.decodeOperandToMar;
   },
   () => {
-    //makeAnimation(`#address-${mar}`, "focus");
+    makeAnimation(`address-${mar}`);
 
     description = descriptions.execMemoryCellToBus;
   },
@@ -202,7 +216,7 @@ const subInstruction = [
     description = descriptions.decodeOperandToMar;
   },
   () => {
-    //makeAnimation(`#address-${mar}`, "focus");
+    makeAnimation(`address-${mar}`);
 
     description = descriptions.execMemoryCellToBus;
   },
@@ -250,7 +264,7 @@ const storeInstruction = [
   () => {
     memory[mar] = mdr;
 
-    //makeAnimation(`#address-${mar}`, "focus");
+    makeAnimation(`address-${mar}`);
 
     description = descriptions.execMdrToMemoryCell;
   },
@@ -270,7 +284,7 @@ const loadInstruction = [
     description = descriptions.decodeOperandToMar;
   },
   () => {
-    //makeAnimation(`#address-${mar}`, "focus");
+    makeAnimation(`address-${mar}`);
 
     description = descriptions.execReadMemoryCell;
   },

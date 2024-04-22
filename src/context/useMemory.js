@@ -11,7 +11,7 @@ const useMemory = () => {
     ],
   };
 
-  const [memoryValue, setMemoryValue] = useState(programs.add);
+  const [memoryValue, setMemoryValue] = useState(programs.blank);
 
   const updateMemory = (newMemory) => {
     setMemoryValue([...newMemory]);

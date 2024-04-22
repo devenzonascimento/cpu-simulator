@@ -32,6 +32,7 @@ const Memory = ({ memory, UpdateMemory, handleOpenModal }) => {
           {memory.map((value, adress) => {
             return (
               <MemoryRow
+                key={adress}
                 address={adress}
                 value={value}
                 handleEditMemory={handleEditMemory}

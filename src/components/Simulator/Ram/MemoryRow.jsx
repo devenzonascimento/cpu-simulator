@@ -3,13 +3,13 @@ import React from "react";
 import { toBinary } from "../../../script/cpuScript";
 
 const MemoryRow = ({ address, value, handleEditMemory }) => {
+
   return (
-    <tr key={address}>
+    <tr >
       <td>{toBinary(address)}</td>
       <td className="memory-cell-value">
         <input
-          id={`address-${address}`}
-          className="memory-input"
+          className={`memory-input address-${address}`}
           type="text"
           maxLength={8}
           value={toBinary(value)}
@@ -19,5 +19,6 @@ const MemoryRow = ({ address, value, handleEditMemory }) => {
     </tr>
   );
 };
+
 
 export default MemoryRow;

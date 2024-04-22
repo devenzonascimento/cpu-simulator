@@ -71,8 +71,8 @@ export const CpuProvider = ({ children }) => {
     updateAllValues();
   };
 
-  const handleSwitchProgram = (programName) => {
-    switchProgram(programName)
+  const handleSwitchProgram = (index) => {
+    switchProgram(index)
     updateAllValues();
   };
 
