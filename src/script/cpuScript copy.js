@@ -1,49 +1,29 @@
-import { main } from "./cpuInstructions";
+import { main, clearCPU } from "./cpuInstructions";
 
+let currentStep = 0;
+let executeIsValid;
 
-export let count = 0;
-export let currentStep = 0;
-
-
-
-let executeIsValid = true;
 export const executeNextStep = () => {
-  if (!executeIsValid) {
-    executeIsValid = true;
-    clearCPU();
+  if (executeIsValid !== undefined) {
+    executeIsValid = undefined;
+    resetCPU();
     alert("O PROGRAMA FOI ENCERRADO");
     return false;
   }
 
   if (currentStep < main.length) {
-    main[currentStep]();
+    executeIsValid = main[currentStep]();
     currentStep++;
   }
 
   return true;
 };
 
-export const instructionExecute = (array) => {
-  main = main.concat(array);
-}
 
 
-export function clearCPU() {
+export function resetCPU() {
   currentStep = 0;
-  main = search;
-  pc = "00000000";
-  mar = "00000000";
-  mdr = "00000000";
-  acc = "00000000";
-  cir = "00000000";
-  count = 0;
-  opcode = "";
-  operand = "";
-  description = {};
-  removeAllActiveComponentStyles();
-}
-export function clearMemory() {
-  memory = blank;
+  clearCPU()
 }
 
 export function toBinary(num) {
@@ -71,58 +51,3 @@ export function toDecimal(num) {
 
   return decimal;
 }
-
-let previous = {
-  element: "",
-  style: "",
-};
-
-export function activeComponentStyle(element, styleName) {
-  previous.element && previous.element.classList.remove(previous.style);
-
-  const focusElement = document.querySelector(element);
-
-  if (focusElement) {
-    focusElement.classList.add(styleName);
-    previous.element = focusElement;
-    previous.style = styleName;
-  } else {
-    console.error("O elemento não foi encontrado.");
-  }
-}
-
-function removeAllActiveComponentStyles() {
-  const arrayElementClass = [
-    ".register-container",
-    ".ram-input",
-    ".instruction-row",
-    ".decode-container",
-  ];
-
-  for (let i = 0; i < arrayElementClass.length; i++) {
-    document.querySelectorAll(arrayElementClass[i]).forEach((element) => {
-      element.classList.remove("focus");
-    });
-  }
-
-  document.querySelector("#alu").classList.remove("focus-alu");
-}
-
-
-  /*for (let i = -128; i < 128; i++) console.log(`${i} => ${toBinary(i)}`)
-  let arr = [];
-  for (let value of Object.values(biggest)) {
-    arr.push(toDecimal(value))
-  }
-
-  console.log(arr)
-
-
-
-  // ADD 16 to 31
-  // SUB 32 to 47
-  // STORE 48 to 63
-  // LOAD 64 to 79
-  
-  // INPUT -111
-  // OUTPUT -110 */

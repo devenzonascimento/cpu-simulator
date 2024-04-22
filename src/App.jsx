@@ -36,7 +36,7 @@ const App = () => {
   return (
     <>
       <header>
-        <h1 onClick={Cpu.gerarJson}>CPU Simulator</h1>
+        <h1 onClick={executeNextStep}>CPU Simulator</h1>
       </header>
       <div className="container">
         <Settings

@@ -1,413 +1,306 @@
-import { memory } from "./memory";
-import { activeComponentStyle, toBinary, toDecimal } from "./cpuScript copy";
+import { descriptions } from "./phaseDescriptions";
+import { makeAnimation, removeAllActiveComponentStyles } from "./animationCpuComponents"
 
-/*export*/ let pc = "00000000";
-/*export*/ let mar = "00000000";
-/*export*/ let mdr = "00000000";
-/*export*/ let acc = "00000000";
-/*export*/ let cir = "00000000";
-/*export*/ let count = 0;
-/*export*/ let description = {};
-let opcode = "";
-let operand = "";
+export let main = [];
 
-const decode = (cir) => {
-  opcode = cir.substring(0, 4);
-  operand = cir.substring(4, 8);
+const blank = [
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+];
+const add = [
+    -111, 63, -111, 31, -110, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+];
+const sub = [
+    -111, 63, -111, 47, -110, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+];
+const biggest = [
+  -111, 62, -111, 63, 46, -119, 95, -110, 0, 94, -110, 0, 0, 0, 0, 0,
+];
+let memory = blank;
+let pc = 0;
+let mar = 0;
+let mdr = 0;
+let acc = 0;
+let cir = 0;
+let description = {};
+let operand = 0;
 
-  let getElementID = {
-    "0000": "#end",
-    "0001": "#add",
-    "0010": "#sub",
-    "0011": "#str",
-    "0101": "#lod",
-    "0110": "#jmp",
-    "0111": "#jpz",
-    1000: "#jpn",
-    1001: operand == "0001" ? "#ipt" : "#opt",
-  };
-
-  activeComponentStyle(getElementID[opcode], "focus");
-
-  switch (opcode) {
-    case "0000":
-      instructionExecute(endInstruction);
-      description = {
-        phase: "Decodificação",
-        text: `O OPCODE ${opcode} encerra o programa.`,
-      };
-      break;
-    case "0001":
-      instructionExecute(addInstruction);
-      description = {
-        phase: "Decodificação",
-        text: `O OPCODE ${opcode} significa SOMAR, ele vai somar o valor do registrador ACC com o valor que está armazenado no endereço de Memória especificado pelo OPERANDO.`,
-      };
-      break;
-    case "0010":
-      instructionExecute(subInstruction);
-      description = {
-        phase: "Decodificação",
-        text: `O OPCODE ${opcode} significa SUBTRAIR, ele vai subtrair o valor do registrador ACC pelo valor que está armazenado no endereço de Memória especificado pelo OPERANDO.`,
-      };
-      break;
-    case "0011":
-      instructionExecute(storeInstruction);
-      description = {
-        phase: "Decodificação",
-        text: `O OPCODE ${opcode} significa ARMAZENAR, ele vai armazenar o valor do registrador ACC no endereço de Memória especificado pelo OPERANDO.`,
-      };
-      break;
-    case "0101":
-      instructionExecute(loadInstruction);
-      description = {
-        phase: "Decodificação",
-        text: `O OPCODE ${opcode} significa CARREGAR, ele vai carregar o valor da Memória que está no endereço especificado pelo OPERANDO e copia-ló para o registrador ACC.`,
-      };
-      break;
-    case "0110":
-      instructionExecute(jmpInstruction);
-      description = {
-        phase: "Decodificação",
-        text: `O OPCODE ${opcode} significa PULAR, ele vai definir um novo endereço para o registrador PC. Desta forma, mudando a ordem das instruções.`,
-      };
-      break;
-    case "0111":
-      instructionExecute(jmpZeroInstruction);
-      description = {
-        phase: "Decodificação",
-        text: `O OPCODE ${opcode} significa PULAR SE (zero). Se o valor do registrador ACC for igual a zero, então será definido um novo endereço para o registrador PC.`,
-      };
-      break;
-    case "1000":
-      instructionExecute(jmpNegativeInstruction);
-      description = {
-        phase: "Decodificação",
-        text: `O OPCODE ${opcode} significa PULAR SE (negativo). Se o valor do registrador ACC for menor que zero, então será definido um novo endereço para o registrador PC.`,
-      };
-      break;
-    case "1001":
-      description = {
-        phase: "Decodificação",
-        text: `O OPCODE ${opcode} pode significar ENTRADA ou SAÍDA, tudo vai depender do OPERANDO.`,
-      };
-      operand === "0001" ? instructionExecute(inputInstruction) : false;
-      operand === "0010" ? instructionExecute(outputInstruction) : false;
-    default:
-      return false;
+const decode = (instruction) => {
+  if (instruction === 0) {
+    instructionExecute(endInstruction);
+    description = descriptions.decodeEnd;
+  } else if (instruction >= 16 && instruction <= 31) {
+    instructionExecute(addInstruction);
+    description = descriptions.decodeAdd;
+    const add = 16;
+    return instruction - add;
+  } else if (instruction >= 32 && instruction <= 47) {
+    instructionExecute(subInstruction);
+    description = descriptions.decodeSub;
+    const sub = 32;
+    return instruction - sub;
+  } else if (instruction >= 48 && instruction <= 63) {
+    instructionExecute(storeInstruction);
+    description = descriptions.decodeStore;
+    const store = 48;
+    return instruction - store;
+  } else if (instruction >= 80 && instruction <= 95) {
+    instructionExecute(loadInstruction);
+    description = descriptions.decodeLoad;
+    const load = 80;
+    return instruction - load;
+  } else if (instruction >= 96 && instruction <= 111) {
+    instructionExecute(jmpInstruction);
+    description = descriptions.decodeJmp;
+    const jmp = 96;
+    return instruction - jmp;
+  } else if (instruction >= 112 && instruction <= 127) {
+    instructionExecute(jmpZeroInstruction);
+    description = descriptions.decodeJmpZ;
+    const jmpZ = 112;
+    return instruction - jmpZ;
+  } else if (instruction >= -128 && instruction <= -113) {
+    instructionExecute(jmpNegativeInstruction);
+    description = descriptions.decodeJmpN;
+    const jmpN = 128;
+    return instruction - jmpN;
+  } else if (instruction === -111 || instruction === -110) {
+    description = descriptions.decodeInOut;
+    instruction + 110
+      ? instructionExecute(inputInstruction)
+      : instructionExecute(outputInstruction);
+  } else {
+    return false;
   }
 };
-
-export let main;
 
 const searchInstruction = [
   () => {
     mar = pc;
 
-    activeComponentStyle(".mar", "focus");
-    description = {
-      phase: "Busca",
-      text: "A Unidade de Controle copia o valor do registrador PC para o registrador MAR que envia o valor para o Barramento de Endereço, que funciona como uma interface entre a CPU e a Memória.",
-    };
+    makeAnimation("mar");
+    description = descriptions.fetchPcToMar;
   },
   () => {
-    activeComponentStyle(`#address-${mar}`, "focus");
-    description = {
-      phase: "Busca",
-      text: "A Unidade de Controle sinaliza a Memória para fazer a leitura no endereço que está no Barramento de Endereço, carregar e armazenar esse valor no Barramento de Dados.",
-    };
-  },
-  () => {
-    mdr = memory[mar].padStart(8, "0");
-
-    activeComponentStyle(".mdr", "focus");
-    description = {
-      phase: "Busca",
-      text: "A Unidade de Controle copia o valor do Barramento de Dados para o registrador MDR. Ele atua como um intermediário em qualquer transferência de dados que envolva a Memória.",
-    };
-  },
-  () => {
-    cir = mdr;
-
-    activeComponentStyle(".cir", "focus");
-    description = {
-      phase: "Busca",
-      text: "A Unidade de Controle copia o valor do registrador MDR para o registrador de instrução CIR. O CIR armazena temporariamente a instrução que será decodificada e executada posteriormente.",
-    };
-  },
-  () => {
-    pc = count <= 15 ? toBinary((count = count + 1)) : toBinary((count = 0));
-
-    activeComponentStyle(".pc", "focus");
-    description = {
-      phase: "Busca",
-      text: "A Unidade de Controle incrementa o registrador PC para apontar para o próximo endereço de instrução na sequência, preparando-se para o ciclo de busca da próxima instrução",
-    };
-  },
-  () => {
-    activeComponentStyle(".decode-container", "focus");
-    description = {
-      phase: "Decodificação",
-      text: `O Decodificador recebe o valor do registrador de instrução CIR, esse valor é quebrado ao meio e transformado em OPCODE e OPERANDO.`,
-    };
-  },
-  () => decode(cir),
-];
-
-const addInstruction = [
-  () => {
-    mar = operand.padStart(8, "0");
-
-    activeComponentStyle(".mar", "focus");
-
-    description = {
-      phase: "Decodificação",
-      text: `O DECODIFICADOR envia o valor do OPERANDO para o registrador MAR que vai copiar o valor para o Barramento de Endereço.`,
-    };
-  },
-  () => {
-    activeComponentStyle(`#address-${mar}`, "focus");
-
-    description = {
-      phase: "Execução",
-      text: `A Unidade de Controle sinaliza a Memória para pegar o valor que está no endereço específico pelo Barramento de Endereço e copiar para o Barramento de Dados.`,
-    };
+    //makeAnimation(`#address-${mar}`, "focus");
+    description = descriptions.fetchReadMemoryCell;
   },
   () => {
     mdr = memory[mar];
 
-    activeComponentStyle(".mdr", "focus");
-
-    description = {
-      phase: "Execução",
-      text: "A Unidade de Controle copia o valor do Barramento de Dados para o registrador MDR.",
-    };
+    makeAnimation("mdr");
+    description = descriptions.fetchMemoryDataToMdr;
   },
   () => {
-    acc = toBinary(toDecimal(acc) + toDecimal(mdr));
+    cir = mdr;
+
+    makeAnimation("cir");
+    description = descriptions.fetchMdrToCir;
+  },
+  () => {
+    if (pc <= 15) pc++;
+
+    makeAnimation("pc");
+    description = descriptions.fetchPcIncrement;
+  },
+  () => {
+    makeAnimation("decode-container");
+    description = descriptions.decodeCirToDecode;
+  },
+  () => {
+    operand = decode(cir);
+  },
+];
+
+const addInstruction = [
+  () => {
+    mar = operand;
+
+    makeAnimation("mar");
+
+    description = descriptions.decodeOperandToMar;
+  },
+  () => {
+    //makeAnimation(`#address-${mar}`, "focus");
+
+    description = descriptions.execMemoryCellToBus;
+  },
+  () => {
+    mdr = memory[mar];
+
+    makeAnimation("mdr");
+
+    description = descriptions.execMemoryDataToMdr;
+  },
+  () => {
+    acc += mdr;
 
     const aluElement = document.getElementById("alu");
     aluElement.classList.add("focus-alu");
 
-    activeComponentStyle(".acc", "focus");
+    makeAnimation("acc");
 
-    description = {
-      phase: "Execução",
-      text: "A Unidade de Controle sinaliza a (ULA) Unidade Lógica Aritmética para somar o valor do registrador ACC com o valor do registrador MDR. O resultado é armazenado de volta no registrador ACC.",
-    };
+    description = descriptions.execAddResultToAcc;
 
-    instructionExecute(search);
     setTimeout(() => aluElement.classList.remove("focus-alu"), 600);
+  },
+  () => {
+    instructionExecute(searchInstruction);
+
+    description = descriptions.checkForInterruptions;
   },
 ];
 
 const subInstruction = [
   () => {
-    mar = operand.padStart(8, "0");
+    mar = operand;
 
-    activeComponentStyle(".mar", "focus");
+    makeAnimation("mar");
 
-    description = {
-      phase: "Decodificação",
-      text: `O DECODIFICADOR envia o valor do OPERANDO para o registrador MAR que vai copiar o valor para o Barramento de Endereço.`,
-    };
+    description = descriptions.decodeOperandToMar;
   },
   () => {
-    activeComponentStyle(`#address-${mar}`, "focus");
+    //makeAnimation(`#address-${mar}`, "focus");
 
-    description = {
-      phase: "Execução",
-      text: `A Unidade de Controle sinaliza a Memória para pegar o valor que está no endereço específico pelo Barramento de Endereço e copiar para o Barramento de Dados.`,
-    };
+    description = descriptions.execMemoryCellToBus;
   },
   () => {
     mdr = memory[mar];
 
-    activeComponentStyle(".mdr", "focus");
+    makeAnimation("mdr");
 
-    description = {
-      phase: "Execução",
-      text: "A Unidade de Controle copia o valor do Barramento de Dados para o registrador MDR.",
-    };
+    description = descriptions.execMemoryDataToMdr;
   },
   () => {
-    acc = toBinary(toDecimal(acc) - toDecimal(mdr));
+    acc += mdr;
 
     const aluElement = document.getElementById("alu");
     aluElement.classList.add("focus-alu");
 
-    activeComponentStyle(".acc", "focus");
+    makeAnimation("acc");
 
-    description = {
-      phase: "Execução",
-      text: "A Unidade de Controle sinaliza a (ULA) Unidade Lógica Aritmética para subtrair o valor do registrador ACC pelo valor do registrador MDR. O resultado é armazenado de volta no registrador ACC.",
-    };
+    description = descriptions.execSubResultToAcc;
 
-    instructionExecute(search);
     setTimeout(() => aluElement.classList.remove("focus-alu"), 600);
+  },
+  () => {
+    instructionExecute(searchInstruction);
+
+    description = descriptions.checkForInterruptions;
   },
 ];
 
 const storeInstruction = [
   () => {
-    mar = operand.padStart(8, "0");
+    mar = operand;
 
-    activeComponentStyle(".mar", "focus");
+    makeAnimation("mar");
 
-    description = {
-      phase: "Decodificação",
-      text: `O DECODIFICADOR envia o valor do OPERANDO para o registrador MAR que vai copiar o valor para o Barramento de Endereço.`,
-    };
+    description = descriptions.decodeOperandToMar;
   },
   () => {
     mdr = acc;
 
-    activeComponentStyle(".mdr", "focus");
+    makeAnimation("mdr");
 
-    description = {
-      phase: "Execução",
-      text: `A Unidade de Controle envia o valor do registrador ACC para o registrador MDR que vai copiar o valor para o Barramento de Dados.`,
-    };
+    description = descriptions.execAccToMdr;
   },
   () => {
     memory[mar] = mdr;
 
-    activeComponentStyle(`#address-${mar}`, "focus");
+    //makeAnimation(`#address-${mar}`, "focus");
 
-    description = {
-      phase: "Execução",
-      text: `A Unidade de Controle manda um sinal para que o valor que está no Barramento de Dados seja armazenado no endereço de Memória especificado pelo Barramento de Endereço.`,
-    };
+    description = descriptions.execMdrToMemoryCell;
   },
   () => {
-    instructionExecute(search);
+    instructionExecute(searchInstruction);
 
-    description = {
-      phase: "Execução",
-      text: `a Unidade de Controle verifica se há interrupções para desviar a rotina de instruções, caso contrário, inicia o ciclo de busca novamente`,
-    };
+    description = descriptions.checkForInterruptions;
   },
 ];
 
 const loadInstruction = [
   () => {
-    mar = operand.padStart(8, "0");
+    mar = operand;
 
-    activeComponentStyle(".mar", "focus");
+    makeAnimation("mar");
 
-    description = {
-      phase: "Decodificação",
-      text: `O DECODIFICADOR envia o valor do OPERANDO para o registrador MAR que vai copiar o valor para o Barramento de Endereço.`,
-    };
+    description = descriptions.decodeOperandToMar;
   },
   () => {
-    activeComponentStyle(`#address-${mar}`, "focus");
+    //makeAnimation(`#address-${mar}`, "focus");
 
-    description = {
-      phase: "Execução",
-      text: "A Unidade de Controle sinaliza a Memória para fazer a leitura no endereço que está no Barramento de Endereço, carregar e armazenar esse valor no Barramento de Dados.",
-    };
+    description = descriptions.execReadMemoryCell;
   },
   () => {
     mdr = memory[mar];
 
-    activeComponentStyle(".mdr", "focus");
+    makeAnimation("mdr");
 
-    description = {
-      phase: "Execução",
-      text: "A Unidade de Controle copia o valor do Barramento de Dados para o registrador MDR.",
-    };
+    description = descriptions.execMemoryDataToMdr;
   },
   () => {
     acc = mdr;
 
-    activeComponentStyle(".acc", "focus");
+    makeAnimation("acc");
 
-    description = {
-      phase: "Execução",
-      text: "A Unidade de Controle envia o valor do registrador MDR para o registrador ACC.",
-    };
+    description = descriptions.execMdrToAcc;
   },
   () => {
-    instructionExecute(search);
+    instructionExecute(searchInstruction);
 
-    description = {
-      phase: "Execução",
-      text: `a Unidade de Controle verifica se há interrupções para desviar a rotina de instruções, caso contrário, inicia o ciclo de busca novamente`,
-    };
+    description = descriptions.checkForInterruptions;
   },
 ];
 
 const inputInstruction = [
   () => {
-    acc = toBinary(prompt("Informe um numero: (-127 a 127)"));
+    acc = Number(prompt("Informe um numero: (-127 a 127)"));
 
-    activeComponentStyle(".acc", "focus");
+    makeAnimation("acc");
 
-    description = {
-      phase: "Execução",
-      text: `O OPERANDO ${operand} define que se trata de uma ENTRADA. O Barramento de Controle lê o dispositivo de entrada e envia o valor lido para o registrador ACC.`,
-    };
+    description = descriptions.decodeInput;
   },
   () => {
-    instructionExecute(search);
+    instructionExecute(searchInstruction);
 
-    description = {
-      phase: "Execução",
-      text: `a Unidade de Controle verifica se há interrupções para desviar a rotina de instruções, caso contrário, inicia o ciclo de busca novamente.`,
-    };
+    description = descriptions.checkForInterruptions;
   },
 ];
 
 const outputInstruction = [
   () => {
-    activeComponentStyle(".acc", "focus");
-    alert(`OUTPUT => ${toDecimal(acc)}`);
+    makeAnimation("acc");
+    alert(`OUTPUT: ${acc}`);
 
-    description = {
-      phase: "Execução",
-      text: `O OPERANDO ${operand} define que se trata de uma SAÍDA. O Barramento de Controle envia o valor do registrador ACC para o dispositivo de saída onde ele será exibido.`,
-    };
+    description = descriptions.decodeOutput;
   },
   () => {
-    instructionExecute(search);
+    instructionExecute(searchInstruction);
 
-    description = {
-      phase: "Execução",
-      text: `a Unidade de Controle verifica se há interrupções para desviar a rotina de instruções, caso contrário, inicia o ciclo de busca novamente.`,
-    };
+    description = descriptions.checkForInterruptions;
   },
 ];
 
 const endInstruction = [
   () => {
-    description = {
-      phase: "Execução",
-      text: `a CPU foi interrompida. A Unidade de Controle não busca mais instruções.`,
-    };
-    executeIsValid = false;
+    description = descriptions.execEnd;
+    const endProgram = false
+    return endProgram;
   },
 ];
 
 const jmpInstruction = [
   () => {
-    count = toDecimal(operand.padStart(8, "0"));
-    pc = operand.padStart(8, "0");
+    pc = operand;
 
-    activeComponentStyle(".pc", "focus");
+    makeAnimation("pc");
 
-    description = {
-      phase: "Execução",
-      text: `O valor do OPERANDO é enviado para o registrador PC.`,
-    };
+    description = descriptions.execJmp;
   },
   () => {
-    instructionExecute(search);
+    instructionExecute(searchInstruction);
 
-    description = {
-      phase: "Execução",
-      text: `a Unidade de Controle verifica se há interrupções para desviar a rotina de instruções, caso contrário, inicia o ciclo de busca novamente.`,
-    };
+    description = descriptions.checkForInterruptions;
   },
 ];
 
@@ -417,25 +310,18 @@ const jmpZeroInstruction = [
     aluElement.classList.add("focus-alu");
     setTimeout(() => aluElement.classList.remove("focus-alu"), 600);
 
-    if (acc == "00000000") {
-      count = toDecimal(operand.padStart(8, "0"));
-      pc = operand.padStart(8, "0");
+    if (acc === 0) {
+      pc = operand;
 
-      activeComponentStyle(".pc", "focus");
+      makeAnimation("pc");
     }
 
-    description = {
-      phase: "Execução",
-      text: `A Unidade de Controle faz a (ULA) Unidade Logica Aritmética verificar se o valor do registrador ACC é igual a zero, se ele for, o valor do OPERANDO é armazenado no registrador PC.`,
-    };
+    description = descriptions.execJmpZ;
   },
   () => {
-    instructionExecute(search);
+    instructionExecute(searchInstruction);
 
-    description = {
-      phase: "Execução",
-      text: `a Unidade de Controle verifica se há interrupções para desviar a rotina de instruções, caso contrário, inicia o ciclo de busca novamente.`,
-    };
+    description = descriptions.checkForInterruptions;
   },
 ];
 
@@ -445,30 +331,39 @@ const jmpNegativeInstruction = [
     aluElement.classList.add("focus-alu");
     setTimeout(() => aluElement.classList.remove("focus-alu"), 600);
 
-    if (toDecimal(acc) < 0) {
-      count = toDecimal(operand.padStart(8, "0"));
-      pc = operand.padStart(8, "0");
+    if (acc < 0) {
+      pc = operand;
 
-      activeComponentStyle(".pc", "focus");
+      makeAnimation("pc");
     }
 
-    description = {
-      phase: "Execução",
-      text: `A Unidade de Controle faz a (ULA) Unidade Logica Aritmética verificar se o valor do registrador ACC é menor que zero, se ele for, o valor do OPERANDO é armazenado no registrador PC.`,
-    };
+    description = descriptions.execJmpN;
   },
   () => {
-    instructionExecute(search);
+    instructionExecute(searchInstruction);
 
-    description = {
-      phase: "Execução",
-      text: `a Unidade de Controle verifica se há interrupções para desviar a rotina de instruções, caso contrário, inicia o ciclo de busca novamente.`,
-    };
+    description = descriptions.checkForInterruptions;
   },
 ];
 
-export const instructionExecute = (array) => {
+const instructionExecute = (array) => {
   main = main.concat(array);
 };
 
 main = [...searchInstruction];
+
+
+export const clearCPU = () => {
+  main = searchInstruction;
+
+  pc = 0;
+  mar = 0;
+  mdr = 0;
+  acc = 0;
+  cir = 0;
+  operand = 0;
+
+  description = {};
+
+  removeAllActiveComponentStyles();
+}
