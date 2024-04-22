@@ -1,9 +1,12 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
 import useRegister from "./useRegister copy";
 import useMemory from "./useMemory";
 import {
   executeStepByStep,
+  clearCPU,
+  clearMemory,
+  switchProgram,
   pc,
   mar,
   mdr,
@@ -15,6 +18,7 @@ import {
 export const CpuContext = createContext();
 
 export const CpuProvider = ({ children }) => {
+  const { memoryValue, updateMemory } = useMemory();
   const {
     pcValue,
     marValue,
@@ -28,16 +32,48 @@ export const CpuProvider = ({ children }) => {
     updateCir,
   } = useRegister();
 
-  const { memoryValue, updateMemory } = useMemory();
-
-  const handleExecution = () => {
-    executeStepByStep();
+  const updateAllValues = () => {
     updatePc(pc);
     updateMar(mar);
     updateMdr(mdr);
     updateAcc(acc);
     updateCir(cir);
     updateMemory(memory);
+  }
+
+  const [programInProgress, setProgramInProgress] = useState(false);
+
+  const handleRunProgram = () => {
+    setProgramInProgress(true);
+
+    let stepsIntervals = setInterval(() => {
+      if (executeStepByStep()) {
+        updateAllValues();
+      } else {
+        clearInterval(stepsIntervals);
+        setProgramInProgress(false);
+      }
+    }, 1000);
+  };
+
+  const handleRunProgramOnSteps = () => {
+    executeStepByStep();
+    updateAllValues();
+  };
+
+  const handleClearMemory = () => {
+    clearMemory();
+    updateAllValues();
+  };
+
+  const handleClearCPU = () => {
+    clearCPU();
+    updateAllValues();
+  };
+
+  const handleSwitchProgram = (programName) => {
+    switchProgram(programName)
+    updateAllValues();
   };
 
   function toBinary(num) {
@@ -59,7 +95,12 @@ export const CpuProvider = ({ children }) => {
   return (
     <CpuContext.Provider
       value={{
-        handleExecution,
+        programInProgress,
+        handleRunProgram,
+        handleRunProgramOnSteps,
+        handleClearCPU,
+        handleClearMemory,
+        handleSwitchProgram,
         memoryValue,
         pcValue,
         marValue,

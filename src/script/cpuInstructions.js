@@ -1,5 +1,8 @@
 import { descriptions } from "./phaseDescriptions";
-import { makeAnimation, removeAllActiveComponentStyles } from "./animationCpuComponents"
+import {
+  makeAnimation,
+  removeAllActiveComponentStyles,
+} from "./animationCpuComponents";
 
 let main = [];
 
@@ -22,7 +25,7 @@ export const executeStepByStep = () => {
   return true;
 };
 
-const clearCPU = () => {
+export const clearCPU = () => {
   currentStep = 0;
   main = searchInstruction;
 
@@ -36,22 +39,25 @@ const clearCPU = () => {
   description = {};
 
   removeAllActiveComponentStyles();
-}
+};
 
-const blank = [
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-];
-const add = [
-    -111, 63, -111, 31, -110, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-];
-const sub = [
-    -111, 63, -111, 47, -110, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-];
-const biggest = [
-  -111, 62, -111, 63, 46, -119, 95, -110, 0, 94, -110, 0, 0, 0, 0, 0,
+export const clearMemory = () => {
+  memory = blank;
+};
+
+export const switchProgram = (index) => {
+  memory = [...programs[index]];
+  clearCPU();
+};
+
+const programs = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [-111, 63, -111, 31, -110, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [-111, 63, -111, 47, -110, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [-111, 62, -111, 63, 46, -119, 95, -110, 0, 94, -110, 0, 0, 0, 0, 0],
 ];
 
-export let memory = add;
+export let memory = programs.add;
 export let pc = 0;
 export let mar = 0;
 export let mdr = 0;
@@ -118,7 +124,7 @@ const searchInstruction = [
     description = descriptions.fetchPcToMar;
   },
   () => {
-    //makeAnimation(`#address-${mar}`, "focus");
+    //makeAnimation(`address-${mar}`);
     description = descriptions.fetchReadMemoryCell;
   },
   () => {
@@ -321,7 +327,7 @@ const outputInstruction = [
 const endInstruction = [
   () => {
     description = descriptions.execEnd;
-    const endProgram = false
+    const endProgram = false;
     return endProgram;
   },
 ];
@@ -388,5 +394,3 @@ const instructionExecute = (array) => {
 };
 
 main = [...searchInstruction];
-
-

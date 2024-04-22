@@ -9,11 +9,6 @@ import { CpuProvider } from "./context/CpuContext";
 
 const App = () => {
   const [memoryValue, setMemoryValue] = useState(Cpu.memory);
-  const [pcValue, setPcValue] = useState("00000000");
-  const [marValue, setMarValue] = useState("00000000");
-  const [mdrValue, setMdrValue] = useState("00000000");
-  const [accValue, setAccValue] = useState("00000000");
-  const [cirValue, setCirValue] = useState("00000000");
 
   const handleChooseProgram = (programIndex) => {
     Cpu.chooseProgram(programIndex);
@@ -41,22 +36,8 @@ const App = () => {
       </header>
       <div className="container">
         <CpuProvider>
-          <Settings
-            updateValues={updateValues}
-            clearCPU={Cpu.clearCPU}
-            clearMemory={Cpu.clearMemory}
-            executeNextStep={Cpu.executeNextStep}
-            chooseProgram={handleChooseProgram}
-          />
-          <Simulator
-            memoryValue={memoryValue}
-            pcValue={pcValue}
-            marValue={marValue}
-            mdrValue={mdrValue}
-            accValue={accValue}
-            cirValue={cirValue}
-            UpdateMemory={handleUpdateMemory}
-          />
+          <Settings />
+          <Simulator UpdateMemory={handleUpdateMemory} />
         </CpuProvider>
       </div>
     </>

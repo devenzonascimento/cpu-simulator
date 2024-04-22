@@ -1,47 +1,22 @@
 import React, { useState } from "react";
 
-import { IoPlaySkipForward, IoPlay } from "react-icons/io5";
+import { useCpu } from "../../context/CpuContext";
 
 import { buttonAnimation } from "./animations";
 
+import { IoPlaySkipForward, IoPlay } from "react-icons/io5";
+
 import "./styles.scss";
 
-const Settings = ({
-  updateValues,
-  clearCPU,
-  clearMemory,
-  executeNextStep,
-  chooseProgram,
-}) => {
-  const handleClearMemory = () => {
-    clearMemory();
-    updateValues();
-  };
-
-  const handleClearCPU = () => {
-    clearCPU();
-    updateValues();
-  };
-
-  const handleNextStep = () => {
-    executeNextStep();
-    updateValues();
-  };
-
-  const [isRunning, setIsRunning] = useState(false);
-
-  const handleRun = () => {
-    setIsRunning(true);
-
-    let executionInterval = setInterval(() => {
-      if (executeNextStep()) {
-        updateValues();
-      } else {
-        clearInterval(executionInterval);
-        setIsRunning(false);
-      }
-    }, 1000);
-  };
+const Settings = ({}) => {
+  const {
+    programInProgress,
+    handleRunProgram,
+    handleRunProgramOnSteps,
+    handleClearCPU,
+    handleClearMemory,
+    handleSwitchProgram,
+  } = useCpu();
 
   return (
     <div className="settings-container">
@@ -49,9 +24,9 @@ const Settings = ({
         <span onClick={buttonAnimation}>Programas</span>
 
         <ul className="programs-list">
-          <li onClick={() => chooseProgram(0)}>Soma</li>
-          <li onClick={() => chooseProgram(1)}>Subtração</li>
-          <li onClick={() => chooseProgram(2)}>Maior Numero</li>
+          <li onClick={() => handleSwitchProgram(1)}>Soma</li>
+          <li onClick={() => handleSwitchProgram(2)}>Subtração</li>
+          <li onClick={() => handleSwitchProgram(3)}>Maior Numero</li>
         </ul>
       </nav>
 
@@ -63,12 +38,16 @@ const Settings = ({
         Limpar CPU
       </button>
 
-      <button className="run-button" onClick={handleRun} disabled={isRunning}>
+      <button
+        className="run-button"
+        onClick={handleRunProgram}
+        disabled={programInProgress}
+      >
         <span>Rodar</span>
         <IoPlay />
       </button>
 
-      <button className="step-button" onClick={handleNextStep}>
+      <button className="step-button" onClick={handleRunProgramOnSteps}>
         <span>Proximo Passo</span>
         <IoPlaySkipForward />
       </button>

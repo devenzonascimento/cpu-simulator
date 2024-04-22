@@ -16,7 +16,7 @@ import { useCpu } from "../../context/CpuContext";
 const Simulator = ({
   UpdateMemory,
 }) => {
-  const { handleExecution, memoryValue, pcValue, marValue, mdrValue, accValue, cirValue } =
+  const { memoryValue, pcValue, marValue, mdrValue, accValue, cirValue } =
     useCpu();
 
   const [isOpenInfoModal, setIsOpenInfoModal] = useState(false);
@@ -74,7 +74,6 @@ const Simulator = ({
 
   return (
     <>
-      <h1 onClick={handleExecution}>CPU Simulator</h1>
       <div className="simulator-container">
         <Memory
           memory={memoryValue}
