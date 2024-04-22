@@ -1,7 +1,7 @@
 import { descriptions } from "./phaseDescriptions";
 import { makeAnimation, removeAllActiveComponentStyles } from "./animationCpuComponents"
 
-export let main = [];
+let main = [];
 
 let currentStep = 0;
 let executeIsValid;
@@ -9,7 +9,7 @@ let executeIsValid;
 export const executeStepByStep = () => {
   if (executeIsValid !== undefined) {
     executeIsValid = undefined;
-    resetCPU();
+    clearCPU();
     alert("O PROGRAMA FOI ENCERRADO");
     return false;
   }
@@ -22,10 +22,21 @@ export const executeStepByStep = () => {
   return true;
 };
 
-export const resetCPU = () => {
+const clearCPU = () => {
   currentStep = 0;
-  clearCPU();
-};
+  main = searchInstruction;
+
+  pc = 0;
+  mar = 0;
+  mdr = 0;
+  acc = 0;
+  cir = 0;
+  operand = 0;
+
+  description = {};
+
+  removeAllActiveComponentStyles();
+}
 
 const blank = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -40,7 +51,7 @@ const biggest = [
   -111, 62, -111, 63, 46, -119, 95, -110, 0, 94, -110, 0, 0, 0, 0, 0,
 ];
 
-export let memory = blank;
+export let memory = add;
 export let pc = 0;
 export let mar = 0;
 export let mdr = 0;
@@ -379,17 +390,3 @@ const instructionExecute = (array) => {
 main = [...searchInstruction];
 
 
-export const clearCPU = () => {
-  main = searchInstruction;
-
-  pc = 0;
-  mar = 0;
-  mdr = 0;
-  acc = 0;
-  cir = 0;
-  operand = 0;
-
-  description = {};
-
-  removeAllActiveComponentStyles();
-}

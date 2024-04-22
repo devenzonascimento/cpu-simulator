@@ -1,26 +1,23 @@
 import React from "react";
 
-const MemoryRow = ({ memory, handleEditMemory }) => {
-  
+import { toBinary } from "../../../script/cpuScript";
+
+const MemoryRow = ({ address, value, handleEditMemory }) => {
   return (
-    <>
-      {Object.entries(memory).map(([address, value]) => (
-          <tr key={address}>
-            <td>{address}</td>
-            <td className="memory-cell-value">
-              <input
-                id={`address-${address}`}
-                className="memory-input"
-                type="text"
-                maxLength={8}
-                value={value}
-                onChange={(e) => handleEditMemory(address, e.target.value)}
-              />
-            </td>
-          </tr>
-        ))}
-    </>
+    <tr key={address}>
+      <td>{toBinary(address)}</td>
+      <td className="memory-cell-value">
+        <input
+          id={`address-${address}`}
+          className="memory-input"
+          type="text"
+          maxLength={8}
+          value={toBinary(value)}
+          onChange={({ target }) => handleEditMemory(address, target.value)}
+        />
+      </td>
+    </tr>
   );
-}
+};
 
 export default MemoryRow;

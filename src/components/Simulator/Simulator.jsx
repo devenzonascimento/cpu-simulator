@@ -7,22 +7,16 @@ import DecodeUnit from "./DecodeUnit/DecodeUnit";
 import Description from "./Description/Description";
 import InfoModal from "./InfoModal/InfoModal";
 
-import { description } from "../../script/cpuScript";
+import { description, toBinary } from "../../script/cpuScript";
 
 import "./styles.scss";
 
 import { useCpu } from "../../context/CpuContext";
 
 const Simulator = ({
-  memoryValue,
-  //pcValue,
-  //marValue,
-  //mdrValue,
-  //accValue,
-  //cirValue,
   UpdateMemory,
 }) => {
-  const { executeStepByStep, pcValue, marValue, mdrValue, accValue, cirValue } =
+  const { handleExecution, memoryValue, pcValue, marValue, mdrValue, accValue, cirValue } =
     useCpu();
 
   const [isOpenInfoModal, setIsOpenInfoModal] = useState(false);
@@ -80,7 +74,7 @@ const Simulator = ({
 
   return (
     <>
-      <h1 onClick={executeStepByStep}>CPU Simulator</h1>
+      <h1 onClick={handleExecution}>CPU Simulator</h1>
       <div className="simulator-container">
         <Memory
           memory={memoryValue}
@@ -90,28 +84,28 @@ const Simulator = ({
         <div className="registers-container">
           <Register
             id={"pc"}
-            value={pcValue}
+            value={toBinary(pcValue)}
             handleOpenModal={handleOpenModal}
           />
           <Register
             id={"mar"}
-            value={marValue}
+            value={toBinary(marValue)}
             handleOpenModal={handleOpenModal}
           />
           <Register
             id={"mdr"}
-            value={mdrValue}
+            value={toBinary(mdrValue)}
             handleOpenModal={handleOpenModal}
           />
           <Alu handleOpenModal={handleOpenModal} />
           <Register
             id={"acc"}
-            value={accValue}
+            value={toBinary(accValue)}
             handleOpenModal={handleOpenModal}
           />
           <Register
             id={"cir"}
-            value={cirValue}
+            value={toBinary(cirValue)}
             handleOpenModal={handleOpenModal}
           />
         </div>

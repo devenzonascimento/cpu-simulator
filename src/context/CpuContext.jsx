@@ -1,15 +1,18 @@
-import { createContext, useContext, useState } from "react";
-
-import { descriptions } from "../script/phaseDescriptions";
-import {
-  makeAnimation,
-  removeAllActiveComponentStyles,
-} from "../script/animationCpuComponents";
+import { createContext, useContext } from "react";
 
 import useRegister from "./useRegister copy";
+import useMemory from "./useMemory";
+import {
+  executeStepByStep,
+  pc,
+  mar,
+  mdr,
+  acc,
+  cir,
+  memory,
+} from "../script/cpuInstructions";
 
 export const CpuContext = createContext();
-let main = []
 
 export const CpuProvider = ({ children }) => {
   const {
@@ -24,365 +27,40 @@ export const CpuProvider = ({ children }) => {
     updateAcc,
     updateCir,
   } = useRegister();
-  const [currentStep, setCurrentStep] = useState(0)
 
+  const { memoryValue, updateMemory } = useMemory();
+
+  const handleExecution = () => {
+    executeStepByStep();
+    updatePc(pc);
+    updateMar(mar);
+    updateMdr(mdr);
+    updateAcc(acc);
+    updateCir(cir);
+    updateMemory(memory);
+  };
+
+  function toBinary(num) {
+    const isNegative = num < 0;
   
-  let executeIsValid;
-  const executeStepByStep = () => {
-
-    if (currentStep == 0) {
-      instructionExecute(searchInstruction)
+    if (isNegative) {
+      const binaryUnsigned = Number(Math.abs(num)).toString(2).padStart(8, "0");
+  
+      const complement = binaryUnsigned
+        .split("")
+        .map((bit) => (bit === "0" ? "1" : "0"))
+        .join("");
+      num = parseInt(complement, 2) + 1;
     }
-
-    if (executeIsValid !== undefined) {
-      executeIsValid = undefined;
-      resetCPU();
-      alert("O PROGRAMA FOI ENCERRADO");
-      return false;
-    }
-
-    if (currentStep < main.length) {
-      executeIsValid = main[currentStep]();
-      setCurrentStep(prev => prev + 1)
-    }
-
-    return true;
-  };
-
-  const resetCPU = () => {
-    currentStep = 0;
-    main = searchInstruction;
-    updatePc(0);
-    updateMar(0);
-    updateMdr(0);
-    updateAcc(0);
-    updateCir(0);
-    operand = 0;
-    description = {};
-    removeAllActiveComponentStyles();
-  };
-
-  const blank = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  const add = [-111, 63, -111, 31, -110, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  const sub = [-111, 63, -111, 47, -110, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  const biggest = [
-    -111, 62, -111, 63, 46, -119, 95, -110, 0, 94, -110, 0, 0, 0, 0, 0,
-  ];
-
-  let memory = add;
-  let description = {};
-
-  let operand = 0;
-
-  const decode = (instruction) => {
-    console.log("entro")
-    if (instruction === 0) {
-      instructionExecute(endInstruction);
-      description = descriptions.decodeEnd;
-    } else if (instruction >= 16 && instruction <= 31) {
-      instructionExecute(addInstruction);
-      description = descriptions.decodeAdd;
-      const add = 16;
-      return instruction - add;
-    } else if (instruction >= 32 && instruction <= 47) {
-      instructionExecute(subInstruction);
-      description = descriptions.decodeSub;
-      const sub = 32;
-      return instruction - sub;
-    } else if (instruction >= 48 && instruction <= 63) {
-      instructionExecute(storeInstruction);
-      description = descriptions.decodeStore;
-      const store = 48;
-      return instruction - store;
-    } else if (instruction >= 80 && instruction <= 95) {
-      instructionExecute(loadInstruction);
-      description = descriptions.decodeLoad;
-      const load = 80;
-      return instruction - load;
-    } else if (instruction >= 96 && instruction <= 111) {
-      instructionExecute(jmpInstruction);
-      description = descriptions.decodeJmp;
-      const jmp = 96;
-      return instruction - jmp;
-    } else if (instruction >= 112 && instruction <= 127) {
-      instructionExecute(jmpZeroInstruction);
-      description = descriptions.decodeJmpZ;
-      const jmpZ = 112;
-      return instruction - jmpZ;
-    } else if (instruction >= -128 && instruction <= -113) {
-      instructionExecute(jmpNegativeInstruction);
-      description = descriptions.decodeJmpN;
-      const jmpN = 128;
-      return instruction - jmpN;
-    } else if (instruction === -111 || instruction === -110) {
-      description = descriptions.decodeInOut;
-      instruction + 110
-        ? instructionExecute(inputInstruction)
-        : instructionExecute(outputInstruction);
-    } else {
-      return false;
-    }
-  };
-
-  const searchInstruction = [
-    () => {
-      console.log("passo1")
-      updateMar(pcValue);
-      makeAnimation("mar");
-      description = descriptions.fetchPcToMar;
-    },
-    () => {
-      console.log("passo2")
-      //makeAnimation(`#address-${mar}`, "focus");
-      description = descriptions.fetchReadMemoryCell;
-    },
-    () => {
-      console.log("passo3")
-      updateMdr(memory[marValue]);
-      makeAnimation("mdr");
-      description = descriptions.fetchMemoryDataToMdr;
-    },
-    () => {
-      console.log("passo4")
-      updateCir(mdrValue);
-      makeAnimation("cir");
-      description = descriptions.fetchMdrToCir;
-    },
-    () => {
-      console.log("passo5")
-      if (pcValue <= 15) updatePc((prev) => prev + 1);
-      makeAnimation("pc");
-      description = descriptions.fetchPcIncrement;
-    },
-    () => {
-      console.log("passo6")
-      makeAnimation("decode-container");
-      description = descriptions.decodeCirToDecode;
-    },
-    () => {
-      operand = decode(cirValue);
-    },
-  ];
-
-  const addInstruction = [
-    () => {
-      updateMar(operand);
-      makeAnimation("mar");
-      description = descriptions.decodeOperandToMar;
-    },
-    () => {
-      //makeAnimation(`#address-${marValue}`, "focus");
-      description = descriptions.execMemoryCellToBus;
-    },
-    () => {
-      updateMdr(memory[marValue]);
-      makeAnimation("mdr");
-      description = descriptions.execMemoryDataToMdr;
-    },
-    () => {
-      updateAcc(accValue + mdrValue);
-      const aluElement = document.getElementById("alu");
-      aluElement.classList.add("focus-alu");
-      makeAnimation("acc");
-      description = descriptions.execAddResultToAcc;
-      setTimeout(() => aluElement.classList.remove("focus-alu"), 600);
-    },
-    () => {
-      instructionExecute(searchInstruction);
-      description = descriptions.checkForInterruptions;
-    },
-  ];
-
-  const subInstruction = [
-    () => {
-      updateMar(operand);
-      makeAnimation("mar");
-      description = descriptions.decodeOperandToMar;
-    },
-    () => {
-      //makeAnimation(`#address-${marValue}`, "focus");
-      description = descriptions.execMemoryCellToBus;
-    },
-    () => {
-      updateMdr(memory[marValue]);
-      makeAnimation("mdr");
-      description = descriptions.execMemoryDataToMdr;
-    },
-    () => {
-      updateAcc(accValue - mdrValue);
-      const aluElement = document.getElementById("alu");
-      aluElement.classList.add("focus-alu");
-      makeAnimation("acc");
-      description = descriptions.execSubResultToAcc;
-      setTimeout(() => aluElement.classList.remove("focus-alu"), 600);
-    },
-    () => {
-      instructionExecute(searchInstruction);
-      description = descriptions.checkForInterruptions;
-    },
-  ];
-
-  const storeInstruction = [
-    () => {
-      updateMar(operand);
-      makeAnimation("mar");
-      description = descriptions.decodeOperandToMar;
-    },
-    () => {
-      updateMdr(accValue);
-      makeAnimation("mdr");
-      description = descriptions.execAccToMdr;
-    },
-    () => {
-      memory[marValue] = mdrValue;
-      //makeAnimation(`#address-${marValue}`, "focus");
-      description = descriptions.execMdrToMemoryCell;
-    },
-    () => {
-      instructionExecute(searchInstruction);
-      description = descriptions.checkForInterruptions;
-    },
-  ];
-
-  const loadInstruction = [
-    () => {
-      updateMar(operand);
-      makeAnimation("mar");
-      description = descriptions.decodeOperandToMar;
-    },
-    () => {
-      //makeAnimation(`#address-${marValue}`, "focus");
-      description = descriptions.execReadMemoryCell;
-    },
-    () => {
-      updateMdr(memory[marValue]);
-      makeAnimation("mdr");
-      description = descriptions.execMemoryDataToMdr;
-    },
-    () => {
-      updateAcc(mdrValue);
-      makeAnimation("acc");
-      description = descriptions.execMdrToAcc;
-    },
-    () => {
-      instructionExecute(searchInstruction);
-      description = descriptions.checkForInterruptions;
-    },
-  ];
-
-  const inputInstruction = [
-    () => {
-      const value = prompt("Informe um numero: (-127 a 127)");
-      updateAcc(value);
-      makeAnimation("acc");
-      description = descriptions.decodeInput;
-    },
-    () => {
-      instructionExecute(searchInstruction);
-      description = descriptions.checkForInterruptions;
-    },
-  ];
-
-  const outputInstruction = [
-    () => {
-      makeAnimation("acc");
-      alert(`OUTPUT: ${accValue}`);
-      description = descriptions.decodeOutput;
-    },
-    () => {
-      instructionExecute(searchInstruction);
-      description = descriptions.checkForInterruptions;
-    },
-  ];
-
-  const endInstruction = [
-    () => {
-      description = descriptions.execEnd;
-      const endProgram = false;
-      return endProgram;
-    },
-  ];
-
-  const jmpInstruction = [
-    () => {
-      updatePc(operand);
-      makeAnimation("pc");
-      description = descriptions.execJmp;
-    },
-    () => {
-      instructionExecute(searchInstruction);
-      description = descriptions.checkForInterruptions;
-    },
-  ];
-
-  const jmpZeroInstruction = [
-    () => {
-      const aluElement = document.getElementById("alu");
-      aluElement.classList.add("focus-alu");
-      setTimeout(() => aluElement.classList.remove("focus-alu"), 600);
-
-      if (accValue === 0) {
-        updatePc(operand);
-        makeAnimation("pc");
-      }
-
-      description = descriptions.execJmpZ;
-    },
-    () => {
-      instructionExecute(searchInstruction);
-      description = descriptions.checkForInterruptions;
-    },
-  ];
-
-  const jmpNegativeInstruction = [
-    () => {
-      const aluElement = document.getElementById("alu");
-      aluElement.classList.add("focus-alu");
-      setTimeout(() => aluElement.classList.remove("focus-alu"), 600);
-
-      if (accValue < 0) {
-        updatePc(operand);
-        makeAnimation("pc");
-      }
-
-      description = descriptions.execJmpN;
-    },
-    () => {
-      instructionExecute(searchInstruction);
-      description = descriptions.checkForInterruptions;
-    },
-  ];
-
-  const instructionExecute = (array) => {
-    console.log("antes", main)
-    main = main.concat(array);
-    console.log("depois", main)
-  };
-
-  //console.log(pcValue);
-  //console.log(marValue);
-  //console.log(mdrValue);
-  //console.log(accValue);
-  //console.log(cirValue);
-  //prompt("Oi")
-  console.log(currentStep);
-
-
-
-
-
-
-
-
-
-
-
-
+  
+    return Number(num).toString(2).padStart(8, "0");
+  }
 
   return (
     <CpuContext.Provider
       value={{
-        executeStepByStep,
+        handleExecution,
+        memoryValue,
         pcValue,
         marValue,
         mdrValue,
