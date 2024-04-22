@@ -18,8 +18,8 @@ export const makeAnimation = (componentName) => {
 export const removeAllActiveComponentStyles = () => {
   const arrayElementClass = [
     ".register-container",
-    ".ram-input",
-    ".instruction-row",
+    ".memory-input",
+    ".decode-row",
     ".decode-container",
   ];
 

@@ -3,7 +3,7 @@ import React from "react";
 const DecodeRow = ({ decodeTableRow }) => {
   return (
     <tr
-      className={`decode-${decodeTableRow.id}`}
+      className={`decode-row decode-${decodeTableRow.id}`}
       key={decodeTableRow.instruction}
     >
       <td>{decodeTableRow.opcode}</td>
