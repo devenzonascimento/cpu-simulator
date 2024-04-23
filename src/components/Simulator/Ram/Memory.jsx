@@ -5,7 +5,7 @@ import { MdInfoOutline } from "react-icons/md";
 import { toBinary } from "../../../script/cpuScript";
 
 import "./styles.scss";
-import ModalMemoryEditor from "./ModalMemoryEditor";
+import ModalMemoryEditor from "./ModalMemoryEditor/ModalMemoryEditor";
 
 import useMemoryEditor from "../../../hooks/useMemoryEditor";
 
