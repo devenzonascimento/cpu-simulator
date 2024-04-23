@@ -1,5 +1,6 @@
 import { useState } from "react";
 import InstructionTable from "./InstructionTable.jsx"
+import "./styles.scss";
 
 const ModalMemoryEditor = ({
   isOpen,
