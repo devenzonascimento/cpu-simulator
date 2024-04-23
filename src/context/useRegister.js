@@ -1,15 +1,12 @@
-import {makeAnimation} from useRegisterAnimation()
-import { useEffect, useState } from "react";
-import useRegisterAnimation from "./useRegisterAnimation";
+import { useState } from "react";
 
-const useRegister = (registerName) => {
-  /*
+const useRegister = () => {
   const [pcValue, setPcValue] = useState(0);
   const [marValue, setMarValue] = useState(0);
   const [mdrValue, setMdrValue] = useState(0);
   const [accValue, setAccValue] = useState(0);
   const [cirValue, setCirValue] = useState(0);
-  
+
   const updatePc = (newValue) => {
     setPcValue(newValue);
   };
@@ -25,42 +22,19 @@ const useRegister = (registerName) => {
   const updateCir = (newValue) => {
     setCirValue(newValue);
   };
-  
-  
-  
-  const pc = {
-    value: pcValue,
-    update: updatePc,
-  };
-  const mar = {
-    value: marValue,
-    update: updateMar,
-  };
-  const mdr = {
-    value: mdrValue,
-    update: updateMdr,
-  };
-  const acc = {
-    value: accValue,
-    update: updateAcc,
-  };
-  const cir = {
-    value: cirValue,
-    update: updateCir,
-  };
-  return { pc, mar, mdr, acc, cir };
-  */
-  const [value, setValue] = useState(0);
-  
-  const updateValue = (newValue) => {
-    setValue(newValue);
-  };
 
-  useEffect(() => {
-    makeAnimation(registerName);
-  }, [value])
-
-  return [value,updateValue];
+  return {
+    pcValue,
+    marValue,
+    mdrValue,
+    accValue,
+    cirValue,
+    updatePc,
+    updateMar,
+    updateMdr,
+    updateAcc,
+    updateCir,
+  };
 };
 
 export default useRegister;
