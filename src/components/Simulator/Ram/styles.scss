@@ -144,6 +144,9 @@
         .memory-table {
             border-collapse: collapse;
             
+            tr:nth-child(even) {
+                background-color: rgb(40, 40, 40);
+            }
         
             th, td {
                 height: 1.7em;
@@ -155,20 +158,6 @@
             
             td {
                 letter-spacing: 0.1em;
-    
-            }
-            tr:nth-child(even) {
-                background-color: rgb(40, 40, 40);
-            }
-    
-            .memory-input {
-                height: 100%;
-                width: 100%;
-                text-align: center;
-                letter-spacing: 0.1em;
-                font-size: 1em;
-                color: lime;
-                background-color: transparent;
             }
         }
 

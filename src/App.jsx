@@ -4,7 +4,6 @@ import Settings from "./components/Settings/Settings";
 import Simulator from "./components/Simulator/Simulator";
 
 import * as Cpu from "./script/cpuScript";
-import { executeStepByStep } from "./script/cpuInstructions";
 import { CpuProvider } from "./context/CpuContext";
 
 const App = () => {
@@ -32,7 +31,7 @@ const App = () => {
   return (
     <>
       <header>
-        <h1 onClick={executeStepByStep}>CPU Simulator</h1>
+        <h1>CPU Simulator</h1>
       </header>
       <div className="container">
         <CpuProvider>

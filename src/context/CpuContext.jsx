@@ -1,6 +1,6 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, memo, useContext, useState } from "react";
 
-import useRegister from "./useRegister copy";
+import useRegister from "./useRegister";
 import useMemory from "./useMemory";
 import {
   executeStepByStep,
@@ -13,6 +13,7 @@ import {
   acc,
   cir,
   memory,
+  updateMemoryCell,
 } from "../script/cpuInstructions";
 
 export const CpuContext = createContext();
@@ -32,7 +33,7 @@ export const CpuProvider = ({ children }) => {
     updateCir,
   } = useRegister();
 
-  const updateAllValues = () => {
+  const renderAllValues = () => {
     updatePc(pc);
     updateMar(mar);
     updateMdr(mdr);
@@ -42,13 +43,12 @@ export const CpuProvider = ({ children }) => {
   }
 
   const [programInProgress, setProgramInProgress] = useState(false);
-
   const handleRunProgram = () => {
     setProgramInProgress(true);
 
     let stepsIntervals = setInterval(() => {
       if (executeStepByStep()) {
-        updateAllValues();
+        renderAllValues();
       } else {
         clearInterval(stepsIntervals);
         setProgramInProgress(false);
@@ -58,23 +58,35 @@ export const CpuProvider = ({ children }) => {
 
   const handleRunProgramOnSteps = () => {
     executeStepByStep();
-    updateAllValues();
+    renderAllValues();
   };
 
   const handleClearMemory = () => {
     clearMemory();
-    updateAllValues();
+    renderAllValues();
   };
 
   const handleClearCPU = () => {
     clearCPU();
-    updateAllValues();
+    renderAllValues();
   };
 
   const handleSwitchProgram = (index) => {
     switchProgram(index)
-    updateAllValues();
+    renderAllValues();
   };
+
+  const handleWriteMemory = (address, newValue) => {
+
+    let newMemory = memory;
+    newMemory[address] = toDecimal(newValue);
+    
+    updateMemoryCell(newMemory);
+    updateMemory(memory)
+    
+    // console.log("cpu:", memory)
+    // console.log("state:", memoryValue)
+  }
 
   function toBinary(num) {
     const isNegative = num < 0;
@@ -92,6 +104,16 @@ export const CpuProvider = ({ children }) => {
     return Number(num).toString(2).padStart(8, "0");
   }
 
+  function toDecimal(num) {
+    const decimal = parseInt(num, 2);
+  
+    if (num.charAt(0) === "1") {
+      return decimal - 256;
+    }
+  
+    return decimal;
+  }
+
   return (
     <CpuContext.Provider
       value={{
@@ -101,6 +123,7 @@ export const CpuProvider = ({ children }) => {
         handleClearCPU,
         handleClearMemory,
         handleSwitchProgram,
+        handleWriteMemory,
         memoryValue,
         pcValue,
         marValue,
@@ -113,6 +136,7 @@ export const CpuProvider = ({ children }) => {
     </CpuContext.Provider>
   );
 };
+
 
 export const useCpu = () => {
   const context = useContext(CpuContext);

@@ -13,9 +13,7 @@ import "./styles.scss";
 
 import { useCpu } from "../../context/CpuContext";
 
-const Simulator = ({
-  UpdateMemory,
-}) => {
+const Simulator = ({}) => {
   const { memoryValue, pcValue, marValue, mdrValue, accValue, cirValue } =
     useCpu();
 
@@ -75,11 +73,7 @@ const Simulator = ({
   return (
     <>
       <div className="simulator-container">
-        <Memory
-          memory={memoryValue}
-          UpdateMemory={UpdateMemory}
-          handleOpenModal={handleOpenModal}
-        />
+        <Memory memory={memoryValue} handleOpenModal={handleOpenModal} />
         <div className="registers-container">
           <Register
             id={"pc"}

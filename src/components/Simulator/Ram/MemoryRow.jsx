@@ -1,8 +1,14 @@
 import React from "react";
 
-import { toBinary } from "../../../script/cpuScript";
+import { toBinary } from "../../script/cpuScript";
 
 const MemoryRow = ({ address, value, handleEditMemory }) => {
+
+  console.log(value)
+
+  const handle = (value) => {
+
+  }
 
   return (
     <tr >
@@ -12,7 +18,7 @@ const MemoryRow = ({ address, value, handleEditMemory }) => {
           className={`memory-input address-${address}`}
           type="text"
           maxLength={8}
-          value={toBinary(value)}
+          value={value}
           onChange={({ target }) => handleEditMemory(address, target.value)}
         />
       </td>

@@ -184,6 +184,7 @@
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -192,18 +193,27 @@
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
 
   .modal {
+    position: initial;
     height: 300px;
     width: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1em;
+
     color: black;
     background-color: white;
-    
-    input {
-      border: 2px solid black;
+
+    form {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1em;
+
+      
+      
+      input {
+        border: 2px solid black;
+      }
     }
   }
 }

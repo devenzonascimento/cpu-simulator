@@ -1,25 +1,30 @@
-import React from "react";
-
-import MemoryRow from "./MemoryRow";
+import { useCpu } from "../../../context/CpuContext";
 
 import { MdInfoOutline } from "react-icons/md";
 
+import { toBinary } from "../../../script/cpuScript";
+
 import "./styles.scss";
+import ModalMemoryEditor from "./ModalMemoryEditor";
 
-const Memory = ({ memory, UpdateMemory, handleOpenModal }) => {
-  //console.log(memory)
+import useMemoryEditor from "../../../hooks/useMemoryEditor";
 
-  const handleEditMemory = (address, newValue) => {
-    newValue = newValue.replace(/[^0-1]/g, "");
+const Memory = ({ memory, handleOpenModal }) => {
+  const { handleWriteMemory } = useCpu();
 
-    const newMemory = memory;
-    newMemory[address] = newValue;
-
-    UpdateMemory(newMemory);
-  };
+  const {
+    isOpen,
+    handleOpenMemoryEditor,
+    handleCloseMemoryEditor,
+    memoryAddress,
+  } = useMemoryEditor();
 
   return (
     <div className="memory-container">
+      <MdInfoOutline
+        className="info-icon"
+        onClick={() => handleOpenModal("memory")}
+      />
       <table className="memory-table">
         <caption className="memory-caption">MEMORY</caption>
         <thead>
@@ -29,21 +34,26 @@ const Memory = ({ memory, UpdateMemory, handleOpenModal }) => {
           </tr>
         </thead>
         <tbody>
-          {memory.map((value, adress) => {
+          {memory.map((value, address) => {
             return (
-              <MemoryRow
-                key={adress}
-                address={adress}
-                value={value}
-                handleEditMemory={handleEditMemory}
-              />
+              <tr key={address}>
+                <td>{toBinary(address)}</td>
+                <td
+                  className={`memory-cell-value address-${address}`}
+                  onClick={() => handleOpenMemoryEditor(address)}
+                >
+                  {toBinary(value)}
+                </td>
+              </tr>
             );
           })}
         </tbody>
       </table>
-      <MdInfoOutline
-        className="info-icon"
-        onClick={() => handleOpenModal("memory")}
+      <ModalMemoryEditor
+        isOpen={isOpen}
+        handleCloseModal={handleCloseMemoryEditor}
+        handleWriteMemory={handleWriteMemory}
+        address={memoryAddress}
       />
     </div>
   );
