@@ -19,7 +19,7 @@ const Settings = ({}) => {
   } = useCpu();
 
   return (
-    <div className="settings-container">
+    <header className="settings-container">
       <nav onClick={buttonAnimation}>
         <span onClick={buttonAnimation}>Programas</span>
 
@@ -51,7 +51,7 @@ const Settings = ({}) => {
         <span>Proximo Passo</span>
         <IoPlaySkipForward />
       </button>
-    </div>
+    </header>
   );
 };
 

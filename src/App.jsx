@@ -9,12 +9,12 @@ const App = () => {
       <header>
         <h1>CPU Simulator</h1>
       </header>
-      <div className="container">
+      <main className="container">
         <CpuProvider>
           <Settings />
           <Simulator />
         </CpuProvider>
-      </div>
+      </main>
     </>
   );
 };

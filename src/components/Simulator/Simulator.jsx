@@ -71,7 +71,7 @@ const Simulator = () => {
 
   return (
     <>
-      <div className="simulator-container">
+      <section className="simulator-container">
         <Memory
           memory={memoryValue}
           handleOpenInfoModal={handleOpenInfoModal}
@@ -105,7 +105,7 @@ const Simulator = () => {
           />
         </div>
         <DecodeUnit handleOpenInfoModal={handleOpenInfoModal} />
-      </div>
+      </section>
       <InfoModal
         isOpenInfoModal={isOpenInfoModal}
         handleCloseInfoModal={handleCloseInfoModal}
