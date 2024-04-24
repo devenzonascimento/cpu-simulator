@@ -6,7 +6,7 @@ import { MdInfoOutline } from "react-icons/md";
 
 import "./styles.scss";
 
-const DecodeUnit = ({ handleOpenModal }) => {
+const DecodeUnit = ({ handleOpenInfoModal }) => {
   const decodeTableRow = [
     {
       id: "end",
@@ -88,7 +88,7 @@ const DecodeUnit = ({ handleOpenModal }) => {
             ))}
           </tbody>
         </table>
-        <MdInfoOutline className="info-icon" onClick={() => handleOpenModal("decode")}/>
+        <MdInfoOutline className="info-icon" onClick={() => handleOpenInfoModal("decode")}/>
       </div>
     </>
   );

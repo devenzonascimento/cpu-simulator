@@ -1,16 +1,13 @@
 import { useCpu } from "../../../context/CpuContext";
-
-import { MdInfoOutline } from "react-icons/md";
-
-import { toBinary } from "../../../script/cpuScript";
-
-import "./styles.scss";
-import ModalMemoryEditor from "./ModalMemoryEditor/ModalMemoryEditor";
-
 import useMemoryEditor from "../../../hooks/useMemoryEditor";
 
-const Memory = ({ memory, handleOpenModal }) => {
-  const { handleWriteMemory } = useCpu();
+import ModalMemoryEditor from "./ModalMemoryEditor/ModalMemoryEditor";
+import { MdInfoOutline } from "react-icons/md";
+
+import "./styles.scss";
+
+const Memory = ({ memory, handleOpenInfoModal }) => {
+  const { handleWriteMemory, toBinary } = useCpu();
 
   const {
     isOpen,
@@ -23,7 +20,7 @@ const Memory = ({ memory, handleOpenModal }) => {
     <div className="memory-container">
       <MdInfoOutline
         className="info-icon"
-        onClick={() => handleOpenModal("memory")}
+        onClick={() => handleOpenInfoModal("memory")}
       />
       <table className="memory-table">
         <caption className="memory-caption">MEMORY</caption>
