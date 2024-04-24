@@ -1,7 +1,7 @@
-import { useState } from "react";
 import InstructionTable from "./InstructionTable.jsx";
 import "./styles.scss";
 import useCloseOutsideClick from "../../../../hooks/useCloseOutsideClick.js";
+import useMemoryDataInput from "../../../../hooks/useMemoryDataInput.js";
 
 const ModalMemoryEditor = ({
   isOpen,
@@ -9,29 +9,20 @@ const ModalMemoryEditor = ({
   handleWriteMemory,
   address,
 }) => {
-  const [inputValue, setInputValue] = useState("");
-
-  const handleChangeInput = (newValue) => {
-    newValue = newValue.replace(/[^0-1]/g, "");
-    setInputValue(newValue);
-  };
+  const {
+    inputValue,
+    handleChangeInput,
+    handleOpcodeClick,
+    handleAdressClick,
+  } = useMemoryDataInput(isOpen);
 
   const handleConfirm = () => {
     if (inputValue == "") return;
     handleWriteMemory(address, inputValue);
     handleCloseModal();
-    handleChangeInput("");
   };
 
-  const handleOpcodeClick = (value) => {
-    setInputValue(value);
-  };
-
-  const handleAdressClick = (value) => {
-    if (inputValue.length < 8) setInputValue((prev) => prev + value);
-  };
-
-  const backdropRef = useCloseOutsideClick(handleCloseModal)
+  const backdropRef = useCloseOutsideClick(handleCloseModal);
 
   return (
     <>
