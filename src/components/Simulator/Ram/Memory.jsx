@@ -1,5 +1,5 @@
 import { useCpu } from "../../../context/CpuContext";
-import useMemoryEditor from "../../../hooks/useMemoryEditor";
+import useMemoryEditor from "../../../hooks/useMemoryEditorModal";
 
 import ModalMemoryEditor from "./ModalMemoryEditor/ModalMemoryEditor";
 import { MdInfoOutline } from "react-icons/md";
