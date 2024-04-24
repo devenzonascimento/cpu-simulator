@@ -78,15 +78,11 @@ export const CpuProvider = ({ children }) => {
   };
 
   const handleWriteMemory = (address, newValue) => {
-
     let newMemory = memory;
     newMemory[address] = toDecimal(newValue);
     
     updateMemoryCell(newMemory);
     updateMemory(memory)
-    
-    // console.log("cpu:", memory)
-    // console.log("state:", memoryValue)
   }
 
   function toBinary(num) {
@@ -139,7 +135,6 @@ export const CpuProvider = ({ children }) => {
     </CpuContext.Provider>
   );
 };
-
 
 export const useCpu = () => {
   const context = useContext(CpuContext);
