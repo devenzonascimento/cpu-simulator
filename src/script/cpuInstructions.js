@@ -142,6 +142,11 @@ const searchInstruction = [
     description = descriptions.fetchPcToMar;
   },
   () => {
+    if (pc > 15) {
+      alert("ESTE ENDEREÇO DE MEMÓRIA É INVÁLIDO!")
+      clearCPU()
+      return false
+    }
     makeAnimation(`address-${mar}`);
     description = descriptions.fetchReadMemoryCell;
   },
@@ -156,7 +161,7 @@ const searchInstruction = [
     description = descriptions.fetchMdrToCir;
   },
   () => {
-    if (pc <= 15) pc++;
+    pc++;
     makeAnimation("pc");
     description = descriptions.fetchPcIncrement;
   },
