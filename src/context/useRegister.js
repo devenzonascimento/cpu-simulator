@@ -1,11 +1,11 @@
 import { useState } from "react";
 
 const useRegister = () => {
-  const [pcValue, setPcValue] = useState(0);
-  const [marValue, setMarValue] = useState(0);
-  const [mdrValue, setMdrValue] = useState(0);
-  const [accValue, setAccValue] = useState(0);
-  const [cirValue, setCirValue] = useState(0);
+  const [pcValue, setPcValue] = useState("00000000");
+  const [marValue, setMarValue] = useState("00000000");
+  const [mdrValue, setMdrValue] = useState("00000000");
+  const [accValue, setAccValue] = useState("00000000");
+  const [cirValue, setCirValue] = useState("00000000");
 
   const updatePc = (newValue) => {
     setPcValue(newValue);
