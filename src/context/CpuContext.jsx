@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
-import useRegister from "./useRegister";
-import useMemory from "./useMemory";
+import useRegister from "../hooks/useRegisterState";
+import useMemory from "../hooks/useMemoryState";
 
 import {
   executeStepByStep,
