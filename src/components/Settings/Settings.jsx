@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 import { useCpu } from "../../context/CpuContext";
 
 import { buttonAnimation } from "./animations";
@@ -8,7 +6,7 @@ import { IoPlaySkipForward, IoPlay } from "react-icons/io5";
 
 import "./styles.scss";
 
-const Settings = ({}) => {
+const Settings = () => {
   const {
     programInProgress,
     handleRunProgram,
