@@ -1,7 +1,7 @@
-import { createContext, memo, useContext, useState } from "react";
-
+import { createContext, useContext, useState } from "react";
 import useRegister from "./useRegister";
 import useMemory from "./useMemory";
+
 import {
   executeStepByStep,
   clearCPU,
@@ -14,6 +14,7 @@ import {
   cir,
   memory,
   updateMemoryCell,
+  description,
 } from "../script/cpuInstructions";
 
 export const CpuContext = createContext();
@@ -33,12 +34,12 @@ export const CpuProvider = ({ children }) => {
     updateCir,
   } = useRegister();
 
-  const renderAllValues = () => {
-    updatePc(pc);
-    updateMar(mar);
-    updateMdr(mdr);
-    updateAcc(acc);
-    updateCir(cir);
+  const updateAllComponents = () => {
+    updatePc(toBinary(pc));
+    updateMar(toBinary(mar));
+    updateMdr(toBinary(mdr));
+    updateAcc(toBinary(acc));
+    updateCir(toBinary(cir));
     updateMemory(memory);
   }
 
@@ -48,7 +49,7 @@ export const CpuProvider = ({ children }) => {
 
     let stepsIntervals = setInterval(() => {
       if (executeStepByStep()) {
-        renderAllValues();
+        updateAllComponents();
       } else {
         clearInterval(stepsIntervals);
         setProgramInProgress(false);
@@ -58,22 +59,22 @@ export const CpuProvider = ({ children }) => {
 
   const handleRunProgramOnSteps = () => {
     executeStepByStep();
-    renderAllValues();
+    updateAllComponents();
   };
 
   const handleClearMemory = () => {
     clearMemory();
-    renderAllValues();
+    updateAllComponents();
   };
 
   const handleClearCPU = () => {
     clearCPU();
-    renderAllValues();
+    updateAllComponents();
   };
 
   const handleSwitchProgram = (index) => {
     switchProgram(index)
-    renderAllValues();
+    updateAllComponents();
   };
 
   const handleWriteMemory = (address, newValue) => {
@@ -130,6 +131,8 @@ export const CpuProvider = ({ children }) => {
         mdrValue,
         accValue,
         cirValue,
+        description,
+        toBinary,
       }}
     >
       {children}
