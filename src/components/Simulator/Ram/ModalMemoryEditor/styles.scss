@@ -25,7 +25,7 @@
         }
 
         .form-container {
-            padding: 1em;
+            padding: 1.5em;
             height: max-content;
             width: 500px;
             display: flex;
@@ -36,15 +36,40 @@
 
             .instructions-container {
                 display: flex;
-                flex-wrap: wrap;
-                gap: 0.5em;
+                flex-direction: column;
+                gap: 1em;
 
-                .opcode-button {
-                    min-width: 75px;
-                    flex: 1;
-                    font-size: 1em;
+                &>h2 {
                     text-transform: uppercase;
+                    text-align: center;
                 }
+
+                .opcode-container {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 0.5em;
+
+                    .opcode-button {
+                        min-width: 75px;
+                        flex: 1;
+                        font-size: 1em;
+                        text-transform: uppercase;
+                    }
+                }
+
+                .address-container {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 0.5em;
+                    
+                    .address-button {
+                        min-width: 45px;
+                        flex: 1;
+                        font-size: 1em;
+                        text-transform: uppercase;
+                    }
+                }
+
             }
 
             .input-field {
