@@ -11,8 +11,15 @@ import InfoModal from "./InfoModal/InfoModal";
 import "./styles.scss";
 
 const Simulator = ({}) => {
-  const { memoryValue, pcValue, marValue, mdrValue, accValue, cirValue, description } =
-    useCpu();
+  const {
+    memoryValue,
+    pcValue,
+    marValue,
+    mdrValue,
+    accValue,
+    cirValue,
+    description,
+  } = useCpu();
 
   const [isOpenInfoModal, setIsOpenInfoModal] = useState(false);
 
@@ -58,19 +65,17 @@ const Simulator = ({}) => {
     setIsOpenInfoModal(true);
   };
 
-  const handleCloseInfoModal = (event) => {
-    const background = document.querySelector(".backdrop");
-    const closeIcon = document.querySelector(".close-button");
-
-    if (event.target === background || event.currentTarget === closeIcon) {
-      setIsOpenInfoModal(false);
-    }
+  const handleCloseInfoModal = () => {
+    setIsOpenInfoModal(!isOpenInfoModal);
   };
 
   return (
     <>
       <div className="simulator-container">
-        <Memory memory={memoryValue} handleOpenInfoModal={handleOpenInfoModal} />
+        <Memory
+          memory={memoryValue}
+          handleOpenInfoModal={handleOpenInfoModal}
+        />
         <div className="registers-container">
           <Register
             id={"pc"}
