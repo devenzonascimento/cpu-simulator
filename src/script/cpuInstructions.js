@@ -4,7 +4,7 @@ import {
   removeAllActiveComponentStyles,
 } from "./animationCpuComponents";
 
-let main = [];
+let mainInstructionQueue = [];
 
 let currentStep = 0;
 let executeIsValid;
@@ -17,8 +17,8 @@ export const executeStepByStep = () => {
     return false;
   }
 
-  if (currentStep < main.length) {
-    executeIsValid = main[currentStep]();
+  if (currentStep < mainInstructionQueue.length) {
+    executeIsValid = mainInstructionQueue[currentStep]();
     currentStep++;
   }
 
@@ -27,7 +27,7 @@ export const executeStepByStep = () => {
 
 export const clearCPU = () => {
   currentStep = 0;
-  main = searchInstruction;
+  mainInstructionQueue = searchInstruction;
 
   pc = 0;
   mar = 0;
@@ -51,8 +51,8 @@ export const switchProgram = (index) => {
 };
 
 export const updateMemoryCell = (newValue) => {
-  memory = [...newValue]
-}
+  memory = [...newValue];
+};
 
 const programs = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -60,7 +60,6 @@ const programs = [
   [-111, 63, -111, 47, -110, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [-111, 62, -111, 63, 46, -119, 95, -110, 0, 94, -110, 0, 0, 0, 0, 0],
 ];
-
 
 export let memory = [...programs[0]];
 export let pc = 0;
@@ -129,9 +128,9 @@ const decode = (instruction) => {
       makeAnimation("decode-opt");
     }
   } else {
-    clearCPU()
-    clearMemory()
-    alert("Esta instrução não existe")
+    clearCPU();
+    clearMemory();
+    alert("ESTA INSTRUÇÃO É INVÁLIDA");
     return false;
   }
 };
@@ -398,7 +397,7 @@ const jmpNegativeInstruction = [
 ];
 
 const instructionExecute = (array) => {
-  main = main.concat(array);
+  mainInstructionQueue = mainInstructionQueue.concat(array);
 };
 
-main = [...searchInstruction];
+mainInstructionQueue = [...searchInstruction];
