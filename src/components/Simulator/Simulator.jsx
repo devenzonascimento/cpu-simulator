@@ -10,7 +10,7 @@ import InfoModal from "./InfoModal/InfoModal";
 
 import "./styles.scss";
 
-const Simulator = ({}) => {
+const Simulator = () => {
   const {
     memoryValue,
     pcValue,
@@ -18,7 +18,7 @@ const Simulator = ({}) => {
     mdrValue,
     accValue,
     cirValue,
-    description,
+    phaseDescription,
   } = useCpu();
 
   const [isOpenInfoModal, setIsOpenInfoModal] = useState(false);
@@ -111,7 +111,7 @@ const Simulator = ({}) => {
         handleCloseInfoModal={handleCloseInfoModal}
         information={information}
       />
-      <Description description={description} />
+      <Description description={phaseDescription} />
     </>
   );
 };

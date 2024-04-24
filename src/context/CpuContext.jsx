@@ -14,7 +14,7 @@ import {
   cir,
   memory,
   updateMemoryCell,
-  description,
+  phaseDescription,
 } from "../script/cpuInstructions";
 
 export const CpuContext = createContext();
@@ -131,7 +131,7 @@ export const CpuProvider = ({ children }) => {
         mdrValue,
         accValue,
         cirValue,
-        description,
+        phaseDescription,
         toBinary,
       }}
     >

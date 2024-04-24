@@ -1,4 +1,4 @@
-export const descriptions = {
+export const phaseDescriptionsList = {
   fetchPcToMar: {
     phase: "Busca",
     text: "A Unidade de Controle copia o valor do registrador PC para o registrador MAR que envia o valor para o Barramento de Endereço, que funciona como uma interface entre a CPU e a Memória.",
