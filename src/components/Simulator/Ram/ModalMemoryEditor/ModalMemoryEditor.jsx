@@ -1,7 +1,9 @@
-import InstructionTable from "./InstructionTable.jsx";
-import "./styles.scss";
 import useCloseOutsideClick from "../../../../hooks/useCloseOutsideClick.js";
 import useMemoryDataInput from "../../../../hooks/useMemoryDataInput.js";
+
+import InstructionTable from "./InstructionTable.jsx";
+
+import "./styles.scss";
 
 const ModalMemoryEditor = ({
   isOpen,
@@ -16,13 +18,13 @@ const ModalMemoryEditor = ({
     handleAdressClick,
   } = useMemoryDataInput(isOpen);
 
+  const backdropRef = useCloseOutsideClick(handleCloseModal);
+
   const handleConfirm = () => {
     if (inputValue == "") return;
     handleWriteMemory(address, inputValue);
     handleCloseModal();
   };
-
-  const backdropRef = useCloseOutsideClick(handleCloseModal);
 
   return (
     <>
