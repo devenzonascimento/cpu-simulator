@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useCpu } from "../../context/CpuContext";
 
 import Memory from "./Ram/Memory";
 import Register from "./Registers/Register";
@@ -7,14 +8,10 @@ import DecodeUnit from "./DecodeUnit/DecodeUnit";
 import Description from "./Description/Description";
 import InfoModal from "./InfoModal/InfoModal";
 
-import { description, toBinary } from "../../script/cpuScript";
-
 import "./styles.scss";
 
-import { useCpu } from "../../context/CpuContext";
-
 const Simulator = ({}) => {
-  const { memoryValue, pcValue, marValue, mdrValue, accValue, cirValue } =
+  const { memoryValue, pcValue, marValue, mdrValue, accValue, cirValue, description } =
     useCpu();
 
   const [isOpenInfoModal, setIsOpenInfoModal] = useState(false);
@@ -56,12 +53,12 @@ const Simulator = ({}) => {
     },
   };
 
-  const handleOpenModal = (componentID) => {
+  const handleOpenInfoModal = (componentID) => {
     setInformations(modalInformation[componentID]);
     setIsOpenInfoModal(true);
   };
 
-  const handleCloseModal = (event) => {
+  const handleCloseInfoModal = (event) => {
     const background = document.querySelector(".backdrop");
     const closeIcon = document.querySelector(".close-button");
 
@@ -73,40 +70,40 @@ const Simulator = ({}) => {
   return (
     <>
       <div className="simulator-container">
-        <Memory memory={memoryValue} handleOpenModal={handleOpenModal} />
+        <Memory memory={memoryValue} handleOpenInfoModal={handleOpenInfoModal} />
         <div className="registers-container">
           <Register
             id={"pc"}
-            value={toBinary(pcValue)}
-            handleOpenModal={handleOpenModal}
+            value={pcValue}
+            handleOpenInfoModal={handleOpenInfoModal}
           />
           <Register
             id={"mar"}
-            value={toBinary(marValue)}
-            handleOpenModal={handleOpenModal}
+            value={marValue}
+            handleOpenInfoModal={handleOpenInfoModal}
           />
           <Register
             id={"mdr"}
-            value={toBinary(mdrValue)}
-            handleOpenModal={handleOpenModal}
+            value={mdrValue}
+            handleOpenInfoModal={handleOpenInfoModal}
           />
-          <Alu handleOpenModal={handleOpenModal} />
+          <Alu handleOpenInfoModal={handleOpenInfoModal} />
           <Register
             id={"acc"}
-            value={toBinary(accValue)}
-            handleOpenModal={handleOpenModal}
+            value={accValue}
+            handleOpenInfoModal={handleOpenInfoModal}
           />
           <Register
             id={"cir"}
-            value={toBinary(cirValue)}
-            handleOpenModal={handleOpenModal}
+            value={cirValue}
+            handleOpenInfoModal={handleOpenInfoModal}
           />
         </div>
-        <DecodeUnit handleOpenModal={handleOpenModal} />
+        <DecodeUnit handleOpenInfoModal={handleOpenInfoModal} />
       </div>
       <InfoModal
         isOpenInfoModal={isOpenInfoModal}
-        handleCloseModal={handleCloseModal}
+        handleCloseInfoModal={handleCloseInfoModal}
         information={information}
       />
       <Description description={description} />
