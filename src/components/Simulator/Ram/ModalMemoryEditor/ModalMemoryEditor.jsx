@@ -1,6 +1,7 @@
 import { useState } from "react";
-import InstructionTable from "./InstructionTable.jsx"
+import InstructionTable from "./InstructionTable.jsx";
 import "./styles.scss";
+import useCloseOutsideClick from "../../../../hooks/useCloseOutsideClick.js";
 
 const ModalMemoryEditor = ({
   isOpen,
@@ -15,25 +16,27 @@ const ModalMemoryEditor = ({
     setInputValue(newValue);
   };
 
-  const handleFormSubmit = () => {
-    if (inputValue == "") return
+  const handleConfirm = () => {
+    if (inputValue == "") return;
     handleWriteMemory(address, inputValue);
     handleCloseModal();
     handleChangeInput("");
   };
 
   const handleOpcodeClick = (value) => {
-    setInputValue(value)
+    setInputValue(value);
   };
 
   const handleAdressClick = (value) => {
-    setInputValue(prev => prev + value)
+    if (inputValue.length < 8) setInputValue((prev) => prev + value);
   };
-  
+
+  const backdropRef = useCloseOutsideClick(handleCloseModal)
+
   return (
     <>
       {isOpen && (
-        <div className="modal-backdrop">
+        <div className="modal-backdrop" ref={backdropRef}>
           <dialog className="modal-container" open>
             <h1>Controlador de Memória</h1>
 
@@ -43,9 +46,12 @@ const ModalMemoryEditor = ({
               }}
               className="form-container"
             >
-              <InstructionTable handleOpcodeClick={handleOpcodeClick} handleAdressClick={handleAdressClick}/>
+              <InstructionTable
+                handleOpcodeClick={handleOpcodeClick}
+                handleAdressClick={handleAdressClick}
+              />
               <div className="input-field">
-                <span>Insira a instrução:</span>
+                <span>Digite a instrução:</span>
                 <input
                   maxLength={8}
                   value={inputValue}
@@ -53,7 +59,7 @@ const ModalMemoryEditor = ({
                   onChange={({ target }) => handleChangeInput(target.value)}
                 />
               </div>
-              <button onClick={handleFormSubmit}>Gravar na Memória</button>
+              <button onClick={handleConfirm}>Gravar na Memória</button>
             </form>
           </dialog>
         </div>
