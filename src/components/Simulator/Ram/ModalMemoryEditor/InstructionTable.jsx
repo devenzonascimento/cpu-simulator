@@ -124,6 +124,7 @@ const InstructionTable = ({ handleOpcodeClick, handleAdressClick }) => {
           {opcodeButtonData.map((button, index) => {
             return (
               <button
+                type="button"
                 key={index}
                 className="opcode-button"
                 value={button.binaryValue}
@@ -143,6 +144,7 @@ const InstructionTable = ({ handleOpcodeClick, handleAdressClick }) => {
           {addressButtonData.map((button, index) => {
             return (
               <button
+                type="button"
                 key={index}
                 className="address-button"
                 value={button.binaryValue}

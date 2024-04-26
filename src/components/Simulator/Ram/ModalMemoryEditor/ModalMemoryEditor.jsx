@@ -36,6 +36,7 @@ const ModalMemoryEditor = ({
             <form
               onSubmit={(e) => {
                 e.preventDefault();
+                handleConfirm()
               }}
               className="form-container"
             >
@@ -44,7 +45,10 @@ const ModalMemoryEditor = ({
                 handleAdressClick={handleAdressClick}
               />
               <div className="input-field">
-                <span>Digite a instrução:</span>
+                <div className="address-identifier">
+                  <span>Célula</span>
+                  <span>{address}</span>                   
+                </div>
                 <input
                   maxLength={8}
                   value={inputValue}
