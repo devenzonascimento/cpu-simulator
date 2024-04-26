@@ -1,9 +1,8 @@
-import React from "react";
+import useCloseOutsideClick from "../../../hooks/useCloseOutsideClick";
 
 import { MdOutlineClose } from "react-icons/md";
 
 import "./styles.scss";
-import useCloseOutsideClick from "../../../hooks/useCloseOutsideClick";
 
 const InfoModal = ({ isOpenInfoModal, handleCloseInfoModal, information }) => {
   const backdropRef = useCloseOutsideClick(handleCloseInfoModal);

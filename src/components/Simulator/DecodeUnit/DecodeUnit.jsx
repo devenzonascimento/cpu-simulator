@@ -1,7 +1,4 @@
-import React from "react";
-
 import DecodeRow from "./DecodeRow";
-
 import { MdInfoOutline } from "react-icons/md";
 
 import "./styles.scss";

@@ -1,6 +1,6 @@
 import { useCpu } from "../../context/CpuContext";
 
-import { buttonAnimation } from "./animations";
+import { buttonAnimation } from "./animations"; // Remover isso e refazer o botão
 
 import { IoPlaySkipForward, IoPlay } from "react-icons/io5";
 
