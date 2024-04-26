@@ -173,6 +173,41 @@
                 background-color: transparent;
                 border: 2px solid lime;
             }
+
+            .memory-cell-value:hover {
+            //.address-15 {
+                cursor: pointer;
+
+                &::after {
+                    content: "Editar";
+                    position: absolute;
+                    top: 50%;
+                    left: 105%;
+                    transform: translateY(-50%);
+                    width: 60%;
+                    height: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: black;
+                    font-weight: 900;
+                    background-color: lime;
+                    border-radius: 5px;
+                }
+                
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    left: 100%;
+                    transform: translateY(-50%) rotate(135deg);
+                    min-height: 15px;
+                    min-width: 15px;
+                    height: max-content;
+                    background-color: lime;
+
+                }
+            }
         }
 
         .info-icon {
