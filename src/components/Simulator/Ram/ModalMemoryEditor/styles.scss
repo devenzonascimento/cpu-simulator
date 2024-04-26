@@ -76,9 +76,7 @@
             .input-field {
                 height: 70px;
                 display: flex;
-                flex-direction: row;
                 align-items: center;
-                //gap: 0.5em;
 
                 &>span {
                     font-size: 1.5em;
@@ -117,7 +115,6 @@
                     color: lime;
                     background-color: transparent;
                     border: 1px solid lime;
-                    //border-radius: 5px;
                 }
             }
 
