@@ -10,7 +10,9 @@ let currentStep = 0;
 let executeIsValid;
 
 export const executeStepByStep = () => {
-  if (executeIsValid !== undefined) {
+  console.log(executeIsValid);
+  
+  if (executeIsValid === false) {
     executeIsValid = undefined;
     clearCPU();
     alert("O PROGRAMA FOI ENCERRADO");
@@ -22,7 +24,7 @@ export const executeStepByStep = () => {
     currentStep++;
   }
 
-  return true;
+  if (executeIsValid instanceof Promise) return executeIsValid;
 };
 
 export const clearCPU = () => {
@@ -143,9 +145,9 @@ const searchInstruction = [
   },
   () => {
     if (pc > 15) {
-      alert("ESTE ENDEREÇO DE MEMÓRIA É INVÁLIDO!")
-      clearCPU()
-      return false
+      alert("ESTE ENDEREÇO DE MEMÓRIA É INVÁLIDO!");
+      clearCPU();
+      return false;
     }
     makeAnimation(`address-${mar}`);
     phaseDescription = phaseDescriptionsList.fetchReadMemoryCell;
@@ -306,14 +308,20 @@ const loadInstruction = [
     phaseDescription = phaseDescriptionsList.checkForInterruptions;
   },
 ];
-
+import { requestInputPromptValue } from "./modalPrompt";
 const inputInstruction = [
-  () => {
-    acc = Number(prompt("Informe um numero: (-127 a 127)"));
+  async () => {
+    //acc = Number(prompt("Informe um numero: (-127 a 127)"));
+
+    const value = await requestInputPromptValue();
+    console.log("valor:", value);
+    acc = Number(value);
+    console.log("acc:", acc);
 
     makeAnimation("acc");
 
     phaseDescription = phaseDescriptionsList.decodeInput;
+    return undefined;
   },
   () => {
     instructionExecute(searchInstruction);

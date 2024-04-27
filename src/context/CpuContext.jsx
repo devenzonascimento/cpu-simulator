@@ -41,24 +41,46 @@ export const CpuProvider = ({ children }) => {
     updateAcc(toBinary(acc));
     updateCir(toBinary(cir));
     updateMemory(memory);
-  }
+  };
 
   const [programInProgress, setProgramInProgress] = useState(false);
-  const handleRunProgram = () => {
+
+  const handleRunProgram = async () => {
     setProgramInProgress(true);
 
-    let stepsIntervals = setInterval(() => {
-      if (executeStepByStep()) {
-        updateAllComponents();
-      } else {
+    const executeWithInterval = async () => {
+      const functionReturn = executeStepByStep();
+
+      if (functionReturn === false) {
         clearInterval(stepsIntervals);
         setProgramInProgress(false);
+        return;
       }
-    }, 1000);
+      
+      if (functionReturn instanceof Promise) {
+        clearInterval(stepsIntervals);
+        functionReturn.then(() => {
+          updateAllComponents();
+          stepsIntervals = setInterval(executeWithInterval, 1000);
+          return;
+        });
+      }
+
+      updateAllComponents();
+    };
+
+    let stepsIntervals = setInterval(executeWithInterval, 1000);
   };
 
   const handleRunProgramOnSteps = () => {
-    executeStepByStep();
+    const functionReturn = executeStepByStep();
+    if (functionReturn instanceof Promise) {
+      console.log("retornou uma promise");
+      functionReturn.then(() => {
+        updateAllComponents();
+        return;
+      });
+    }
     updateAllComponents();
   };
 
@@ -73,41 +95,41 @@ export const CpuProvider = ({ children }) => {
   };
 
   const handleSwitchProgram = (index) => {
-    switchProgram(index)
+    switchProgram(index);
     updateAllComponents();
   };
 
   const handleWriteMemory = (address, newValue) => {
     let newMemory = memory;
     newMemory[address] = toDecimal(newValue);
-    
+
     updateMemoryCell(newMemory);
-    updateMemory(memory)
-  }
+    updateMemory(memory);
+  };
 
   function toBinary(num) {
     const isNegative = num < 0;
-  
+
     if (isNegative) {
       const binaryUnsigned = Number(Math.abs(num)).toString(2).padStart(8, "0");
-  
+
       const complement = binaryUnsigned
         .split("")
         .map((bit) => (bit === "0" ? "1" : "0"))
         .join("");
       num = parseInt(complement, 2) + 1;
     }
-  
+
     return Number(num).toString(2).padStart(8, "0");
   }
 
   function toDecimal(num) {
     const decimal = parseInt(num, 2);
-  
+
     if (num.charAt(0) === "1") {
       return decimal - 256;
     }
-  
+
     return decimal;
   }
 
