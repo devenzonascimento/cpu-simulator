@@ -1,8 +1,10 @@
-import { phaseDescriptionsList } from "./phaseDescriptions";
 import {
   makeAnimation,
   removeAllActiveComponentStyles,
 } from "./animationCpuComponents";
+
+import { phaseDescriptionsList } from "./phaseDescriptions";
+import { openModalPrompt } from "./teste";
 
 let mainInstructionQueue = [];
 
@@ -308,20 +310,15 @@ const loadInstruction = [
     phaseDescription = phaseDescriptionsList.checkForInterruptions;
   },
 ];
-import { requestInputPromptValue } from "./modalPrompt";
+
 const inputInstruction = [
   async () => {
-    //acc = Number(prompt("Informe um numero: (-127 a 127)"));
-
-    const value = await requestInputPromptValue();
-    console.log("valor:", value);
+    const value = await openModalPrompt();
     acc = Number(value);
-    console.log("acc:", acc);
 
     makeAnimation("acc");
 
     phaseDescription = phaseDescriptionsList.decodeInput;
-    return undefined;
   },
   () => {
     instructionExecute(searchInstruction);
