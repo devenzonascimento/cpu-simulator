@@ -173,3 +173,40 @@
     }
 
 }
+
+@media only screen and (max-width: 450px) {
+    .input-modal-container {
+        h2 {
+            font-size: 1.2em;
+        }
+
+        label {
+            font-size: 1.2em;
+        }
+    }
+
+    .output-modal-container {
+        width: max-content;
+
+        .close-icon {
+            font-size: 25px;
+        }
+
+        &>h2 {
+            font-size: 1.2em;
+            padding: 1em 2em;
+        }
+    }
+
+    .alert-modal-container {
+        .close-icon {
+            font-size: 25px;
+        }
+
+        &>h2 {
+            font-size: 1em;
+            padding-inline: 1em;
+
+        }
+    }
+}
