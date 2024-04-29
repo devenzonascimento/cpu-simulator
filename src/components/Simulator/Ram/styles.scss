@@ -28,29 +28,26 @@
                 background-color: rgb(40, 40, 40);
             }
 
-            th,
-            td {
+            th, td {
                 height: 1.7em;
                 width: 7.5em;
                 font-size: 0.85em;
                 text-align: center;
                 text-transform: uppercase;
+                letter-spacing: 0.1em;
                 border: 2px solid rgb(94, 94, 94);
             }
 
-            td {
-                letter-spacing: 0.1em;
-
-            }
-
-            .memory-input {
-                height: 100%;
-                width: 100%;
-                text-align: center;
-                letter-spacing: 0.1em;
-                font-size: 1em;
-                color: lime;
+            td.focus::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 98%;
+                height: 98%;
                 background-color: transparent;
+                border: 2px solid lime;
             }
         }
     }
@@ -81,34 +78,30 @@
         .memory-table {
             border-collapse: collapse;
 
-
-            th,
-            td {
-                height: 1.7em;
-                width: 7.5em;
-                text-align: center;
-                text-transform: uppercase;
-                border: 2px solid rgb(94, 94, 94);
-                font-size: 0.9em;
-            }
-
-            td {
-                letter-spacing: 0.1em;
-
-            }
-
             tr:nth-child(even) {
                 background-color: rgb(40, 40, 40);
             }
 
-            .memory-input {
-                height: 100%;
-                width: 100%;
+            th,td {
+                height: 1.7em;
+                width: 7.5em;
                 text-align: center;
+                text-transform: uppercase;
                 letter-spacing: 0.1em;
-                font-size: 1em;
-                color: lime;
+                border: 2px solid rgb(94, 94, 94);
+                font-size: 0.9em;
+            }
+
+            td.focus::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 98%;
+                height: 98%;
                 background-color: transparent;
+                border: 2px solid lime;
             }
         }
 
