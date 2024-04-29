@@ -2,9 +2,9 @@ import {
   makeAnimation,
   removeAllActiveComponentStyles,
 } from "./animationCpuComponents";
-
 import { phaseDescriptionsList } from "./phaseDescriptions";
-import { waitForModal } from "../components/Simulator/InstructionModal/GenerateMandatoryModal"; 
+import { waitForModal } from "../components/Simulator/InstructionModal/GenerateMandatoryModal";
+
 import InputModal from "../components/Simulator/InstructionModal/InputModal";
 import OutputModal from "../components/Simulator/InstructionModal/OutputModal";
 
