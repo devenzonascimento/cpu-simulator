@@ -18,7 +18,7 @@ export const executeStepByStep = () => {
   if (executeIsValid === false) {
     executeIsValid = undefined;
     clearCPU();
-    waitForModal(AlertModal, "O PROGRAMA FOI ENCERRADO")
+    waitForModal(AlertModal, "PROGRAMA FOI ENCERRADO")
     return false;
   }
 
@@ -149,7 +149,7 @@ const searchInstruction = [
   () => {
     if (pc > 15) {
       //alert("ESTE ENDEREÇO DE MEMÓRIA É INVÁLIDO!");
-      waitForModal(AlertModal, "ESTE ENDEREÇO DE MEMÓRIA É INVÁLIDO!")
+      waitForModal(AlertModal, "ENDEREÇO DE MEMÓRIA INVÁLIDO!")
       clearCPU();
       return false;
     }
