@@ -4,7 +4,9 @@ import {
 } from "./animationCpuComponents";
 
 import { phaseDescriptionsList } from "./phaseDescriptions";
-import { openModalPrompt } from "./teste";
+import { waitForModal } from "../components/Simulator/InstructionModal/GenerateMandatoryModal"; 
+import InputModal from "../components/Simulator/InstructionModal/InputModal";
+import OutputModal from "../components/Simulator/InstructionModal/OutputModal";
 
 let mainInstructionQueue = [];
 
@@ -313,7 +315,7 @@ const loadInstruction = [
 
 const inputInstruction = [
   async () => {
-    const value = await openModalPrompt();
+    const value = await waitForModal(InputModal);
     acc = Number(value);
 
     makeAnimation("acc");
@@ -328,9 +330,10 @@ const inputInstruction = [
 ];
 
 const outputInstruction = [
-  () => {
+  async () => {
+    await waitForModal(OutputModal)
+    
     makeAnimation("acc");
-    alert(`OUTPUT: ${acc}`);
 
     phaseDescription = phaseDescriptionsList.decodeOutput;
   },
