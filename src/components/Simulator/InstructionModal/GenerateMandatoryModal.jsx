@@ -1,6 +1,6 @@
 import { createRoot } from "react-dom/client";
 
-export const waitForModal = async (ReactComponent) => {
+export const waitForModal = async (ReactComponent, data) => {
   return new Promise((resolve) => {
     const modal = getModalContainer();
 
@@ -9,7 +9,7 @@ export const waitForModal = async (ReactComponent) => {
       resolve(value);
     };
 
-    createRoot(modal).render(<ReactComponent onClose={onClose} />);
+    createRoot(modal).render(<ReactComponent onClose={onClose} data={data}/>);
   });
 };
 
