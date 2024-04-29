@@ -14,8 +14,6 @@ let currentStep = 0;
 let executeIsValid;
 
 export const executeStepByStep = () => {
-  console.log(executeIsValid);
-  
   if (executeIsValid === false) {
     executeIsValid = undefined;
     clearCPU();
@@ -331,7 +329,7 @@ const inputInstruction = [
 
 const outputInstruction = [
   async () => {
-    await waitForModal(OutputModal)
+    await waitForModal(OutputModal, acc)
     
     makeAnimation("acc");
 
