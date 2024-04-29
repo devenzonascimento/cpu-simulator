@@ -26,8 +26,8 @@ const InputModal = ({ onClose }) => {
           <input
             ref={inputFocusRef}
             id="decimal-input"
-            type="number"
             placeholder="13"
+            maxLength={4}
             value={decimalValue}
             onChange={({ target }) => updateValidateInput(target.value)}
           />

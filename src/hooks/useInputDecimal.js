@@ -6,6 +6,7 @@ const useInputDecimal = () => {
   const [binaryValue, setBinaryValue] = useState("--------");
 
   const updateValidateInput = (value) => {
+    value = value.replace(/[^0-9-]/g, "");
     setDecimalValue(value);
 
     if (value >= -127 && value <= 127) {
