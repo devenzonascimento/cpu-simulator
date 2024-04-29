@@ -7,6 +7,7 @@ import { waitForModal } from "../components/Simulator/InstructionModal/GenerateM
 
 import InputModal from "../components/Simulator/InstructionModal/InputModal";
 import OutputModal from "../components/Simulator/InstructionModal/OutputModal";
+import AlertModal from "../components/Simulator/InstructionModal/AlertModal";
 
 let mainInstructionQueue = [];
 
@@ -17,7 +18,7 @@ export const executeStepByStep = () => {
   if (executeIsValid === false) {
     executeIsValid = undefined;
     clearCPU();
-    alert("O PROGRAMA FOI ENCERRADO");
+    waitForModal(AlertModal, "O PROGRAMA FOI ENCERRADO")
     return false;
   }
 
@@ -147,7 +148,8 @@ const searchInstruction = [
   },
   () => {
     if (pc > 15) {
-      alert("ESTE ENDEREÇO DE MEMÓRIA É INVÁLIDO!");
+      //alert("ESTE ENDEREÇO DE MEMÓRIA É INVÁLIDO!");
+      waitForModal(AlertModal, "ESTE ENDEREÇO DE MEMÓRIA É INVÁLIDO!")
       clearCPU();
       return false;
     }
