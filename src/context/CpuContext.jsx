@@ -77,7 +77,6 @@ export const CpuProvider = ({ children }) => {
   const handleRunProgramOnSteps = () => {
     const functionReturn = executeStepByStep();
     if (functionReturn instanceof Promise) {
-      console.log("retornou uma promise");
       functionReturn.then(() => {
         updateAllComponents();
         return;
