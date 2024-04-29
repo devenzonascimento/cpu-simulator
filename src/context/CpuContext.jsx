@@ -2,6 +2,8 @@ import { createContext, useContext, useState } from "react";
 import useRegister from "../hooks/useRegisterState";
 import useMemory from "../hooks/useMemoryState";
 
+import { toBinary, toDecimal } from "../script/convertsDecimalBinary";
+
 import {
   executeStepByStep,
   clearCPU,
@@ -107,32 +109,6 @@ export const CpuProvider = ({ children }) => {
     updateMemory(memory);
   };
 
-  function toBinary(num) {
-    const isNegative = num < 0;
-
-    if (isNegative) {
-      const binaryUnsigned = Number(Math.abs(num)).toString(2).padStart(8, "0");
-
-      const complement = binaryUnsigned
-        .split("")
-        .map((bit) => (bit === "0" ? "1" : "0"))
-        .join("");
-      num = parseInt(complement, 2) + 1;
-    }
-
-    return Number(num).toString(2).padStart(8, "0");
-  }
-
-  function toDecimal(num) {
-    const decimal = parseInt(num, 2);
-
-    if (num.charAt(0) === "1") {
-      return decimal - 256;
-    }
-
-    return decimal;
-  }
-
   return (
     <CpuContext.Provider
       value={{
@@ -150,7 +126,6 @@ export const CpuProvider = ({ children }) => {
         accValue,
         cirValue,
         phaseDescription,
-        toBinary,
       }}
     >
       {children}

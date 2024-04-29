@@ -1,5 +1,6 @@
 import { useCpu } from "../../../context/CpuContext";
 import useMemoryEditor from "../../../hooks/useMemoryEditorModal";
+import { toBinary } from "../../../script/convertsDecimalBinary";
 
 import ModalMemoryEditor from "./ModalMemoryEditor/ModalMemoryEditor";
 import { MdInfoOutline } from "react-icons/md";
@@ -7,7 +8,7 @@ import { MdInfoOutline } from "react-icons/md";
 import "./styles.scss";
 
 const Memory = ({ memory, handleOpenInfoModal }) => {
-  const { handleWriteMemory, toBinary } = useCpu();
+  const { handleWriteMemory } = useCpu();
 
   const {
     isOpen,
