@@ -89,15 +89,15 @@ const InstructionTable = ({ handleOpcodeClick, handleAdressClick }) => {
       binaryValue: "0101",
     },
     {
-      opcode: "jmp",
+      opcode: "jump",
       binaryValue: "0110",
     },
     {
-      opcode: "jmpZ",
+      opcode: "jumpZ",
       binaryValue: "0111",
     },
     {
-      opcode: "jmpN",
+      opcode: "jumpN",
       binaryValue: "1000",
     },
     {

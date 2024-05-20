@@ -9,61 +9,71 @@ const DecodeUnit = ({ handleOpenInfoModal }) => {
       id: "end",
       opcode: "0000",
       operand: "0000",
-      instruction: "Encerrar",
+      //instruction: "Encerrar",
+      instruction: "end"
     },
     {
       id: "add",
       opcode: "0001",
       operand: "endereço",
-      instruction: "Somar",
+      //instruction: "Somar",
+      instruction: "add"
     },
     {
       id: "sub",
       opcode: "0010",
       operand: "endereço",
-      instruction: "Subtrair",
+      //instruction: "Subtrair",
+      instruction: "sub"
     },
     {
       id: "str",
       opcode: "0011",
       operand: "endereço",
-      instruction: "Armazenar",
+      //instruction: "Armazenar",
+      instruction: "store"
     },
     {
       id: "lod",
       opcode: "0101",
       operand: "endereço",
-      instruction: "Carregar",
+      //instruction: "Carregar",
+      instruction: "load"
     },
     {
       id: "jmp",
       opcode: "0110",
       operand: "endereço",
-      instruction: "Pular",
+      //instruction: "Pular",
+      instruction: "jump"
     },
     {
       id: "jpz",
       opcode: "0111",
       operand: "endereço",
-      instruction: "Pular Se (zero)",
+      //instruction: "Pular Se (zero)",
+      instruction: "jump if (zero)"
     },
     {
       id: "jpn",
       opcode: "1000",
       operand: "endereço",
-      instruction: "Pular Se (negativo)",
+      //instruction: "Pular Se (negativo)",
+      instruction: "jump if (negative)"
     },
     {
       id: "ipt",
       opcode: "1001",
       operand: "0001",
-      instruction: "Entrada",
+      //instruction: "Entrada",
+      instruction: "input"
     },
     {
       id: "opt",
       opcode: "1001",
       operand: "0010",
-      instruction: "Saída",
+      //instruction: "Saída",
+      instruction: "output"
     },
   ];
 

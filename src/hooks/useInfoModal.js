@@ -30,14 +30,54 @@ const useInfoModal = () => {
       title: "Arithmetic Logic Unit - ALU",
       body: "Também conhecida como Unidade Lógica Aritmética (ULA) é um componente crucial em uma CPU responsável por realizar operações aritméticas (como adição, subtração, multiplicação e divisão) e operações lógicas (como AND, OR, NOT) em dados. Ela executa as instruções aritméticas e lógicas determinadas pela Unidade de Controle da CPU.",
     },
-    decode: {
-      title: "Decode",
-      body: "Também conhecido como Decodificador é um componente da CPU responsável por interpretar as instruções recebidas da memória ou cache. Ele decodifica o código da instrução para determinar a operação a ser realizada, os operandos envolvidos e os registradores que serão utilizados. O decodificador prepara os sinais de controle necessários para executar a instrução.",
-    },
     memory: {
       title: "Memory",
       body: "A Memória é um componente essencial de um sistema de computador que armazena dados e instruções temporariamente durante a execução de um programa e fornece acesso rápido aos dados para a CPU. Ela é acessada pela CPU durante a fase de busca e execução de instruções.",
     },
+    decode: {
+      title: "Decode",
+      body: "Também conhecido como Decodificador é um componente da CPU responsável por interpretar as instruções recebidas da memória ou cache. Ele decodifica o código da instrução para determinar a operação a ser realizada, os operandos envolvidos e os registradores que serão utilizados. O decodificador prepara os sinais de controle necessários para executar a instrução.",
+    },
+    end: {
+      title: "END",
+      body: "Finaliza a execução do programa.",
+    },
+    add: {
+      title: "ADD",
+      body: "Adiciona o valor do operando ao acumulador.",
+    },
+    sub: {
+      title: "SUB",
+      body: "Subtrai o valor do operando do acumulador.",
+    },
+    store: {
+      title: "STORE",
+      body: "Armazena o valor do acumulador no endereço especificado.",
+    },
+    load: {
+      title: "LOAD",
+      body: "Carrega no acumulador o valor do endereço especificado.",
+    },
+    jmp: {
+      title: "JUMP",
+      body: "Muda a execução para a instrução no endereço especificado.",
+    },
+    jmpz: {
+      title: "JUMP IF ZERO",
+      body: "Salta para o endereço especificado se o valor do acumulador for zero.",
+    },
+    jmpn: {
+      title: "JUMP IF NEGATIVE",
+      body: "Salta para o endereço especificado se o valor do acumulador for negativo.",
+    },
+    input: {
+      title: "INPUT",
+      body: "Recebe um valor de entrada e o armazena no acumulador.",
+    },
+    output: {
+      title: "OUTPUT",
+      body: "Envia o valor do acumulador para a saída.",
+    }
   };
 
   const handleOpenInfoModal = (cpuComponentName) => {
@@ -46,10 +86,6 @@ const useInfoModal = () => {
   };
 
   const handleCloseInfoModal = () => {
-    setIsOpenInfoModal(!isOpenInfoModal);
-  };
-
-  const handleInfoModalToggle = () => {
     setIsOpenInfoModal(!isOpenInfoModal);
   };
 
