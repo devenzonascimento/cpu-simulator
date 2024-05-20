@@ -232,7 +232,7 @@ const subInstruction = [
     phaseDescription = phaseDescriptionsList.execMemoryDataToMdr;
   },
   () => {
-    acc += mdr;
+    acc -= mdr;
 
     const aluElement = document.getElementById("alu");
     aluElement.classList.add("focus-alu");

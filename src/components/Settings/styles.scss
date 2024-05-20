@@ -17,36 +17,50 @@
     }
 
     nav {
-      height: 100%;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: absolute;
+      top: 3em;
+      z-index: 2;
+      width: max-content;
+      height: max-content;
       color: lime;
       background-color: rgb(22, 22, 22);
       border: 1px solid lime;
       border-radius: 5px;
+      box-shadow: 0 5px 15px 5px rgba(0, 255, 0, 0.3);
 
       .programs-list {
-        width: 100%;
-        display: none;
-        justify-content: space-between;
-        padding: 0.5em;
+        min-width: 138px;
+        width: max-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1em;
+        padding: 1em;
         list-style-type: none;
 
         li {
-          font-size: 0.8em;
-          text-decoration: underline;
+          font-size: 1em;
           text-transform: uppercase;
+          transition: all 0.3s ease-in;
+
+          &:hover {
+            cursor: pointer;
+            transform: scale(1.1);
+          }
         }
       }
     }
 
     button {
+      min-width: max-content;
+      width: 100%;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 0.5em;
       padding: 1.15em;
+      text-transform: uppercase;
       color: lime;
       background-color: rgb(22, 22, 22);
       border: 1px solid lime;
@@ -76,44 +90,50 @@
     border-radius: 7px;
 
     nav {
-      height: 100%;
-      width: 100%;
-      max-width: 300px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: absolute;
+      top: 3em;
+      z-index: 2;
+      width: max-content;
+      height: max-content;
       color: lime;
       background-color: rgb(22, 22, 22);
       border: 1px solid lime;
       border-radius: 5px;
-
-      &:hover {
-        cursor: pointer;
-        background: linear-gradient(#fff2, #fff2);
-      }
+      box-shadow: 0 5px 15px 5px rgba(0, 255, 0, 0.3);
 
       .programs-list {
-        width: 100%;
-        display: none;
-        justify-content: space-between;
-        padding: 0 0.5em;
+        min-width: 138px;
+        width: max-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1em;
+        padding: 1em;
         list-style-type: none;
 
         li {
-          font-size: 0.95em;
-          text-decoration: underline;
+          font-size: 0.9em;
           text-transform: uppercase;
+          transition: all 0.3s ease-in;
+
+          &:hover {
+            cursor: pointer;
+            transform: scale(1.1);
+          }
         }
       }
     }
 
     button {
       height: 100%;
+      min-width: max-content;
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.4em;
       padding: 0 0.7em;
+      text-transform: uppercase;
       color: lime;
       background-color: rgb(22, 22, 22);
       border: 1px solid lime;
@@ -144,44 +164,49 @@
     border-radius: 7px;
 
     nav {
-      height: 100%;
-      width: 100%;
-      max-width: 300px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: absolute;
+      top: 3em;
+      z-index: 2;
+      width: max-content;
+      height: max-content;
       color: lime;
       background-color: rgb(22, 22, 22);
       border: 1px solid lime;
       border-radius: 5px;
-
-      &:hover {
-        cursor: pointer;
-        background: linear-gradient(#fff2, #fff2);
-      }
+      box-shadow: 0 5px 15px 5px rgba(0, 255, 0, 0.3);
 
       .programs-list {
-        width: 100%;
-        display: none;
-        justify-content: space-between;
-        padding: 0 0.5em;
+        min-width: 182px;
+        width: max-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1em;
+        padding: 1em;
         list-style-type: none;
 
         li {
-          font-size: 0.95em;
-          text-decoration: underline;
+          font-size: 1em;
           text-transform: uppercase;
+          transition: all 0.3s ease-in;
+
+          &:hover {
+            cursor: pointer;
+            transform: scale(1.1);
+          }
         }
       }
     }
-
+    
     button {
       height: 100%;
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.4em;
       padding: 0 0.7em;
+      text-transform: uppercase;
       color: lime;
       background-color: rgb(22, 22, 22);
       border: 1px solid lime;

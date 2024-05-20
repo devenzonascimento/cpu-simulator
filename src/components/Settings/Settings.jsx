@@ -1,8 +1,8 @@
 import { useCpu } from "../../context/CpuContext";
-
-import { buttonAnimation } from "./animations"; // Remover isso e refazer o botão
+import { useState } from "react";
 
 import { IoPlaySkipForward, IoPlay } from "react-icons/io5";
+import ProgramsList from "./ProgramsList";
 
 import "./styles.scss";
 
@@ -16,17 +16,14 @@ const Settings = () => {
     handleSwitchProgram,
   } = useCpu();
 
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <header className="settings-container">
-      <nav onClick={buttonAnimation}>
-        <span onClick={buttonAnimation}>Programas</span>
-
-        <ul className="programs-list">
-          <li onClick={() => handleSwitchProgram(1)}>Soma</li>
-          <li onClick={() => handleSwitchProgram(2)}>Subtração</li>
-          <li onClick={() => handleSwitchProgram(3)}>Maior Numero</li>
-        </ul>
-      </nav>
+      <ProgramsList isOpen={isOpen} OnClose={() => {setIsOpen(false)}} switchProgram={handleSwitchProgram}/>
+      <button className="programs-button" onClick={() => setIsOpen(!isOpen)}>
+        Programas
+      </button>
 
       <button className="clear-cpu-button" onClick={handleClearMemory}>
         Limpar Memória
