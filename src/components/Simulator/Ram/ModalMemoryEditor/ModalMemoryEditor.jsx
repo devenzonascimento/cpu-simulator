@@ -22,7 +22,7 @@ const ModalMemoryEditor = ({
 
   const handleConfirm = () => {
     if (inputValue == "") return;
-    handleWriteMemory(address, inputValue);
+    handleWriteMemory(address, inputValue.padStart(8, "0"));
     handleCloseModal();
   };
 
