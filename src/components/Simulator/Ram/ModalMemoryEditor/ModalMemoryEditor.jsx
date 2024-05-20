@@ -12,6 +12,7 @@ const ModalMemoryEditor = ({
   address,
 }) => {
   const {
+    inputRef,
     inputValue,
     handleChangeInput,
     handleOpcodeClick,
@@ -36,7 +37,7 @@ const ModalMemoryEditor = ({
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                handleConfirm()
+                handleConfirm();
               }}
               className="form-container"
             >
@@ -47,9 +48,10 @@ const ModalMemoryEditor = ({
               <div className="input-field">
                 <div className="address-identifier">
                   <span>Célula</span>
-                  <span>{address}</span>                   
+                  <span>{address}</span>
                 </div>
                 <input
+                  ref={inputRef}
                   maxLength={8}
                   value={inputValue}
                   placeholder="00001101"

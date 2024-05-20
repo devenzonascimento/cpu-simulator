@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const useMemoryDataInput = (isModalOpen) => {
   const [inputValue, setInputValue] = useState("");
@@ -22,7 +22,13 @@ const useMemoryDataInput = (isModalOpen) => {
     }
   }, [isModalOpen]);
 
+  const inputRef = useRef(null)
+  if (inputRef.current) {
+    inputRef.current.focus()
+  }
+
   return {
+    inputRef,
     inputValue,
     handleChangeInput,
     handleOpcodeClick,
