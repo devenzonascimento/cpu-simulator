@@ -1,5 +1,5 @@
 // Mobile
-@media only screen and (max-width: 450px) {
+@media only screen and (max-width: 760px) {
     .memory-container {
         margin-top: 4em;
         height: 200px;
@@ -54,7 +54,7 @@
 }
 
 // Tablet
-@media only screen and (min-width: 450px) and (max-width: 1023px) {
+@media only screen and (min-width: 760px) and (max-width: 1023px) {
     .memory-container {
         position: relative;
         height: 100%;
