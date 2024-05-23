@@ -4,7 +4,7 @@ const Alu = ({ handleOpenInfoModal }) => {
   return (
     <div className="alu-container" id="alu">
       <div className="alu-polygon">
-        <span>ULA</span>
+        <span>ALU</span>
         <MdInfoOutline className="info-icon" onClick={() => handleOpenInfoModal("alu")}/>
       </div>
     </div>
