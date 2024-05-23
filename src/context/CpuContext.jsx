@@ -63,7 +63,7 @@ export const CpuProvider = ({ children }) => {
         clearInterval(stepsIntervals);
         functionReturn.then(() => {
           updateAllComponents();
-          stepsIntervals = setInterval(executeWithInterval, 1000);
+          stepsIntervals = setInterval(executeWithInterval, 300);
           return;
         });
       }
@@ -71,7 +71,7 @@ export const CpuProvider = ({ children }) => {
       updateAllComponents();
     };
 
-    let stepsIntervals = setInterval(executeWithInterval, 1000);
+    let stepsIntervals = setInterval(executeWithInterval, 300);
   };
 
   const handleRunProgramOnSteps = () => {
