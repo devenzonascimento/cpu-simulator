@@ -18,7 +18,6 @@
 
 <p display="flex" align="center">
     <img src="https://github.com/devenzonascimento/cpu-simulator/assets/143226080/be6c2909-c318-454b-8c9f-e121fbde20ff" alt="Exemplo de Imagem" width="700px">
-    <img src="https://github.com/devenzonascimento/cpu-simulator/assets/143226080/49f72658-715b-40ae-a016-b04bce39353a" alt="Exemplo de Imagem" width="200px">
 </p>
 
 <h2 id="tech">💻 Tecnologias</h2>
