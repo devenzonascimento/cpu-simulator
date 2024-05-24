@@ -39,7 +39,7 @@
 <h3>Clonando</h3>
 
 ```bash
-git clone sua-url-do-projeto-no-github
+git clone https://github.com/devenzonascimento/cpu-simulator.git
 ```
 
 
